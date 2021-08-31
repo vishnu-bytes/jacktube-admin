@@ -9,7 +9,9 @@ const routes = {
   COURSE : "/course",
   BLOG : '/blog',
   BLOGEXPANDED : '/blogExpanded',
-  WEBINAR:`/webinar`
+  WEBINAR:`/webinar`,
+  CATEGORY:`/category`,
+  EXPERTS:`/experts`
 };
 
 // Change initial route if required

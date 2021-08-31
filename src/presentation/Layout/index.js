@@ -156,7 +156,7 @@ export default class LayoutProvider extends Component {
                 <Footer className="admin-footer" style={footerStyle}>
                   <Row>
                     <Col md={12} xs={24}>
-                      <span className="admin-footer__copyright">Amigos</span>
+                      <span className="admin-footer__copyright">Happy Bumps</span>
                     </Col>
                     <Col md={12} xs={24}>
                       <div className="admin-footer__links">

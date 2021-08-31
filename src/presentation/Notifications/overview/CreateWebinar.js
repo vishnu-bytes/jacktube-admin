@@ -1,50 +1,51 @@
-import React, { useState, useEffect } from "react";
-import { Form, Input, Select } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Select, Switch, Upload, InputNumber, Radio } from "antd";
+import { Col, Row, DatePicker, TimePicker } from "antd";
+import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
-import moment from "moment";
+import FeatherIcon from "feather-icons-react";
 import { useStudentStore } from "../store";
-import { logError } from "../../common/Utils";
-import { onEdit } from "../../../infrastructure/faculty";
-import { Col, Row, DatePicker, TimePicker,Switch } from "antd";
+import moment from "moment";
 
 const { Option } = Select;
 const dateFormat = "DD/MM/YYYY";
 
-const EditCategory = () => {
+function CreateStudent() {
   const [form] = Form.useForm();
-  const [{ editVisible, singleCourse }, { onEdit,onfinish, setEditVisible }] =
-    useStudentStore();
+  const [{ visible }, { onfinish, setVisible }] = useStudentStore();
+  const [value, setValue] = useState(1);
+  const [image, setimage] = useState({});
 
   return (
     <Modal
-      type="primary"
-      title="Edit Webinar"
-      visible={editVisible}
+      type={"primary"}
+      title="Create Webinar"
+      visible={visible}
       footer={[
         <div key="1" className="project-modal-footer">
           <Button
-            form="editProject"
             size="default"
-            htmlType="submit"
             type="primary"
             key="submit"
+            htmlType="submit"
+            form="createStudent"
           >
-            Confirm
+            Create
           </Button>
           <Button
             size="default"
             type="white"
             key="back"
             outlined
-            onClick={() => setEditVisible(false)}
+            onClick={() => setVisible(false)}
           >
             Cancel
           </Button>
         </div>,
       ]}
-      onCancel={() => setEditVisible(false)}
+      onCancel={() => setVisible(false)}
     >
       <div className="project-modal">
         <BasicFormWrapper>
@@ -60,7 +61,7 @@ const EditCategory = () => {
             <Form.Item name="description">
               <Input placeholder="Description" />
             </Form.Item>
-
+          
             <Row gutter={15}>
               <Col md={12}>
                 <Form.Item name="category" initialValue="">
@@ -101,7 +102,9 @@ const EditCategory = () => {
               <Row gutter={15} className="switch-webinar">
                 <Col md={12}>
                   <span>Premium Webinar &nbsp; &nbsp;</span>
-                  <Switch style={{ height: "unset!important" }} />
+                  <Switch
+                    style={{ height: "unset!important" }}
+                  />
                 </Col>
               </Row>
             </Form.Item>
@@ -114,6 +117,10 @@ const EditCategory = () => {
       </div>
     </Modal>
   );
+}
+CreateStudent.propTypes = {
+  visible: propTypes.bool.isRequired,
+  onCancel: propTypes.func.isRequired,
 };
 
-export default EditCategory;
+export default CreateStudent;

@@ -5,7 +5,6 @@ const initialState = {
   visible:false,
   searchData:null,
   singleRow: {},
-  visiblePrice:false
 };
 
 export default initialState;

@@ -8,11 +8,13 @@ import { BasicFormWrapper } from "../../common/Style/styled";
 import FeatherIcon from "feather-icons-react";
 import { useStudentStore } from "../store";
 import moment from "moment";
+import AddPrice from "./AddPrice";
 
 const { Option } = Select;
 const dateFormat = "DD/MM/YYYY";
 
 function CreateStudent() {
+  const [{ visiblePrice }, { setVisiblePrice }] = useStudentStore();
   const [form] = Form.useForm();
   const [{ visible }, { onfinish, setVisible }] = useStudentStore();
   const [value, setValue] = useState(1);
@@ -61,13 +63,7 @@ function CreateStudent() {
             <Form.Item name="description">
               <Input placeholder="Description" />
             </Form.Item>
-            {/* <Form.Item name="type" initialValue={1} label="Event type">
-              <Radio.Group value={value}>
-                <Radio value={1}>Private</Radio>
-                <Radio value={2}>Team</Radio>
-                <Radio value={3}>Public</Radio>
-              </Radio.Group>
-            </Form.Item> */}
+            <p>hui {visiblePrice}</p>
             <Row gutter={15}>
               <Col md={12}>
                 <Form.Item name="category" initialValue="">
@@ -104,15 +100,25 @@ function CreateStudent() {
                 </Form.Item>
               </Col>
             </Row>
+            <Form.Item name="presentor" initialValue="">
               <Row gutter={15} className="switch-webinar">
-                <p>sdfsdf</p>
-                <Switch defaultChecked />
+                <Col md={12}>
+                  <span>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
+                  <Switch
+                  checked={visiblePrice}
+                    onChange={() => setVisiblePrice(true)}
+                    style={{ height: "unset!important" }}
+                  />
+                </Col>
               </Row>
+            </Form.Item>
+
             <Form.Item name="description" label="Description">
               <Input.TextArea rows={4} placeholder="Add description" />
             </Form.Item>
           </Form>
         </BasicFormWrapper>
+        <AddPrice />
       </div>
     </Modal>
   );

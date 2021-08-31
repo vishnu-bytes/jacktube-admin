@@ -3,6 +3,14 @@ import { Menu } from "antd";
 import { NavLink, useRouteMatch, Link } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
 import { routes } from "../common/Routes";
+import {
+  categories,
+  dashboard,
+  experts,
+  notification,
+  users,
+  webinar,
+} from "../common/Assets/Icons";
 
 const MenuItems = ({ darkMode, topMenu, events }) => {
   const { path } = useRouteMatch();
@@ -56,7 +64,7 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
         key="dashboard"
         icon={
           <NavLink className="menuItem-icon" to={routes.DASHBOARD}>
-            <FeatherIcon icon="home" />
+            <img src={dashboard} />
           </NavLink>
         }
       >
@@ -76,27 +84,27 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
         key="studenlist"
         icon={
           <NavLink className="menuItem-icon" to={routes.STUDENTLIST}>
-            <FeatherIcon icon="user" />
+            <img src={users} />
           </NavLink>
         }
       >
         <Link to={routes.STUDENTLIST}>User</Link>
       </Menu.Item>
       <Menu.Item
-        key="notification"
+        key="categories"
         icon={
-          <NavLink className="menuItem-icon" to={routes.NOTIFICATION}>
-            <FeatherIcon icon="bell" />
+          <NavLink className="menuItem-icon" to={routes.CATEGORY}>
+            <img src={categories} />
           </NavLink>
         }
       >
-        <Link to={routes.NOTIFICATION}>Category</Link>
+        <Link to={routes.CATEGORY}>Category</Link>
       </Menu.Item>
       <Menu.Item
         key="course"
         icon={
           <NavLink className="menuItem-icon" to={routes.WEBINAR}>
-            <FeatherIcon icon="book" />
+            <img src={webinar} />
           </NavLink>
         }
       >
@@ -105,22 +113,22 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
       <Menu.Item
         key="blog"
         icon={
-          <NavLink className="menuItem-icon" to={routes.BLOG}>
-            <FeatherIcon icon="edit-3" />
+          <NavLink className="menuItem-icon" to={routes.EXPERTS}>
+            <img src={experts} />
           </NavLink>
         }
       >
-        <Link to={routes.BLOG}>Blogs</Link>
+        <Link to={routes.EXPERTS}>Experts</Link>
       </Menu.Item>
       <Menu.Item
         key="facultylist"
         icon={
-          <NavLink className="menuItem-icon" to={routes.FACULTYLIST}>
-            <FeatherIcon icon="users" />
+          <NavLink className="menuItem-icon" to={routes.NOTIFICATION}>
+            <img src={notification} />
           </NavLink>
         }
       >
-        <Link to={routes.FACULTYLIST}>Faculty</Link>
+        <Link to={routes.NOTIFICATION}>Notifications</Link>
       </Menu.Item>
     </Menu>
   );

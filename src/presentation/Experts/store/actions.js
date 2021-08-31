@@ -24,14 +24,6 @@ const actions = {
     ({ setState }) => {
       setState({ visible: params });
     },
-  setVisiblePrice:
-    (params) =>
-    ({ setState }) => {
-      console.log("object")
-      setState({ visiblePrice: params },()=>{
-        console.log("checking",params)
-      });
-    },
   setSearchData:
     (params) =>
     ({ setState }) => {
