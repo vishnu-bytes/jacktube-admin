@@ -24,6 +24,7 @@ const FacultytList = React.lazy(() => import("./presentation/FacultyList"));
 const Webinars = React.lazy(() => import("./presentation/Webinars"));
 const Blog = React.lazy(() => import("./presentation/Blog"));
 const Experts = React.lazy(() => import("./presentation/Experts"));
+const Service = React.lazy(() => import("./presentation/Service"));
 const BlogExpanded = React.lazy(() =>
   import("./presentation/Blog/BlogsExpanded")
 );
@@ -70,6 +71,7 @@ function App() {
                 <Route exact path={routes.EXPERTS} component={Experts} />
                 <Route exact path={routes.COURSE} component={Course} />
                 <Route exact path={routes.BLOG} component={Blog} />
+                <Route exact path={routes.SERVICE} component={Service} />
                 <Route
                   exact
                   path={routes.BLOGEXPANDED}

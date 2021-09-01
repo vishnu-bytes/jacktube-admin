@@ -11,7 +11,8 @@ const routes = {
   BLOGEXPANDED : '/blogExpanded',
   WEBINAR:`/webinar`,
   CATEGORY:`/category`,
-  EXPERTS:`/experts`
+  EXPERTS:`/experts`,
+  SERVICE:`/service`
 };
 
 // Change initial route if required

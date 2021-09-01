@@ -130,6 +130,16 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
       >
         <Link to={routes.NOTIFICATION}>Notifications</Link>
       </Menu.Item>
+      <Menu.Item
+        key="services"
+        icon={
+          <NavLink className="menuItem-icon" to={routes.SERVICE}>
+            <img src={notification} />
+          </NavLink>
+        }
+      >
+        <Link to={routes.NOTIFICATION}>Services</Link>
+      </Menu.Item>
     </Menu>
   );
 };
