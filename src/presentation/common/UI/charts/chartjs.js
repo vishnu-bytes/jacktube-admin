@@ -688,7 +688,6 @@ const ChartjsDonutChart = props => {
     <div style={{ position: 'relative' }}>
       <p>
         <span>{datasets[0].data.reduce((a, b) => a + b, 0)}</span>
-        Total visitors
       </p>
       <Doughnut ref={ref} data={data} height={height} options={options} />
     </div>
@@ -696,7 +695,7 @@ const ChartjsDonutChart = props => {
 };
 
 ChartjsDonutChart.defaultProps = {
-  height: 200,
+  height: 120,
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
   datasets: [
     {

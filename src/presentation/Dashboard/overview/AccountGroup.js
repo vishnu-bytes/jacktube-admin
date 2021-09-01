@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Spin } from "antd";
-import { NavLink, Link } from "react-router-dom";
-import FeatherIcon from "feather-icons-react";
-import { useDispatch, useSelector } from "react-redux";
-import { PerformanceChartWrapper, Pstates } from "../../style";
-import { ChartjsAreaChart } from "../../../common/UI/charts/chartjs";
-import {
-  chartLinearGradient,
-  customTooltips,
-} from "../../../common/UI/utilities/utilities";
-import {
-  performanceFilterData,
-  performanceGetData,
-  setIsLoading,
-} from "../../../../redux/chartContent/actionCreator";
-import { Cards } from "../../../common/UI/cards/frame/cards-frame";
-import Heading from "../../../common/UI/heading/heading";
+import React, { useState, useEffect } from 'react';
+import { Spin } from 'antd';
+import { NavLink, Link } from 'react-router-dom';
+import FeatherIcon from 'feather-icons-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { PerformanceChartWrapper, Pstates } from '../style';
+import { Cards } from '../../common/UI/cards/frame/cards-frame';
+import Heading from '../../common/UI/heading/heading';
+import { ChartjsAreaChart } from '../../common/UI/charts/chartjs';
+import { chartLinearGradient, customTooltips } from '../../common/UI/utilities/utilities';
+import { performanceFilterData, performanceGetData, setIsLoading } from '../../../redux/chartContent/actionCreator';
 
 const moreContent = (
   <>
@@ -44,7 +37,7 @@ const moreContent = (
 
 const WebsitePerformance = () => {
   const dispatch = useDispatch();
-  const { performanceState, preIsLoading } = useSelector((state) => {
+  const { performanceState, preIsLoading } = useSelector(state => {
     return {
       performanceState: state.chartContent.performanceData,
       preIsLoading: state.chartContent.perLoading,
@@ -52,8 +45,8 @@ const WebsitePerformance = () => {
   });
 
   const [state, setState] = useState({
-    performance: "year",
-    performanceTab: "users",
+    performance: 'year',
+    performanceTab: 'users',
   });
 
   const { performance, performanceTab } = state;
@@ -64,7 +57,7 @@ const WebsitePerformance = () => {
     }
   }, [dispatch]);
 
-  const handleActiveChangePerformance = (value) => {
+  const handleActiveChangePerformance = value => {
     setState({
       ...state,
       performance: value,
@@ -72,7 +65,7 @@ const WebsitePerformance = () => {
     dispatch(performanceFilterData(value));
   };
 
-  const onPerformanceTab = (value) => {
+  const onPerformanceTab = value => {
     setState({
       ...state,
       performanceTab: value,
@@ -83,32 +76,32 @@ const WebsitePerformance = () => {
   const performanceDatasets = performanceState !== null && [
     {
       data: performanceState[performanceTab][1],
-      borderColor: "#40BFB4",
+      borderColor: '#5F63F2',
       borderWidth: 4,
       fill: true,
       backgroundColor: () =>
-        chartLinearGradient(document.getElementById("performance"), 300, {
-          start: "#FF8F0012",
-          end: "#ffffff05",
+        chartLinearGradient(document.getElementById('performance'), 300, {
+          start: '#5F63F230',
+          end: '#ffffff05',
         }),
-      label: "Current period",
-      pointStyle: "circle",
-      pointRadius: "0",
-      hoverRadius: "9",
-      pointBorderColor: "#fff",
-      pointBackgroundColor: "#40BFB4",
+      label: 'Current period',
+      pointStyle: 'circle',
+      pointRadius: '0',
+      hoverRadius: '9',
+      pointBorderColor: '#fff',
+      pointBackgroundColor: '#5F63F2',
       hoverBorderWidth: 5,
     },
     {
       data: performanceState[performanceTab][2],
-      borderColor: "#C6D0DC",
+      borderColor: '#C6D0DC',
       borderWidth: 2,
       fill: false,
-      backgroundColor: "#00173750",
-      label: "Previous period",
+      backgroundColor: '#00173750',
+      label: 'Previous period',
       borderDash: [3, 3],
-      pointRadius: "0",
-      hoverRadius: "0",
+      pointRadius: '0',
+      hoverRadius: '0',
     },
   ];
 
@@ -116,52 +109,35 @@ const WebsitePerformance = () => {
     <PerformanceChartWrapper>
       {performanceState !== null && (
         <Cards
-          isbutton={
-            <div className="card-nav">
-              <ul>
-                <li
-                  className={performance === "week" ? "active" : "deactivate"}
-                >
-                  <Link
-                    onClick={() => handleActiveChangePerformance("week")}
-                    to="#"
-                  >
-                    Week
-                  </Link>
-                </li>
-                <li
-                  className={performance === "month" ? "active" : "deactivate"}
-                >
-                  <Link
-                    onClick={() => handleActiveChangePerformance("month")}
-                    to="#"
-                  >
-                    Month
-                  </Link>
-                </li>
-                <li
-                  className={performance === "year" ? "active" : "deactivate"}
-                >
-                  <Link
-                    onClick={() => handleActiveChangePerformance("year")}
-                    to="#"
-                  >
-                    Year
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          }
-          more={moreContent}
-          title="Website Performance"
+          // isbutton={
+          //   <div className="card-nav">
+          //     <ul>
+          //       <li className={performance === 'week' ? 'active' : 'deactivate'}>
+          //         <Link onClick={() => handleActiveChangePerformance('week')} to="#">
+          //           Week
+          //         </Link>
+          //       </li>
+          //       <li className={performance === 'month' ? 'active' : 'deactivate'}>
+          //         <Link onClick={() => handleActiveChangePerformance('month')} to="#">
+          //           Month
+          //         </Link>
+          //       </li>
+          //       <li className={performance === 'year' ? 'active' : 'deactivate'}>
+          //         <Link onClick={() => handleActiveChangePerformance('year')} to="#">
+          //           Year
+          //         </Link>
+          //       </li>
+          //     </ul>
+          //   </div>
+          // }
+          // more={moreContent}
+          title="Overall Performance"
           size="large"
         >
           <Pstates>
             <div
-              onClick={() => onPerformanceTab("users")}
-              className={`growth-upward ${
-                performanceTab === "users" && "active"
-              }`}
+              onClick={() => onPerformanceTab('users')}
+              className={`growth-upward ${performanceTab === 'users' && 'active'}`}
               role="button"
               onKeyPress={() => {}}
               tabIndex="0"
@@ -177,15 +153,13 @@ const WebsitePerformance = () => {
               </Heading>
             </div>
             <div
-              onClick={() => onPerformanceTab("sessions")}
-              className={`growth-upward ${
-                performanceTab === "sessions" && "active"
-              }`}
+              onClick={() => onPerformanceTab('sessions')}
+              className={`growth-upward ${performanceTab === 'sessions' && 'active'}`}
               role="button"
               onKeyPress={() => {}}
               tabIndex="0"
             >
-              <p>Sessions</p>
+              <p>Experts</p>
               <Heading as="h1">
                 {performanceState.sessions[0]}
                 <sub>
@@ -196,15 +170,13 @@ const WebsitePerformance = () => {
               </Heading>
             </div>
             <div
-              onClick={() => onPerformanceTab("bounce")}
-              className={`growth-downward ${
-                performanceTab === "bounce" && "active"
-              }`}
+              onClick={() => onPerformanceTab('bounce')}
+              className={`growth-downward ${performanceTab === 'bounce' && 'active'}`}
               role="button"
               onKeyPress={() => {}}
               tabIndex="0"
             >
-              <p>Bounce Rate</p>
+              <p>Webinars</p>
               <Heading as="h1">
                 {performanceState.bounce[0]}
                 <sub>
@@ -215,15 +187,13 @@ const WebsitePerformance = () => {
               </Heading>
             </div>
             <div
-              onClick={() => onPerformanceTab("duration")}
-              className={`growth-upward ${
-                performanceTab === "duration" && "active"
-              }`}
+              onClick={() => onPerformanceTab('duration')}
+              className={`growth-upward ${performanceTab === 'duration' && 'active'}`}
               role="button"
               onKeyPress={() => {}}
               tabIndex="0"
             >
-              <p>Session Duration</p>
+              <p>One-on-one's</p>
               <Heading as="h1">
                 {performanceState.duration[0]}
                 <sub>
@@ -253,14 +223,14 @@ const WebsitePerformance = () => {
                     display: false,
                   },
                   hover: {
-                    mode: "index",
+                    mode: 'index',
                     intersect: false,
                   },
                   tooltips: {
-                    mode: "label",
+                    mode: 'label',
                     intersect: false,
-                    backgroundColor: "#ffffff",
-                    position: "average",
+                    backgroundColor: '#ffffff',
+                    position: 'average',
                     enabled: false,
                     custom: customTooltips,
                     callbacks: {
@@ -277,16 +247,16 @@ const WebsitePerformance = () => {
                     yAxes: [
                       {
                         gridLines: {
-                          color: "#e5e9f2",
+                          color: '#e5e9f2',
                           borderDash: [3, 3],
-                          zeroLineColor: "#e5e9f2",
+                          zeroLineColor: '#e5e9f2',
                           zeroLineWidth: 1,
                           zeroLineBorderDash: [3, 3],
                         },
                         ticks: {
                           beginAtZero: true,
                           fontSize: 13,
-                          fontColor: "#182b49",
+                          fontColor: '#182b49',
                           max: 80,
                           stepSize: 20,
                           callback(label) {
@@ -300,8 +270,8 @@ const WebsitePerformance = () => {
                         gridLines: {
                           display: true,
                           zeroLineWidth: 2,
-                          zeroLineColor: "transparent",
-                          color: "transparent",
+                          zeroLineColor: 'transparent',
+                          color: 'transparent',
                           z: 1,
                           tickMarkLength: 0,
                         },
