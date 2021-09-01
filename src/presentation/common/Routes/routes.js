@@ -13,7 +13,8 @@ const routes = {
   CATEGORY:`/category`,
   EXPERTS:`/experts`,
   SERVICE:`/service`,
-  REVIEW:'/review'
+  REVIEW:'/review',
+  REPORT:`/reports`
 };
 
 // Change initial route if required

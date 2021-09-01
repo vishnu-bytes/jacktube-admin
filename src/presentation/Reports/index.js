@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Row, Col, Popconfirm } from "antd";
 import FeatherIcon from "feather-icons-react";
@@ -9,8 +8,6 @@ import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
 import CreateStudent from "./overview/CreateService";
 import { useStudentStore } from "./store";
-import Heading from "../common/UI/heading/heading";
-import EditCategory from "./overview/EditService";
 
 const UserList = () => {
   const [
@@ -41,27 +38,10 @@ const UserList = () => {
     console.log(student);
     return {
       key: index,
-      user: (
-        <div className="user-info">
-          <figure>
-            <img
-              style={{ width: "50px", height: "50px", "border-radius": "50%" }}
-              src="https://picsum.photos/id/237/200/300"
-              alt="Faculty"
-            />
-          </figure>
-          <figcaption>
-            <Heading className="user-name" as="h6">
-              {student.name}
-            </Heading>
-            <span className="user-designation">{student.school}</span>
-          </figcaption>
-        </div>
-      ),
-      email: "test!@gmail.com",
-      grade: student.grade,
-      school: student.school,
-      joinDate: "January 20, 2020",
+      date: "test!@gmail.com",
+      data: student.name,
+      one: student.school,
+      revenue: "1200",
       status:
         student.status === "1" ? (
           <span className={`status-text active`}>{"active"}</span>
@@ -70,33 +50,6 @@ const UserList = () => {
         ) : (
           <span className={`status-text deactivate`}>{"deactive"}</span>
         ),
-      action: (
-        <div className="table-actions">
-          <>
-            <Button
-              onClick={() => setEditVisible({ value: true, data: student })}
-              className="btn-icon"
-              type="info"
-              to="#"
-              shape="circle"
-            >
-              <FeatherIcon icon="edit" size={16} />
-            </Button>
-            <Popconfirm
-              title="Are you sure to delete this service?"
-              onConfirm={() => {
-                onDelete({ id: student?._id });
-              }}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button className="btn-icon" type="danger" to="#" shape="circle">
-                <FeatherIcon icon="trash-2" size={16} />
-              </Button>
-            </Popconfirm>
-          </>
-        </div>
-      ),
     };
   });
 
@@ -105,11 +58,11 @@ const UserList = () => {
       <CardToolbox>
         <PageHeader
           ghost
-          title="Services Management"
+          title="Reports"
           subTitle={
             <>
               <span className="title-counter">
-                {studentList?.length} Services{" "}
+                {studentList?.length} Reports{" "}
               </span>
               <AutoComplete
                 onSearch={handleSearch}
@@ -126,7 +79,7 @@ const UserList = () => {
               type="primary"
               size="default"
             >
-              <FeatherIcon icon="plus" size={16} /> New Service
+              <FeatherIcon icon="download" size={16} /> Download Report
             </Button>,
           ]}
         />
@@ -139,8 +92,6 @@ const UserList = () => {
           </Col>
         </Row>
         <CreateStudent />
-        <EditCategory/>
-
       </Main>
     </>
   );

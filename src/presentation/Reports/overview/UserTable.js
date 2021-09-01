@@ -7,15 +7,29 @@ import { Cards } from "../../common/UI/cards/frame/cards-frame";
 const UserTable = ({ usersTableData }) => {
   const usersTableColumns = [
     {
-      title: "Experts",
-      dataIndex: "user",
-      key: "user",
+      title: "SI. No.",
+      dataIndex: "key",
+      key: "key",
     },
     {
-      title: "Actions",
-      dataIndex: "action",
-      key: "action",
-      width: "90px",
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
+    },
+    {
+      title: "Webinar",
+      dataIndex: "data",
+      key: "data",
+    },
+    {
+      title: "One-on-one",
+      dataIndex: "one",
+      key: "one",
+    },
+    {
+      title: "Revenue",
+      dataIndex: "revenue",
+      key: "revenue",
     },
   ];
 

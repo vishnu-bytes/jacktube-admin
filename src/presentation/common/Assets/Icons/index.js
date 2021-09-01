@@ -8,6 +8,8 @@ import notification from "./notification.svg";
 import users from "./users.svg";
 import webinar from "./webinar.svg";
 import review from "./review.svg"
+import service from "./service.svg"
+import report from "./reports.svg"
 
 export {
   leftIcon,
@@ -18,5 +20,7 @@ export {
   notification,
   users,
   webinar,
-  review
+  review,
+  service,
+  report
 };
