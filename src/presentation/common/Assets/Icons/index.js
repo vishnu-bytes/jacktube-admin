@@ -7,6 +7,7 @@ import experts from "./experts.svg";
 import notification from "./notification.svg";
 import users from "./users.svg";
 import webinar from "./webinar.svg";
+import review from "./review.svg"
 import service from "./service.svg"
 import report from "./reports.svg"
 
@@ -19,6 +20,7 @@ export {
   notification,
   users,
   webinar,
+  review,
   service,
   report
 };

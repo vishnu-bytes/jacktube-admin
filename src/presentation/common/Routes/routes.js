@@ -13,6 +13,7 @@ const routes = {
   CATEGORY:`/category`,
   EXPERTS:`/experts`,
   SERVICE:`/service`,
+  REVIEW:'/review',
   REPORT:`/reports`
 };
 
