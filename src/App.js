@@ -74,7 +74,7 @@ function App() {
                 <Route exact path={routes.COURSE} component={Course} />
                 <Route exact path={routes.BLOG} component={Blog} />
                 <Route exact path={routes.SERVICE} component={Service} />
-                <Route exact patj={routes.REPORT} component={Reports} />
+                <Route exact path={routes.REPORT} component={Reports} />
                 <Route
                   exact
                   path={routes.BLOGEXPANDED}
