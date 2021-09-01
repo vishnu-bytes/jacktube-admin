@@ -10,6 +10,9 @@ import webinar from "./webinar.svg";
 import review from "./review.svg"
 import service from "./service.svg"
 import report from "./reports.svg"
+import user from "./user.svg";
+import expert from "./expert.svg";
+import dollar from "./dollar.svg";
 
 export {
   leftIcon,
@@ -22,5 +25,8 @@ export {
   webinar,
   review,
   service,
-  report
+  report,
+  user,
+  expert,
+  dollar,
 };

@@ -1,4 +1,4 @@
-import Styled from 'styled-components';
+import Styled from "styled-components";
 
 const EChartCard = Styled.div`
     display: flex;
@@ -37,7 +37,7 @@ const OverviewSalesCard = Styled.div`
         width: 60px;
         border-radius: 10px;
         margin-right: 10px;
-        ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 10px;
+        ${({ theme }) => (theme.rtl ? "margin-left" : "margin-right")}: 10px;
         @media only screen and (max-width: 1399px){
             height: 40px;
             width: 40px;
@@ -50,13 +50,13 @@ const OverviewSalesCard = Styled.div`
             max-width: 35px;
         }
         &.box-primary{
-            background-color: ${({ theme }) => theme['primary-color']}10;
+            background-color: ${({ theme }) => theme["primary-color"]}10;
         }
         &.box-success{
-            background-color: ${({ theme }) => theme['success-color']}10;
+            background-color: ${({ theme }) => theme["success-color"]}10;
         }
         &.box-secondary{
-            background-color: ${({ theme }) => theme['secondary-color']}10;
+            background-color: ${({ theme }) => theme["secondary-color"]}10;
         }
     }
     .card-chunk{
@@ -64,10 +64,10 @@ const OverviewSalesCard = Styled.div`
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 2px;
-            color: ${({ theme }) => theme['dark-color']};
+            color: ${({ theme }) => theme["dark-color"]};
         }
         span{
-            color: ${({ theme }) => theme['light-gray-color']};
+            color: ${({ theme }) => theme["light-gray-color"]};
         }
         p{
             margin-top: 16px;
@@ -95,6 +95,13 @@ const Focard = Styled.div`
         }
     }
     .focard-details{
+        display:flex;
+        align-items:center;
+        img{
+            width:75px;
+            height:50px;
+            margin-right:20px;
+        }
         &.growth-downward{
             h1{                
                 font-size: 30px;
@@ -104,7 +111,7 @@ const Focard = Styled.div`
             }
             .focard-status{
                 .focard-status__percentage{
-                    color: ${({ theme }) => theme['danger-color']};
+                    color: ${({ theme }) => theme["danger-color"]};
                     font-size: 16px;
                 }
             }
@@ -112,7 +119,7 @@ const Focard = Styled.div`
         &.growth-upward{
             .focard-status{
                 .focard-status__percentage{
-                    color: ${({ theme }) => theme['success-color']};
+                    color: ${({ theme }) => theme["success-color"]};
                     font-size: 16px;
                 }
             }
@@ -146,12 +153,13 @@ const Focard = Styled.div`
         }
         svg{
             width: 15px;
-            ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 10px;
+            ${({ theme }) =>
+              theme.rtl ? "margin-left" : "margin-right"}: 10px;
         }
     }
 
     .focard-chart{
-        ${({ theme }) => (theme.rtl ? 'margin-right' : 'margin-left')}: -10px;
+        ${({ theme }) => (theme.rtl ? "margin-right" : "margin-left")}: -10px;
     }
 
     @media (max-width: 1300px){
@@ -170,9 +178,15 @@ const Focard = Styled.div`
     .forcast-card-box{
         .ant-card-body{
             padding: 0 !important;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:flex-start;
             h1{
-                padding: ${({ theme }) => (theme.rtl ? '25px 25px 0 0' : '25px 0 0 25px')};
-                font-size: 16px;
+                padding: ${({ theme }) =>
+                  theme.rtl ? "25px 25px 0 0" : "25px 0 0 25px"};
+                font-size: 14px;
+                color: ${({ theme }) => theme["light-color"]};
                 font-weight: 500;
                 margin-bottom: 26px;
                 @media only screen and (max-width: 767px){
@@ -189,8 +203,8 @@ const Focard = Styled.div`
             }
             h1{
                 padding: 0;
-                font-size: 30px;
-                font-weight: 600;
+                font-size: 36px;
+                font-weight: bold;
                 margin-bottom: 4px;
                 @media only screen and (max-width: 767px){
                     font-size: 24px;
@@ -222,7 +236,8 @@ const CardBarChart = Styled.div`
     }
     .card-bar-top{
         &.flex-grid{
-            ${({ theme }) => (theme.rtl ? 'margin-right' : 'margin-left')}: -20px;
+            ${({ theme }) =>
+              theme.rtl ? "margin-right" : "margin-left"}: -20px;
             @media only screen and (max-width: 575px) {
                 flex-flow: column;
                 align-items: center;
@@ -241,17 +256,19 @@ const CardBarChart = Styled.div`
         p{
             font-size: 14px;
             margin-bottom: 8px;
-            color: ${({ theme }) => theme['light-color']};
+            color: ${({ theme }) => theme["light-color"]};
         }
         h1{
             margin-bottom: 18px;
             sub{
                 bottom: 0;
                 font-size: 14px;
-                ${({ theme }) => (theme.rtl ? 'margin-right' : 'margin-left')}: 8px;
-                color: ${({ theme }) => theme['success-color']};
+                ${({ theme }) =>
+                  theme.rtl ? "margin-right" : "margin-left"}: 8px;
+                color: ${({ theme }) => theme["success-color"]};
                 svg{
-                    ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 4px;
+                    ${({ theme }) =>
+                      theme.rtl ? "margin-left" : "margin-right"}: 4px;
                 }
             }
         }
@@ -262,9 +279,10 @@ const CardBarChart = Styled.div`
     .chart-dataIndicator{
         li{
             font-size: 13px;
-            color: ${({ theme }) => theme['gray-color']};
+            color: ${({ theme }) => theme["gray-color"]};
             &:not(:last-child){
-                ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 16px;
+                ${({ theme }) =>
+                  theme.rtl ? "margin-left" : "margin-right"}: 16px;
             }
         }
     }
@@ -279,21 +297,22 @@ const CardBarChart = Styled.div`
         .card-bar-top{
             &:not(:last-child){
                 margin-right: 30px;
-                ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 30px;
+                ${({ theme }) =>
+                  theme.rtl ? "margin-left" : "margin-right"}: 30px;
             }
         }
         h4{
             font-weight: 400;
-            color: ${({ theme }) => theme['light-gray-color']};
+            color: ${({ theme }) => theme["light-gray-color"]};
             p{
                 &.growth-down{
                     .deal-percentage{
-                        color: ${({ theme }) => theme['danger-color']};
+                        color: ${({ theme }) => theme["danger-color"]};
                     }
                 }
                 &.growth-up{
                     .deal-percentage{
-                        color: ${({ theme }) => theme['success-color']};
+                        color: ${({ theme }) => theme["success-color"]};
                     }
                 }
                 .deal-percentage{
@@ -307,7 +326,7 @@ const CardBarChart = Styled.div`
                     font-size: 22px;
                     font-weight: 600;
                     margin-right: 8px;
-                    color: ${({ theme }) => theme['dark-color']};
+                    color: ${({ theme }) => theme["dark-color"]};
                 }
             }
         }
@@ -316,7 +335,8 @@ const CardBarChart = Styled.div`
         .custom-label{
             font-size: 14px;
             &:not(:last-child){
-                ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 30px;
+                ${({ theme }) =>
+                  theme.rtl ? "margin-left" : "margin-right"}: 30px;
             }
         }
     }
@@ -338,8 +358,8 @@ const CardGroup = Styled.div`
             font-size: 12px;
             font-weight: 500;
             padding: 0 10.5px;
-            color: ${({ theme }) => theme['gray-color']};
-            border-color: ${({ theme }) => theme['border-color-light']};
+            color: ${({ theme }) => theme["gray-color"]};
+            border-color: ${({ theme }) => theme["border-color-light"]};
             &:before{
                 display: none;
             }
@@ -354,21 +374,27 @@ const CardGroup = Styled.div`
             }
             &.ant-radio-button-wrapper-checked{
                 color: #fff !important;
-                background: ${({ theme }) => theme['primary-color']} !important;
+                background: ${({ theme }) => theme["primary-color"]} !important;
                 &:hover{
                     color: #fff !important;
-                    background: ${({ theme }) => theme['primary-color']} !important;
+                    background: ${({ theme }) =>
+                      theme["primary-color"]} !important;
                 }
             }
             &:hover{
-                background: ${({ theme }) => theme['bg-color-normal']} !important;
+                background: ${({ theme }) =>
+                  theme["bg-color-normal"]} !important;
             }
         }
     }
     .focard-wrapper{
         margin: 0 -12px;
-        ${({ theme }) => (theme.rtl ? 'padding: 24px 24px 25px 0;' : 'padding: 24px 0 25px 24px;')};
-        ${({ theme }) => (theme.topMenu ? 'padding-bottom: 0px' : 'padding-bottom: 25px')};
+        ${({ theme }) =>
+          theme.rtl
+            ? "padding: 24px 24px 25px 0;"
+            : "padding: 24px 0 25px 24px;"};
+        ${({ theme }) =>
+          theme.topMenu ? "padding-bottom: 0px" : "padding-bottom: 25px"};
         
         @media only screen and (max-width: 1350px){
             padding: 24px 0 25px 10px;
@@ -377,10 +403,14 @@ const CardGroup = Styled.div`
             margin: 0;
         }
         .ant-col-md-12{
-            ${({ theme }) => (theme.rtl ? 'padding: 0 12px 0 18px;' : 'padding: 0 18px 0 12px;')}
+            ${({ theme }) =>
+              theme.rtl ? "padding: 0 12px 0 18px;" : "padding: 0 18px 0 12px;"}
             
             @media only screen and (max-width: 1350px){
-                ${({ theme }) => (theme.rtl ? 'padding: 0 6px 0 14px;' : 'padding: 0 14px 0 6px;')}                
+                ${({ theme }) =>
+                  theme.rtl
+                    ? "padding: 0 6px 0 14px;"
+                    : "padding: 0 14px 0 6px;"}                
             }
             @media only screen and (max-width: 575px){
                 &:not(:last-child){
@@ -389,10 +419,12 @@ const CardGroup = Styled.div`
             }
             &:first-child{
                 @media only screen and (max-width: 1350px){
-                    ${({ theme }) => (!theme.rtl ? 'padding-left' : 'padding-right')}: 20px;
+                    ${({ theme }) =>
+                      !theme.rtl ? "padding-left" : "padding-right"}: 20px;
                 }
                 @media only screen and (max-width: 1199px){
-                    padding: ${({ theme }) => (theme.rtl ? '0 0 0 12px' : '0 12px 0 0')};
+                    padding: ${({ theme }) =>
+                      theme.rtl ? "0 0 0 12px" : "0 12px 0 0"};
                     @media only screen and (max-width: 575px){
                         padding: 0;
                     }
@@ -417,34 +449,47 @@ const CardGroup = Styled.div`
         }
 
         &.focard-divider{
-            ${({ theme }) => (!theme.rtl ? 'padding-left' : 'padding-right')}: 0;
-            ${({ theme }) => (theme.rtl ? 'padding-left' : 'padding-right')}: 15px;
-            ${({ theme }) => (!theme.rtl ? 'border-right' : 'border-left')}: 1px solid ${({ theme }) =>
-  theme['border-color-light']} !important;
+            ${({ theme }) =>
+              !theme.rtl ? "padding-left" : "padding-right"}: 0;
+            ${({ theme }) =>
+              theme.rtl ? "padding-left" : "padding-right"}: 15px;
+            ${({ theme }) =>
+              !theme.rtl ? "border-right" : "border-left"}: 1px solid ${({
+  theme,
+}) => theme["border-color-light"]} !important;
             @media only screen and (max-width: 1199px){
-                ${({ theme }) => (theme.rtl ? 'padding-left' : 'padding-right')}: 0 none !important;
-                padding: ${({ theme }) => (theme.rtl ? '0 10px 0 0' : '0 0 0 10px')};
+                ${({ theme }) =>
+                  theme.rtl
+                    ? "padding-left"
+                    : "padding-right"}: 0 none !important;
+                padding: ${({ theme }) =>
+                  theme.rtl ? "0 10px 0 0" : "0 0 0 10px"};
             }
             .ant-col-md-12{
                 &:first-child{
                     padding: 0 16px 0 24px;
                     @media only screen and (max-width: 1350px){
-                        padding: ${({ theme }) => (theme.rtl ? '0 20px 0 10px' : '0 10px 0 20px')};
+                        padding: ${({ theme }) =>
+                          theme.rtl ? "0 20px 0 10px" : "0 10px 0 20px"};
                     }
                     @media only screen and (max-width: 1199px){
-                        padding: ${({ theme }) => (theme.rtl ? '0 0 0 12px' : '0 12px 0 0')};
+                        padding: ${({ theme }) =>
+                          theme.rtl ? "0 0 0 12px" : "0 12px 0 0"};
                     }
                     @media only screen and (max-width: 575px){
                         padding: 0;
                     }
                 }
                 &:last-child{
-                    padding: ${({ theme }) => (theme.rtl ? '0 18px 0 10px' : '0 10px 0 18px')};
+                    padding: ${({ theme }) =>
+                      theme.rtl ? "0 18px 0 10px" : "0 10px 0 18px"};
                     @media only screen and (max-width: 1350px){
-                        padding: ${({ theme }) => (theme.rtl ? '0 20px 0 4px' : '0 4px 0 20px')};
+                        padding: ${({ theme }) =>
+                          theme.rtl ? "0 20px 0 4px" : "0 4px 0 20px"};
                     }
                     @media only screen and (max-width: 1199px){
-                        padding: ${({ theme }) => (theme.rtl ? '0 12px 0 0px' : '0 0 0 12px')};
+                        padding: ${({ theme }) =>
+                          theme.rtl ? "0 12px 0 0px" : "0 0 0 12px"};
                     }
                     @media only screen and (max-width: 575px){
                         padding: 0;
@@ -463,13 +508,15 @@ const CardGroup = Styled.div`
             color: #333;
             thead{
                 th{
-                    background-color: ${({ theme }) => theme['bg-color-light']};
+                    background-color: ${({ theme }) => theme["bg-color-light"]};
                     padding: 11.5px 16px;
                     &:nth-child(2){
-                        border-left: 1px solid ${({ theme }) => theme['border-color-light']};
+                        border-left: 1px solid ${({ theme }) =>
+                          theme["border-color-light"]};
                     }
                     &:nth-child(4){
-                        border-right: 1px solid ${({ theme }) => theme['border-color-light']};
+                        border-right: 1px solid ${({ theme }) =>
+                          theme["border-color-light"]};
                     }
                 }
             }
@@ -477,34 +524,44 @@ const CardGroup = Styled.div`
                 tr{
                     &:hover{
                         td{
-                            background: ${({ theme }) => theme['bg-color-light']};
+                            background: ${({ theme }) =>
+                              theme["bg-color-light"]};
                             .social-name{
-                                color: ${({ theme }) => theme['primary-color']};
+                                color: ${({ theme }) => theme["primary-color"]};
                             }
                         }
                     }
                 }
                 td{
                     padding: 14.5px 15px;
-                    text-align: ${({ theme }) => (theme.rtl ? 'left' : 'right')};;
-                    ${({ theme }) => (theme.rtl ? 'border-left' : 'border-right')};: 1px solid ${({ theme }) =>
-  theme['border-color-light']};
-                    color: ${({ theme }) => theme['gray-color']};
+                    text-align: ${({ theme }) =>
+                      theme.rtl ? "left" : "right"};;
+                    ${({ theme }) =>
+                      theme.rtl
+                        ? "border-left"
+                        : "border-right"};: 1px solid ${({ theme }) =>
+  theme["border-color-light"]};
+                    color: ${({ theme }) => theme["gray-color"]};
                     &:first-child{
-                        ${({ theme }) => (!theme.rtl ? 'border-left' : 'border-right')};: 0 none;
-                        text-align: ${({ theme }) => (!theme.rtl ? 'left' : 'right')};;
-                        ${({ theme }) => (!theme.rtl ? 'padding-left' : 'padding-right')};: 25px;
+                        ${({ theme }) =>
+                          !theme.rtl ? "border-left" : "border-right"};: 0 none;
+                        text-align: ${({ theme }) =>
+                          !theme.rtl ? "left" : "right"};;
+                        ${({ theme }) =>
+                          !theme.rtl ? "padding-left" : "padding-right"};: 25px;
                     }
                     &:last-child{
-                        ${({ theme }) => (theme.rtl ? 'border-left' : 'border-right')};: 0 none;
-                        ${({ theme }) => (theme.rtl ? 'padding-left' : 'padding-right')};: 25px;
+                        ${({ theme }) =>
+                          theme.rtl ? "border-left" : "border-right"};: 0 none;
+                        ${({ theme }) =>
+                          theme.rtl ? "padding-left" : "padding-right"};: 25px;
                     }
                     .traffic-title{
                         font-weight: 500;
-                        color: ${({ theme }) => theme['dark-color']};
+                        color: ${({ theme }) => theme["dark-color"]};
                     }
                     .social-name{
-                        color: ${({ theme }) => theme['info-color']};
+                        color: ${({ theme }) => theme["info-color"]};
                     }
                 }
             }
@@ -515,13 +572,14 @@ const CardGroup = Styled.div`
 const ExList = Styled.div`
     padding: 25px 0 0;
     height: 100%;
-    ${({ theme }) => (theme.rtl ? 'border-left' : 'border-right')}: 1px solid ${({ theme }) =>
-  theme['border-color-light']};
+    ${({ theme }) =>
+      theme.rtl ? "border-left" : "border-right"}: 1px solid ${({ theme }) =>
+  theme["border-color-light"]};
     @media only screen and (max-width: 1599px){
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        ${({ theme }) => (theme.rtl ? 'border-left' : 'border-right')}: 0 none;
+        ${({ theme }) => (theme.rtl ? "border-left" : "border-right")}: 0 none;
         margin: 0 -15px;
         padding: 15px 0 0;
 
@@ -544,7 +602,7 @@ const ExList = Styled.div`
         }
         p{
             font-size: 14px;
-            color: ${({ theme }) => theme['light-gray-color']};
+            color: ${({ theme }) => theme["light-gray-color"]};
             margin-bottom:0;
         }
         h1{
@@ -555,7 +613,8 @@ const ExList = Styled.div`
                 font-size: 20px;
             }
             & > span{
-                ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 10px;
+                ${({ theme }) =>
+                  theme.rtl ? "margin-left" : "margin-right"}: 10px;
                 @media only screen and (max-width: 1599px){
                     display: block;
                 }
@@ -566,19 +625,20 @@ const ExList = Styled.div`
                 display: inline-flex;
                 align-items: center;
                 line-height: normal;
-                color: ${({ theme }) => theme['light-color']};
+                color: ${({ theme }) => theme["light-color"]};
                 span{
                     display: inline-flex;
                     align-items: center;
-                    color: ${({ theme }) => theme['success-color']};
-                    padding: ${({ theme }) => (theme.rtl ? '0 0 0 10px' : '0 10px 0 0')};
+                    color: ${({ theme }) => theme["success-color"]};
+                    padding: ${({ theme }) =>
+                      theme.rtl ? "0 0 0 10px" : "0 10px 0 0"};
                 }
                 svg{
                     width:12px;
                 }
                 &.growth-downward{
                     span{
-                        color: ${({ theme }) => theme['danger-color']};
+                        color: ${({ theme }) => theme["danger-color"]};
                     }
                 }
             }
@@ -594,7 +654,8 @@ const OverviewCard = Styled.div`
     position: relative;
     z-index: 0;
     margin-bottom: 30px;
-    ${({ theme }) => (theme.topMenu ? 'min-height: 595px' : 'min-height: auto')};
+    ${({ theme }) =>
+      theme.topMenu ? "min-height: 595px" : "min-height: auto"};
     @media only screen and (max-width: 991px){
         min-height: auto;
     }
@@ -603,9 +664,9 @@ const OverviewCard = Styled.div`
         content: '';
         width: 100%;
         height: 215px;
-        background:linear-gradient(45deg, ${({ theme }) => theme['secondary-color']}, ${({ theme }) =>
-  theme['primary-color']});
-  ${({ theme }) => (theme.rtl ? 'right' : 'left')}:0;
+        background:linear-gradient(45deg, ${({ theme }) =>
+          theme["secondary-color"]}, ${({ theme }) => theme["primary-color"]});
+  ${({ theme }) => (theme.rtl ? "right" : "left")}:0;
         top: 0;
         z-index:-1;
     }
@@ -624,13 +685,14 @@ const OverviewCard = Styled.div`
                 margin-bottom: 0;
             }
             p{
-                color: ${({ theme }) => theme['light-color']};
+                color: ${({ theme }) => theme["light-color"]};
             }
         }
         .growth-downward,
         .growth-upward{
             span{
-                ${({ theme }) => (theme.rtl ? 'margin-right' : 'margin-left')}: 6px;
+                ${({ theme }) =>
+                  theme.rtl ? "margin-right" : "margin-left"}: 6px;
             }
         }
         .overview-box-percentage{
@@ -640,23 +702,23 @@ const OverviewCard = Styled.div`
     .ant-card{
         box-shadow: 0 10px 30px rgba(146,153,184,0.15);
         .growth-upward{
-            color: ${({ theme }) => theme['success-color']};
+            color: ${({ theme }) => theme["success-color"]};
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             span{
-                color: ${({ theme }) => theme['light-gray-color']};
+                color: ${({ theme }) => theme["light-gray-color"]};
                 font-weight: 400;
                 font-size: 13px;
             }
         }
         .growth-downward{
-            color: ${({ theme }) => theme['danger-color']};
+            color: ${({ theme }) => theme["danger-color"]};
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             span{
-                color: ${({ theme }) => theme['light-gray-color']};
+                color: ${({ theme }) => theme["light-gray-color"]};
                 font-weight: 400;
                 font-size: 13px;
             }
@@ -678,7 +740,8 @@ const OverviewCard = Styled.div`
             svg,
             img,
             i{
-                ${({ theme }) => (theme.rtl ? 'margin-right' : 'margin-left')}: 8px;
+                ${({ theme }) =>
+                  theme.rtl ? "margin-right" : "margin-left"}: 8px;
             }
         }
     }
@@ -699,7 +762,8 @@ const PerformanceChartWrapper = Styled.div`
             margin-top: 16px;
             li{
                 &:not(:last-child){
-                    ${({ theme }) => (!theme.rtl ? 'margin-right' : 'margin-left')}: 25px;
+                    ${({ theme }) =>
+                      !theme.rtl ? "margin-right" : "margin-left"}: 25px;
                 }
             }
         }
@@ -731,11 +795,11 @@ const Pstates = Styled.div`
             box-shadow: 0 15px 30px rgba(146,153,184,0.15);
             p{
                 font-weight: 500;
-                color: ${({ theme }) => theme['primary-color']};
+                color: ${({ theme }) => theme["primary-color"]};
             }
         }
         &.active{
-            background: ${({ theme }) => theme['bg-color-light']};
+            background: ${({ theme }) => theme["bg-color-light"]};
             &:hover{
                 box-shadow: 0 15px 30px #fff;
             }
@@ -785,22 +849,22 @@ const SessionChartWrapper = Styled.div`
                     border-radius: 50%;
                     top: 50%;
                     transform: translateY(-50%);
-                    ${({ theme }) => (theme.rtl ? 'right' : 'left')}: 14px;
+                    ${({ theme }) => (theme.rtl ? "right" : "left")}: 14px;
                     @media only screen and (max-width: 1400px){
-                        ${({ theme }) => (theme.rtl ? 'right' : 'left')}: 5px;
+                        ${({ theme }) => (theme.rtl ? "right" : "left")}: 5px;
                     }
                     @media only screen and (max-width: 1300px){
-                        ${({ theme }) => (theme.rtl ? 'right' : 'left')}: 0;
+                        ${({ theme }) => (theme.rtl ? "right" : "left")}: 0;
                     }
                     @media only screen and (max-width: 1199px){
-                        ${({ theme }) => (theme.rtl ? 'right' : 'left')}: 15px;
+                        ${({ theme }) => (theme.rtl ? "right" : "left")}: 15px;
                     }
                     @media only screen and (max-width: 379px){
-                        ${({ theme }) => (theme.rtl ? 'right' : 'left')}: 0;
+                        ${({ theme }) => (theme.rtl ? "right" : "left")}: 0;
                     }
                 }
                 .doughnutLabe{
-                    color: ${({ theme }) => theme['gray-color']};
+                    color: ${({ theme }) => theme["gray-color"]};
                 }
             }
         }
@@ -817,6 +881,7 @@ const SessionChartWrapper = Styled.div`
                 font-size: 24px;
                 display: block;
                 font-weight: 600;
+                color: ${({ theme }) => theme["primary-color"]};
             }
         }
     }
@@ -845,9 +910,9 @@ const SessionState = Styled.div`
         }
         sub{
             bottom: 0;
-            ${({ theme }) => (theme.rtl ? 'right' : 'left')}: 5px;
+            ${({ theme }) => (theme.rtl ? "right" : "left")}: 5px;
             font-size: 13px;
-            color: ${({ theme }) => theme['light-gray-color']};
+            color: ${({ theme }) => theme["light-gray-color"]};
         }
     }
 
@@ -859,7 +924,7 @@ const SessionState = Styled.div`
 const RegionList = Styled.div`
     max-height: 300px;
     overflow: hidden auto;
-    border: 1px solid ${({ theme }) => theme['border-color-light']};
+    border: 1px solid ${({ theme }) => theme["border-color-light"]};
     table{
         tr{
             &:first-child{
@@ -875,8 +940,8 @@ const RegionList = Styled.div`
             th{
                 font-size: 13px;
                 font-weight: 500;
-                color: ${({ theme }) => theme['dark-color']};
-                background: ${({ theme }) => theme['bg-color-light']};
+                color: ${({ theme }) => theme["dark-color"]};
+                background: ${({ theme }) => theme["bg-color-light"]};
                 padding: 9px 20px;
                 border: 0 none;
             }
@@ -884,7 +949,7 @@ const RegionList = Styled.div`
                 font-size: 13px;
                 border: 0 none;
                 padding: 6px 20px;
-                color: ${({ theme }) => theme['gray-color']};
+                color: ${({ theme }) => theme["gray-color"]};
             }
         }
     }
@@ -894,11 +959,11 @@ const RegionList = Styled.div`
 const RegionMap = Styled.div`
     text-align: center;
     height: 100%;
-    ${({ theme }) => (theme.rtl ? 'padding-right' : 'padding-left')}: 20px;
+    ${({ theme }) => (theme.rtl ? "padding-right" : "padding-left")}: 20px;
     .__react_component_tooltip {
-        background: ${({ theme }) => theme['dark-color']};
+        background: ${({ theme }) => theme["dark-color"]};
         border-radius: 3px;
-        box-shadow: 0 10px 15px ${({ theme }) => theme['light-color']}15;
+        box-shadow: 0 10px 15px ${({ theme }) => theme["light-color"]}15;
     }
     >div{
         width: 100%;
@@ -975,21 +1040,25 @@ const LadingPages = Styled.div`
     table{
         th{
             white-space: nowrap !important;
-            text-align: ${({ theme }) => (!theme.rtl ? 'right' : 'left')} !important;
+            text-align: ${({ theme }) =>
+              !theme.rtl ? "right" : "left"} !important;
             &:first-child{
-                text-align: ${({ theme }) => (theme.rtl ? 'right' : 'left')} !important;
+                text-align: ${({ theme }) =>
+                  theme.rtl ? "right" : "left"} !important;
             }
         }
         tbody{
             tr{
                 td{
-                    text-align: ${({ theme }) => (!theme.rtl ? 'right' : 'left')};
-                    color: ${({ theme }) => theme['gray-color']};
+                    text-align: ${({ theme }) =>
+                      !theme.rtl ? "right" : "left"};
+                    color: ${({ theme }) => theme["gray-color"]};
                     &:first-child{
-                        text-align: ${({ theme }) => (theme.rtl ? 'right' : 'left')};
+                        text-align: ${({ theme }) =>
+                          theme.rtl ? "right" : "left"};
                     }
                     .page-title{
-                        color: ${({ theme }) => theme['primary-color']};
+                        color: ${({ theme }) => theme["primary-color"]};
                     }
                 }
             }
@@ -1011,7 +1080,7 @@ const CardBarChart2 = Styled.div`
     }
     & > span{
         font-size: 14px;
-        color: ${({ theme }) => theme['light-gray-color']};
+        color: ${({ theme }) => theme["light-gray-color"]};
     }
     p{
         display: flex;
@@ -1024,7 +1093,8 @@ const CardBarChart2 = Styled.div`
         .growth-upward, .growth-downward{
             display: inline-flex;
             align-items: center;
-            ${({ theme }) => (!theme.rtl ? 'padding-right' : 'padding-left')}: 10px;
+            ${({ theme }) =>
+              !theme.rtl ? "padding-right" : "padding-left"}: 10px;
             font-weight: 600;
 
             svg{
@@ -1032,19 +1102,19 @@ const CardBarChart2 = Styled.div`
             }
         }
         .growth-upward{
-            color: ${({ theme }) => theme['success-color']};
+            color: ${({ theme }) => theme["success-color"]};
             svg{
-                color: ${({ theme }) => theme['success-color']};
+                color: ${({ theme }) => theme["success-color"]};
             }
         }
         .growth-downward{
-            color: ${({ theme }) => theme['danger-color']};
+            color: ${({ theme }) => theme["danger-color"]};
             svg{
-                color: ${({ theme }) => theme['danger-color']};
+                color: ${({ theme }) => theme["danger-color"]};
             }
         }
         span{
-            color: ${({ theme }) => theme['light-gray-color']};
+            color: ${({ theme }) => theme["light-gray-color"]};
             font-size: 13px;
             display: inline-block;
         }
@@ -1078,14 +1148,15 @@ const LineChartWrapper = Styled.div`
             margin-bottom: 24px;
         }
         .border-linechart{
-            border-bottom: 1px solid ${({ theme }) => theme['border-color-deep']};
+            border-bottom: 1px solid ${({ theme }) =>
+              theme["border-color-deep"]};
             position: relative;
             &:before{
                 position: absolute;
                 content: '';
                 width: 10px;
                 height: 2px;
-                ${({ theme }) => (theme.rtl ? 'right' : 'left')}: 0;
+                ${({ theme }) => (theme.rtl ? "right" : "left")}: 0;
                 bottom: -1px;
                 background: #fff;
             }
@@ -1095,7 +1166,10 @@ const LineChartWrapper = Styled.div`
         .line-chart-row{
             &:not(:last-child){
                 margin-bottom: 18px;
-                ${({ theme }) => (theme.topMenu ? 'margin-bottom: 25px' : 'margin-bottom: 18px')};
+                ${({ theme }) =>
+                  theme.topMenu
+                    ? "margin-bottom: 25px"
+                    : "margin-bottom: 18px"};
             }
         }
     }
@@ -1103,7 +1177,8 @@ const LineChartWrapper = Styled.div`
 
 const RatioCard = Styled.div`
     >.ant-card{
-        ${({ theme }) => (theme.topMenu ? 'min-height: 225px' : 'min-height: 100%')};
+        ${({ theme }) =>
+          theme.topMenu ? "min-height: 225px" : "min-height: 100%"};
         @media only screen and (max-width: 1599px){
             min-height: 225px;
         }
@@ -1134,27 +1209,27 @@ const RatioCard = Styled.div`
             }
             .ant-progress-text{
                 position: absolute;
-                ${({ theme }) => (theme.rtl ? 'left' : 'right')}: 0;
+                ${({ theme }) => (theme.rtl ? "left" : "right")}: 0;
                 bottom: 26px;
                 font-weight: 500;
             }
             &.progress-success{
                 .ant-progress-text{
-                    color: ${({ theme }) => theme['success-color']};
+                    color: ${({ theme }) => theme["success-color"]};
                 }
             }
             &.ant-progress-status-warning{
                 .ant-progress-text{
-                    color: ${({ theme }) => theme['warning-color']};
+                    color: ${({ theme }) => theme["warning-color"]};
                 }
             }
         }
         p{
-            color: ${({ theme }) => theme['light-color']};
+            color: ${({ theme }) => theme["light-color"]};
             margin-bottom: 0;
             strong{
                 font-size: 13px;
-                color: ${({ theme }) => theme['dark-color']};
+                color: ${({ theme }) => theme["dark-color"]};
                 font-weight: 600;
             }
         }
@@ -1191,14 +1266,16 @@ const IncomeExpenseWrapper = Styled.div`
         li{
             padding: 5px 12px;
             font-size: 13px;
-            color: ${({ theme }) => theme['light-gray-color']};
+            color: ${({ theme }) => theme["light-gray-color"]};
             @media only screen and (max-width: 575px){
                 display: flex !important;
             }
             &:not(:last-child){
-            ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 20px;
+            ${({ theme }) =>
+              theme.rtl ? "margin-left" : "margin-right"}: 20px;
                 @media only screen and (max-width: 575px){
-                    ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 0;
+                    ${({ theme }) =>
+                      theme.rtl ? "margin-left" : "margin-right"}: 0;
                 }
             }
         }
@@ -1256,7 +1333,8 @@ const LocationMapWrapper = Styled.div`
         margin: 0 25px 18px;
         padding-top: 12px;
         min-height: 180px;
-        border-top: 1px solid ${({ theme }) => theme['border-color-light']} !important;
+        border-top: 1px solid ${({ theme }) =>
+          theme["border-color-light"]} !important;
         background: #ffffff;
         z-index: 999;
         position: relative;
@@ -1271,7 +1349,7 @@ const LocationMapWrapper = Styled.div`
                     border: 0 none;
                     font-weight: 400;
                     text-transform: uppercase;
-                    color: ${({ theme }) => theme['light-color']};
+                    color: ${({ theme }) => theme["light-color"]};
                 }
             }
             tr{
@@ -1282,7 +1360,7 @@ const LocationMapWrapper = Styled.div`
                 }
                 td{
                     border: 0 none;
-                    color: ${({ theme }) => theme['gray-color']};
+                    color: ${({ theme }) => theme["gray-color"]};
                 }
                 th,
                 td{
@@ -1291,8 +1369,10 @@ const LocationMapWrapper = Styled.div`
                         padding-left: 0;
                     }
                     &:last-child{
-                        text-align: ${({ theme }) => (theme.rtl ? 'left' : 'right')};
-                        ${({ theme }) => (theme.rtl ? 'padding-left' : 'padding-right')}: 0;
+                        text-align: ${({ theme }) =>
+                          theme.rtl ? "left" : "right"};
+                        ${({ theme }) =>
+                          theme.rtl ? "padding-left" : "padding-right"}: 0;
                     }
                 }
             }
@@ -1335,13 +1415,13 @@ const RevenueWrapper = Styled.div`
             display: block;
             font-size: 24px;
             font-weight: 600;
-            color: ${({ theme }) => theme['primary-color']};
+            color: ${({ theme }) => theme["primary-color"]};
         }
         .prev-amount{
             display: block;
             font-size: 24px;
             font-weight: 600;
-            color: ${({ theme }) => theme['dark-color']};
+            color: ${({ theme }) => theme["dark-color"]};
         }
         div{
             span{
@@ -1362,7 +1442,8 @@ const RevenueTableWrapper = Styled.div`
 
     .full-width-table{
         >.ant-card{
-            ${({ theme }) => (theme.topMenu ? 'min-height: 555px' : 'min-height: 500px')};
+            ${({ theme }) =>
+              theme.topMenu ? "min-height: 555px" : "min-height: 500px"};
             @media only screen and (max-width: 1599px){
                 min-height: 100%;
             }
@@ -1373,16 +1454,18 @@ const RevenueTableWrapper = Styled.div`
             .ant-table-cell{
                 padding: 10px 20px;
                 &:first-child{
-                    ${({ theme }) => (!theme.rtl ? 'padding-left' : 'padding-right')}: 25px;
+                    ${({ theme }) =>
+                      !theme.rtl ? "padding-left" : "padding-right"}: 25px;
                 }
                 &:last-child{
-                    ${({ theme }) => (theme.rtl ? 'padding-left' : 'padding-right')}: 25px;
+                    ${({ theme }) =>
+                      theme.rtl ? "padding-left" : "padding-right"}: 25px;
                 }
             }
             thead{
                 th{
                     font-weight: 500;
-                    color: ${({ theme }) => theme['dark-color']};
+                    color: ${({ theme }) => theme["dark-color"]};
                     &:last-child{
                         text-align: left;
                     }
@@ -1390,7 +1473,7 @@ const RevenueTableWrapper = Styled.div`
             }
             tbody{
                 td{
-                    color: ${({ theme }) => theme['gray-color']};
+                    color: ${({ theme }) => theme["gray-color"]};
                 }
             }
         }
@@ -1435,7 +1518,8 @@ const RevenueChartWrapper = Styled.div`
 
 const TrafficTableWrapper = Styled.div`
     min-height: 450px;
-    ${({ theme }) => (theme.topMenu ? 'min-height: 515px' : 'min-height: 450px')};
+    ${({ theme }) =>
+      theme.topMenu ? "min-height: 515px" : "min-height: 450px"};
     @media only screen and (max-width: 1599px){
         min-height: 400px;
     }
@@ -1455,12 +1539,15 @@ const TrafficTableWrapper = Styled.div`
             tr{
                 th{
                     background: #fff;
-                    border-top: 1px solid ${({ theme }) => theme['border-color-light']};
-                    color: ${({ theme }) => theme['dark-color']}
+                    border-top: 1px solid ${({ theme }) =>
+                      theme["border-color-light"]};
+                    color: ${({ theme }) => theme["dark-color"]}
                     padding: 16px 25px;
-                    text-align: ${({ theme }) => (theme.rtl ? 'left' : 'right')};
+                    text-align: ${({ theme }) =>
+                      theme.rtl ? "left" : "right"};
                     &:first-child, &:nth-child(5){
-                        text-align: ${({ theme }) => (!theme.rtl ? 'left' : 'right')};
+                        text-align: ${({ theme }) =>
+                          !theme.rtl ? "left" : "right"};
                     }
                 }
             }
@@ -1469,10 +1556,12 @@ const TrafficTableWrapper = Styled.div`
             tr{
                 td{
                     padding: 16px 25px;
-                    color: ${({ theme }) => theme['gray-color']};
-                    text-align: ${({ theme }) => (theme.rtl ? 'left' : 'right')};
+                    color: ${({ theme }) => theme["gray-color"]};
+                    text-align: ${({ theme }) =>
+                      theme.rtl ? "left" : "right"};
                     &:first-child, &:nth-child(5){
-                        text-align: ${({ theme }) => (!theme.rtl ? 'left' : 'right')};
+                        text-align: ${({ theme }) =>
+                          !theme.rtl ? "left" : "right"};
                     }
                 }
             }
@@ -1555,7 +1644,7 @@ const ChartContainer = Styled.div`
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
             bottom: -5px;
-            ${({ theme }) => (!theme.rtl ? 'left' : 'right')}: 50%;
+            ${({ theme }) => (!theme.rtl ? "left" : "right")}: 50%;
             transform: translateX(-50%);
         }
     }
@@ -1564,11 +1653,11 @@ const ChartContainer = Styled.div`
         width: 10px;
         height: 10px;
         background: "pink";
-        ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}
+        ${({ theme }) => (theme.rtl ? "margin-left" : "margin-right")}
         : 10px;
     }
     .tooltip-title {
-        color: ${({ theme }) => theme['gray-color']};
+        color: ${({ theme }) => theme["gray-color"]};
         font-size: 12px;
         font-weight: 500 !important;
         font-family: 'Inter', sans-serif;
@@ -1594,13 +1683,14 @@ const ChartContainer = Styled.div`
                 font-weight: 500;
                 padding-bottom: 3px;
                 white-space: nowrap;
-                color: ${({ theme }) => theme['dark-color']};
+                color: ${({ theme }) => theme["dark-color"]};
                 @media only screen and (max-width: 1199px){
                     font-size: 12px;
                 }
                 .data-label{
-                    ${({ theme }) => (theme.rtl ? 'margin-right' : 'margin-left')}: 3px;
-                    color: ${({ theme }) => theme['light-gray-color']};
+                    ${({ theme }) =>
+                      theme.rtl ? "margin-right" : "margin-left"}: 3px;
+                    color: ${({ theme }) => theme["light-gray-color"]};
                 }
             }
         }
@@ -1641,16 +1731,17 @@ const SentEmailWrapper = Styled.div`
             width: 60px;
             height: 60px;
             border-radius: 10px;
-            ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 10px;
-            background-color: ${({ theme }) => theme['primary-color']}10;
+            ${({ theme }) =>
+              theme.rtl ? "margin-left" : "margin-right"}: 10px;
+            background-color: ${({ theme }) => theme["primary-color"]}10;
             &.icon-success{
-                background-color: ${({ theme }) => theme['success-color']}10;
+                background-color: ${({ theme }) => theme["success-color"]}10;
             }
             &.icon-primary{
-                background-color: ${({ theme }) => theme['primary-color']}10;
+                background-color: ${({ theme }) => theme["primary-color"]}10;
             }
             &.icon-warning{
-                background-color: ${({ theme }) => theme['warning-color']}10;
+                background-color: ${({ theme }) => theme["warning-color"]}10;
             }
         }
         .sent-emial-content{
@@ -1667,7 +1758,7 @@ const SentEmailWrapper = Styled.div`
                 font-size: 14px;
                 font-weight: 400;
                 margin-bottom: 0;
-                color: ${({ theme }) => theme['gray-color']};
+                color: ${({ theme }) => theme["gray-color"]};
             }
         }
     }
@@ -1685,7 +1776,8 @@ const RecentDealsWrapper = Styled.div`
                 border-radius: 50%;
             }
             .dealing-author-info{
-                ${({ theme }) => (theme.rtl ? 'margin-right' : 'margin-left')}: 12px;
+                ${({ theme }) =>
+                  theme.rtl ? "margin-right" : "margin-left"}: 12px;
                 h4{
                     font-size: 14px;
                     font-weight: 600;
@@ -1701,7 +1793,7 @@ const RecentDealsWrapper = Styled.div`
         .deal-amount{
             font-size: 14px;
             font-weight: 600;
-            color: ${({ theme }) => theme['dark-color']};
+            color: ${({ theme }) => theme["dark-color"]};
         }
         .ant-table-tbody > tr > td{
             padding: 7px 25px;
@@ -1727,12 +1819,12 @@ const SalesTargetWrap = Styled.div`
         }
         &.target-revinue{
             h2{
-                color: ${({ theme }) => theme['success-color']};
+                color: ${({ theme }) => theme["success-color"]};
             }
         }
         p{
             margin-bottom: 0;
-            color: ${({ theme }) => theme['gray-color']};
+            color: ${({ theme }) => theme["gray-color"]};
         }
     }
 `;
@@ -1755,7 +1847,7 @@ const SalesGrowthWrap = Styled.div`
         }
         p{
             margin-bottom: 0;
-            color: ${({ theme }) => theme['gray-color']};
+            color: ${({ theme }) => theme["gray-color"]};
         }
     }
 `;
@@ -1765,7 +1857,8 @@ const TopSellerWrap = Styled.div`
         min-height: auto;
         .product-info{
             .product-img{
-                ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 15px;
+                ${({ theme }) =>
+                  theme.rtl ? "margin-left" : "margin-right"}: 15px;
             }
         }
         .ant-table-row {
