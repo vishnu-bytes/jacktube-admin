@@ -7,6 +7,7 @@ import experts from "./experts.svg";
 import notification from "./notification.svg";
 import users from "./users.svg";
 import webinar from "./webinar.svg";
+import review from "./review.svg"
 
 export {
   leftIcon,
@@ -17,4 +18,5 @@ export {
   notification,
   users,
   webinar,
+  review
 };

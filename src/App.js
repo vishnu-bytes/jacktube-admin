@@ -28,6 +28,7 @@ const Service = React.lazy(() => import("./presentation/Service"));
 const BlogExpanded = React.lazy(() =>
   import("./presentation/Blog/BlogsExpanded")
 );
+const Review = React.lazy(() => import("./presentation/Review"));
 
 function App() {
   return (
@@ -77,6 +78,8 @@ function App() {
                   path={routes.BLOGEXPANDED}
                   component={BlogExpanded}
                 />
+                <Route exact path={routes.REVIEW} component={Review} />
+
               </LayoutProvider>
             </Switch>
           </Suspense>
