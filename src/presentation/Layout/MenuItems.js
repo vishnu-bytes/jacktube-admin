@@ -114,14 +114,14 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
         <Link to={routes.WEBINAR}>Webinars</Link>
       </Menu.Item>
       <Menu.Item
-        key="course"
+        key="review"
         icon={
           <NavLink className="menuItem-icon" to={routes.REVIEW}>
             <img src={review} />
           </NavLink>
         }
       >
-        <Link to={routes.WEBINAR}>Reviews</Link>
+        <Link to={routes.REVIEW}>Reviews</Link>
       </Menu.Item>
       <Menu.Item
         key="blog"
