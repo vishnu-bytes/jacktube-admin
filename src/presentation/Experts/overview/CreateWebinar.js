@@ -21,7 +21,7 @@ function CreateStudent() {
   return (
     <Modal
       type={"primary"}
-      title="Create Webinar"
+      title="Add New Expert"
       visible={visible}
       footer={[
         <div key="1" className="project-modal-footer">
@@ -55,64 +55,26 @@ function CreateStudent() {
             name="createProject"
             onFinish={(values) => onfinish(values)}
           >
-            <Form.Item name="title">
-              <Input placeholder="Title" />
+            <Form.Item name="name">
+              <Input placeholder="Name" />
             </Form.Item>
-            <Form.Item name="description">
-              <Input placeholder="Description" />
-            </Form.Item>
-          
-            <Row gutter={15}>
-              <Col md={12}>
-                <Form.Item name="category" initialValue="">
-                  <Select style={{ width: "100%" }}>
-                    <Option value="">Category</Option>
-                    <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>D
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col md={12}>
-                <Form.Item name="presentor" initialValue="">
-                  <Select style={{ width: "100%" }}>
-                    <Option value="">Presentor</Option>
-                    <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={15}>
-              <Col md={12}>
-                <Form.Item name="startDate">
-                  <DatePicker
-                    placeholder="Date"
-                    format={dateFormat}
-                    style={{ width: "100%" }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col md={12}>
-                <Form.Item name="time" initialValue={moment("00:00", "HH:mm")}>
-                  <TimePicker style={{ width: "100%" }} />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Form.Item name="presentor" initialValue="">
-              <Row gutter={15} className="switch-webinar">
-                <Col md={12}>
-                  <span>Premium Webinar &nbsp; &nbsp;</span>
-                  <Switch
-                    style={{ height: "unset!important" }}
-                  />
-                </Col>
-              </Row>
-            </Form.Item>
-
-            <Form.Item name="description" label="Description">
-              <Input.TextArea rows={4} placeholder="Add description" />
+            <Form.Item name="email">
+              <Input placeholder="Email" />
             </Form.Item>
           </Form>
+          
+          <Row gutter={15}>
+            <Col md={12}>
+              <Form.Item name="title">
+                <Input placeholder="Job Title" />
+              </Form.Item>
+            </Col>
+            <Col md={12}>
+              <Form.Item name="phone">
+                <Input placeholder="Phone" />
+              </Form.Item>
+            </Col>
+          </Row>
         </BasicFormWrapper>
       </div>
     </Modal>

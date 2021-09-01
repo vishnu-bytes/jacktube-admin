@@ -84,7 +84,7 @@ const UserList = () => {
               <FeatherIcon icon="edit" size={16} />
             </Button>
             <Popconfirm
-              title="Are you sure to delete this category?"
+              title="Are you sure to delete this notification?"
               onConfirm={() => {
                 onDelete({ id: student?._id });
               }}

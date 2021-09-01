@@ -20,7 +20,7 @@ const EditCategory = () => {
   return (
     <Modal
       type="primary"
-      title="Edit Webinar"
+      title="Edit Notification"
       visible={editVisible}
       footer={[
         <div key="1" className="project-modal-footer">
@@ -47,7 +47,7 @@ const EditCategory = () => {
       onCancel={() => setEditVisible(false)}
     >
       <div className="project-modal">
-        <BasicFormWrapper>
+      <BasicFormWrapper>
           <Form
             form={form}
             id="createProject"
@@ -60,27 +60,8 @@ const EditCategory = () => {
             <Form.Item name="description">
               <Input placeholder="Description" />
             </Form.Item>
-
-            <Row gutter={15}>
-              <Col md={12}>
-                <Form.Item name="category" initialValue="">
-                  <Select style={{ width: "100%" }}>
-                    <Option value="">Category</Option>
-                    <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>D
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col md={12}>
-                <Form.Item name="presentor" initialValue="">
-                  <Select style={{ width: "100%" }}>
-                    <Option value="">Presentor</Option>
-                    <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-            </Row>
+          
+         
             <Row gutter={15}>
               <Col md={12}>
                 <Form.Item name="startDate">
@@ -97,18 +78,7 @@ const EditCategory = () => {
                 </Form.Item>
               </Col>
             </Row>
-            <Form.Item name="presentor" initialValue="">
-              <Row gutter={15} className="switch-webinar">
-                <Col md={12}>
-                  <span>Premium Webinar &nbsp; &nbsp;</span>
-                  <Switch style={{ height: "unset!important" }} />
-                </Col>
-              </Row>
-            </Form.Item>
 
-            <Form.Item name="description" label="Description">
-              <Input.TextArea rows={4} placeholder="Add description" />
-            </Form.Item>
           </Form>
         </BasicFormWrapper>
       </div>

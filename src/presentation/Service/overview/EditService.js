@@ -7,20 +7,20 @@ import moment from "moment";
 import { useStudentStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
-import { Col, Row, DatePicker, TimePicker,Switch } from "antd";
+import { Col, Row, DatePicker, TimePicker, Switch } from "antd";
 
 const { Option } = Select;
 const dateFormat = "DD/MM/YYYY";
 
 const EditCategory = () => {
   const [form] = Form.useForm();
-  const [{ editVisible, singleCourse }, { onEdit,onfinish, setEditVisible }] =
+  const [{ editVisible, singleCourse }, { onEdit, onfinish, setEditVisible }] =
     useStudentStore();
 
   return (
     <Modal
       type="primary"
-      title="Edit Webinar"
+      title="Edit Service"
       visible={editVisible}
       footer={[
         <div key="1" className="project-modal-footer">
@@ -59,51 +59,6 @@ const EditCategory = () => {
             </Form.Item>
             <Form.Item name="description">
               <Input placeholder="Description" />
-            </Form.Item>
-
-            <Row gutter={15}>
-              <Col md={12}>
-                <Form.Item name="category" initialValue="">
-                  <Select style={{ width: "100%" }}>
-                    <Option value="">Category</Option>
-                    <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>D
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col md={12}>
-                <Form.Item name="presentor" initialValue="">
-                  <Select style={{ width: "100%" }}>
-                    <Option value="">Presentor</Option>
-                    <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={15}>
-              <Col md={12}>
-                <Form.Item name="startDate">
-                  <DatePicker
-                    placeholder="Date"
-                    format={dateFormat}
-                    style={{ width: "100%" }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col md={12}>
-                <Form.Item name="time" initialValue={moment("00:00", "HH:mm")}>
-                  <TimePicker style={{ width: "100%" }} />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Form.Item name="presentor" initialValue="">
-              <Row gutter={15} className="switch-webinar">
-                <Col md={12}>
-                  <span>Premium Webinar &nbsp; &nbsp;</span>
-                  <Switch style={{ height: "unset!important" }} />
-                </Col>
-              </Row>
             </Form.Item>
 
             <Form.Item name="description" label="Description">

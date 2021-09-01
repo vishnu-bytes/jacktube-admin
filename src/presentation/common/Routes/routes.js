@@ -12,7 +12,8 @@ const routes = {
   WEBINAR:`/webinar`,
   CATEGORY:`/category`,
   EXPERTS:`/experts`,
-  SERVICE:`/service`
+  SERVICE:`/service`,
+  REPORT:`/reports`
 };
 
 // Change initial route if required
