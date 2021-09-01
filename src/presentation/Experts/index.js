@@ -82,7 +82,7 @@ const UserList = () => {
               <FeatherIcon icon="edit" size={16} />
             </Button>
             <Popconfirm
-              title="Are you sure to delete this category?"
+              title="Are you sure to delete this expert?"
               onConfirm={() => {
                 onDelete({ id: student?._id });
               }}
@@ -118,16 +118,16 @@ const UserList = () => {
               />
             </>
           }
-          // buttons={[
-          //   <Button
-          //     onClick={() => setVisible(true)}
-          //     key="1"
-          //     type="primary"
-          //     size="default"
-          //   >
-          //     <FeatherIcon icon="plus" size={16} /> New Webinar
-          //   </Button>,
-          // ]}
+          buttons={[
+            <Button
+              onClick={() => setVisible(true)}
+              key="1"
+              type="primary"
+              size="default"
+            >
+              <FeatherIcon icon="plus" size={16} /> New Expert
+            </Button>,
+          ]}
         />
       </CardToolbox>
 

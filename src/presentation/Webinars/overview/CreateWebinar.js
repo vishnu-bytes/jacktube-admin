@@ -63,7 +63,6 @@ function CreateStudent() {
             <Form.Item name="description">
               <Input placeholder="Description" />
             </Form.Item>
-            <p>hui {visiblePrice}</p>
             <Row gutter={15}>
               <Col md={12}>
                 <Form.Item name="category" initialValue="">

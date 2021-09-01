@@ -5,14 +5,10 @@ import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
-import FeatherIcon from "feather-icons-react";
 import { useStudentStore } from "../store";
-import moment from "moment";
 
-const { Option } = Select;
-const dateFormat = "DD/MM/YYYY";
 
-function AddPrice() {
+function CreateStudent() {
   const [{ visiblePrice }, { setVisiblePrice }] = useStudentStore();
   const [form] = Form.useForm();
   const [{ visible }, { onfinish, setVisible }] = useStudentStore();
@@ -22,8 +18,8 @@ function AddPrice() {
   return (
     <Modal
       type={"primary"}
-      title="Webinar Price"
-      visible={visiblePrice}
+      title="Create Service"
+      visible={visible}
       footer={[
         <div key="1" className="project-modal-footer">
           <Button
@@ -33,22 +29,20 @@ function AddPrice() {
             htmlType="submit"
             form="createStudent"
           >
-            Confirm
+            Create
           </Button>
           <Button
             size="default"
             type="white"
             key="back"
             outlined
-            onClick={() => {
-                console.log("object")
-                setVisiblePrice(false)}}
+            onClick={() => setVisible(false)}
           >
             Cancel
           </Button>
         </div>,
       ]}
-      onCancel={() => setVisiblePrice(false)}
+      onCancel={() => setVisible(false)}
     >
       <div className="project-modal">
         <BasicFormWrapper>
@@ -56,10 +50,18 @@ function AddPrice() {
             form={form}
             id="createProject"
             name="createProject"
-            // onFinish={(values) => onfinish(values)}
+            onFinish={(values) => onfinish(values)}
           >
-            <Form.Item name="price">
-              <Input placeholder="Price" />
+            <Form.Item name="title">
+              <Input placeholder="Title" />
+            </Form.Item>
+            <Form.Item name="description">
+              <Input placeholder="Description" />
+            </Form.Item>
+           
+
+            <Form.Item name="description" label="Description">
+              <Input.TextArea rows={4} placeholder="Add description" />
             </Form.Item>
           </Form>
         </BasicFormWrapper>
@@ -67,9 +69,9 @@ function AddPrice() {
     </Modal>
   );
 }
-AddPrice.propTypes = {
-  visiblePrice: propTypes.bool.isRequired,
+CreateStudent.propTypes = {
+  visible: propTypes.bool.isRequired,
   onCancel: propTypes.func.isRequired,
 };
 
-export default AddPrice;
+export default CreateStudent;

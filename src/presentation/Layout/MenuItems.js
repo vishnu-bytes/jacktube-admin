@@ -10,6 +10,8 @@ import {
   notification,
   users,
   webinar,
+  service,
+  report
 } from "../common/Assets/Icons";
 
 const MenuItems = ({ darkMode, topMenu, events }) => {
@@ -134,11 +136,21 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
         key="services"
         icon={
           <NavLink className="menuItem-icon" to={routes.SERVICE}>
-            <img src={notification} />
+            <img src={service} />
           </NavLink>
         }
       >
-        <Link to={routes.NOTIFICATION}>Services</Link>
+        <Link to={routes.SERVICE}>Services</Link>
+      </Menu.Item>
+      <Menu.Item
+        key="reports"
+        icon={
+          <NavLink className="menuItem-icon" to={routes.REPORT}>
+            <img src={report} />
+          </NavLink>
+        }
+      >
+        <Link to={routes.REPORT}>Reports</Link>
       </Menu.Item>
     </Menu>
   );
