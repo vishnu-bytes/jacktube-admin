@@ -8,7 +8,7 @@ import { user, expert, dollar } from "../../common/Assets/Icons";
 const CardGroup = () => {
   return (
     <Row gutter={40}>
-      <Col md={8}>
+      <Col span={8}>
         <Focard>
           <div className="forcast-card-box">
             <Cards headless title="Total Users">
@@ -20,7 +20,7 @@ const CardGroup = () => {
           </div>
         </Focard>
       </Col>
-      <Col md={8}>
+      <Col span={8}>
         <Focard>
           <div className="forcast-card-box">
             <Cards headless title="Total Experts">
@@ -32,7 +32,7 @@ const CardGroup = () => {
           </div>
         </Focard>
       </Col>
-      <Col md={8}>
+      <Col span={8}>
         <Focard>
           <div className="forcast-card-box">
             <Cards headless title="Total Revenue">

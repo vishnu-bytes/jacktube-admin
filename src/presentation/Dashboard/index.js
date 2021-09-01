@@ -13,19 +13,15 @@ const Business = () => {
     <>
       <PageHeader />
       <Main>
-        <Row gutter={[60, 60]}>
-          <Col xxl={24}>
-            <Suspense
-              fallback={
-                <Cards headless>
-                  <Skeleton active />
-                </Cards>
-              }
-            >
-              <CardGroup />
-            </Suspense>
-          </Col>
-        </Row>
+        <Suspense
+          fallback={
+            <Cards headless>
+              <Skeleton active />
+            </Cards>
+          }
+        >
+          <CardGroup />
+        </Suspense>
         <Row gutter={[60, 60]}>
           <Col xxl={16}>
             <Suspense
