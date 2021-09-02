@@ -27,10 +27,12 @@ const actions = {
   setVisiblePrice:
     (params) =>
     ({ setState }) => {
-      console.log("object")
-      setState({ visiblePrice: params },()=>{
-        console.log("checking",params)
-      });
+      setState({ visiblePrice: params }, () => {});
+    },
+  setViewVisible:
+    (params) =>
+    ({ setState }) => {
+      setState({ viewVisible: params.value,singleRow:params.data });
     },
   setSearchData:
     (params) =>

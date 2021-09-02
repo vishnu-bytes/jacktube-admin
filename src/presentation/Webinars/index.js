@@ -10,6 +10,7 @@ import CreateStudent from "./overview/CreateWebinar";
 import { useStudentStore } from "./store";
 import Heading from "../common/UI/heading/heading";
 import EditCategory from "./overview/EditWebinar";
+import ViewWebinar from "./overview/ViewWebinar";
 
 const UserList = () => {
   const [
@@ -22,6 +23,7 @@ const UserList = () => {
       setSearchData,
       onEdit,
       onDelete,
+      setViewVisible,
     },
   ] = useStudentStore();
   const [currentPage] = useState(1);
@@ -72,6 +74,15 @@ const UserList = () => {
       action: (
         <div className="table-actions">
           <>
+            <Button
+              onClick={() => setViewVisible({ value: true, data: student })}
+              className="btn-icon"
+              type="info"
+              to="#"
+              shape="circle"
+            >
+              <FeatherIcon icon="eye" size={16} />
+            </Button>
             <Button
               onClick={() => setEditVisible({ value: true, data: student })}
               className="btn-icon"
@@ -138,8 +149,8 @@ const UserList = () => {
           </Col>
         </Row>
         <CreateStudent />
-        <EditCategory/>
-
+        <EditCategory />
+        <ViewWebinar />
       </Main>
     </>
   );
