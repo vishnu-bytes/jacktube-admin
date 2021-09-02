@@ -5,6 +5,7 @@ const initialState = {
   visible:false,
   searchData:null,
   singleRow: {},
+  VisibleCreate: false,
 };
 
 export default initialState;

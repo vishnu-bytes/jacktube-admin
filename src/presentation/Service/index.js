@@ -11,11 +11,12 @@ import CreateStudent from "./overview/CreateService";
 import { useStudentStore } from "./store";
 import Heading from "../common/UI/heading/heading";
 import EditCategory from "./overview/EditService";
+import ViewService from "./overview/ViewService"
 
 const UserList = () => {
   const [
     { studentList, searchData },
-    {
+    {setVisibleCreate,
       setVisible,
       setEditVisible,
       getStudent,
@@ -73,6 +74,15 @@ const UserList = () => {
       action: (
         <div className="table-actions">
           <>
+          <Button
+              onClick={() => setVisible({ value: true, data: student })}
+              className="btn-icon"
+              type="info"
+              to="#"
+              shape="circle"
+            >
+              <FeatherIcon icon="eye" size={16} />
+            </Button>
             <Button
               onClick={() => setEditVisible({ value: true, data: student })}
               className="btn-icon"
@@ -121,7 +131,7 @@ const UserList = () => {
           }
           buttons={[
             <Button
-              onClick={() => setVisible(true)}
+              onClick={() => setVisibleCreate({value:true})}
               key="1"
               type="primary"
               size="default"
@@ -138,8 +148,10 @@ const UserList = () => {
             <UserListTable usersTableData={studentData} />
           </Col>
         </Row>
+        <ViewService />
         <CreateStudent />
         <EditCategory/>
+        
 
       </Main>
     </>

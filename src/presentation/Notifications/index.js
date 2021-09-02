@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Popconfirm } from "antd";
 import FeatherIcon from "feather-icons-react";
-import UserListTable from "./overview/UserTable";
+import UserListTable from "./overview/NotificationTable";
 import { PageHeader } from "../common/UI/page-headers/page-headers";
 import { AutoComplete } from "../common/UI/autoComplete/autoComplete";
 import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
-import CreateStudent from "./overview/CreateWebinar";
-import { useStudentStore } from "./store";
+import CreateStudent from "./overview/CreateNotification";
+import { useNotificationStore } from "./store";
 import Heading from "../common/UI/heading/heading";
-import EditCategory from "./overview/EditWebinar";
+import EditCategory from "./overview/EditNotification";
+import ViewNotifications from "./overview/ViewNotification"
 
 
 const UserList = () => {
   const [
     { studentList, searchData },
     {
+      setVisibleCreate,
       setVisible,
       setEditVisible,
       getStudent,
@@ -24,7 +26,7 @@ const UserList = () => {
       onEdit,
       onDelete,
     },
-  ] = useStudentStore();
+  ] = useNotificationStore();
   const [currentPage] = useState(1);
 
   useEffect(() => {
@@ -74,6 +76,15 @@ const UserList = () => {
       action: (
         <div className="table-actions">
           <>
+          <Button
+              onClick={() => setVisible({ value: true, data: student })}
+              className="btn-icon"
+              type="info"
+              to="#"
+              shape="circle"
+            >
+              <FeatherIcon icon="eye" size={16} />
+            </Button>
             <Button
               onClick={() => setEditVisible({ value: true, data: student })}
               className="btn-icon"
@@ -122,7 +133,7 @@ const UserList = () => {
           }
           buttons={[
             <Button
-              onClick={() => setVisible(true)}
+              onClick={() => setVisibleCreate({value:true})}
               key="1"
               type="primary"
               size="default"
@@ -141,6 +152,7 @@ const UserList = () => {
         </Row>
         <CreateStudent />
         <EditCategory />
+        <ViewNotifications />
       </Main>
     </>
   );
