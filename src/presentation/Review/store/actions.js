@@ -22,7 +22,8 @@ const actions = {
   setVisible:
     (params) =>
     ({ setState }) => {
-      setState({ visible: params });
+      setState({ viewVisible: params.value });
+      setState({ singleRow: params.data });
     },
   setSearchData:
     (params) =>

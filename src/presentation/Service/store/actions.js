@@ -19,10 +19,17 @@ const actions = {
         logError(error);
       }
     },
-  setVisible:
+    setVisibleCreate:
     (params) =>
     ({ setState }) => {
-      setState({ visible: params });
+      console.log("done", params);
+      setState({ VisibleCreate: params.value });
+    },
+    setVisible:
+    (params) =>
+    ({ setState }) => {
+      setState({ viewVisible: params.value });
+      setState({ singleRow: params.data });
     },
   setVisiblePrice:
     (params) =>

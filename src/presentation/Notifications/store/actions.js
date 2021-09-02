@@ -22,7 +22,14 @@ const actions = {
   setVisible:
     (params) =>
     ({ setState }) => {
-      setState({ visible: params });
+      setState({ viewVisible: params.value });
+      setState({ singleRow: params.data });
+    },
+    setVisibleCreate:
+    (params) =>
+    ({ setState }) => {
+      console.log("done", params);
+      setState({ VisibleCreate: params.value });
     },
   setSearchData:
     (params) =>

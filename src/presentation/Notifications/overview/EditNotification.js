@@ -4,7 +4,7 @@ import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import moment from "moment";
-import { useStudentStore } from "../store";
+import { useNotificationStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
 import { Col, Row, DatePicker, TimePicker,Switch } from "antd";
@@ -12,10 +12,10 @@ import { Col, Row, DatePicker, TimePicker,Switch } from "antd";
 const { Option } = Select;
 const dateFormat = "DD/MM/YYYY";
 
-const EditCategory = () => {
+const EditNotification = () => {
   const [form] = Form.useForm();
   const [{ editVisible, singleCourse }, { onEdit,onfinish, setEditVisible }] =
-    useStudentStore();
+    useNotificationStore();
 
   return (
     <Modal
@@ -86,4 +86,4 @@ const EditCategory = () => {
   );
 };
 
-export default EditCategory;
+export default EditNotification;

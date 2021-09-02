@@ -843,10 +843,20 @@ ul {
 
 .project-modal {
   padding: 5px !important;
+  
+ 
 }
 .project-modal img {
   width: 240px;
 }
+.display{
+  display: flex !important;
+}
+.display ul:first-child{
+  width:30%;
+
+}
+
 
 .project-modal .projects-members {
   margin-top: -12px;

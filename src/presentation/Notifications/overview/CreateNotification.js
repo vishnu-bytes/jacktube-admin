@@ -6,15 +6,15 @@ import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import FeatherIcon from "feather-icons-react";
-import { useStudentStore } from "../store";
+import { useNotificationStore } from "../store";
 import moment from "moment";
 
 const { Option } = Select;
 const dateFormat = "DD/MM/YYYY";
 
-function CreateStudent() {
+function CreateNotification() {
   const [form] = Form.useForm();
-  const [{ visible }, { onfinish, setVisible }] = useStudentStore();
+  const [{ VisibleCreate }, { onfinish, setVisibleCreate }] = useNotificationStore();
   const [value, setValue] = useState(1);
   const [image, setimage] = useState({});
 
@@ -22,7 +22,7 @@ function CreateStudent() {
     <Modal
       type={"primary"}
       title="Create Notification"
-      visible={visible}
+      visible={VisibleCreate}
       footer={[
         <div key="1" className="project-modal-footer">
           <Button
@@ -39,13 +39,13 @@ function CreateStudent() {
             type="white"
             key="back"
             outlined
-            onClick={() => setVisible(false)}
+            onClick={() => setVisibleCreate(false)}
           >
             Cancel
           </Button>
         </div>,
       ]}
-      onCancel={() => setVisible(false)}
+      onCancel={() => setVisibleCreate(false)}
     >
       <div className="project-modal">
         <BasicFormWrapper>
@@ -86,9 +86,9 @@ function CreateStudent() {
     </Modal>
   );
 }
-CreateStudent.propTypes = {
+CreateNotification.propTypes = {
   visible: propTypes.bool.isRequired,
   onCancel: propTypes.func.isRequired,
 };
 
-export default CreateStudent;
+export default CreateNotification;

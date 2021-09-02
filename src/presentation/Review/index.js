@@ -6,11 +6,12 @@ import { PageHeader } from "../common/UI/page-headers/page-headers";
 import { AutoComplete } from "../common/UI/autoComplete/autoComplete";
 import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
-import CreateStudent from "./overview/CreateStudent";
+// import CreateStudent from "./overview/CreateStudent";
 import { useStudentStore } from "./store";
 import Heading from "../common/UI/heading/heading";
 import EditCategory from "./overview/EditCategory";
 import { Rate } from 'antd';
+import ViewReview from "./overview/ViewReview"
 
 const UserList = () => {
   const [
@@ -83,7 +84,7 @@ const UserList = () => {
         <div className="table-actions">
           <>
           <Button
-              // onClick={() => setVisible({ value: true, data: student })}
+              onClick={() => setVisible({ value: true, data: student })}
               className="btn-icon"
               type="info"
               to="#"
@@ -147,7 +148,8 @@ const UserList = () => {
             <UserListTable usersTableData={studentData} />
           </Col>
         </Row>
-        <CreateStudent />
+        <ViewReview />
+        {/* <CreateStudent /> */}
         <EditCategory/>
 
       </Main>

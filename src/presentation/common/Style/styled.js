@@ -16,6 +16,10 @@ const Main = Styled.div`
             padding: 0px 30px 20px;
         }
     }
+    .project-modal{
+        display:flex!important;
+
+    }
     .ant-card-rtl .ant-card-extra{
                 margin-right: 0 !important;
             }

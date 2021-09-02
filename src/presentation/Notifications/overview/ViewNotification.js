@@ -4,16 +4,16 @@ import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import moment from "moment";
-import { useStudentStore } from "../store";
+import { useNotificationStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
 
 const { Option } = Select;
 
-const EditCategory = () => {
+const ViewNotification = () => {
   const [form] = Form.useForm();
   const [{ viewVisible, singleRow }, { onEdit, setVisible }] =
-    useStudentStore();
+    useNotificationStore();
   console.log(singleRow, "single course");
   return (
     <Modal
@@ -48,16 +48,22 @@ const EditCategory = () => {
       <div className="project-modal display">
        
         <ul>
-          <li>Username</li>
-          <li>Phone</li>
+          <li>Title</li>
+          <li>Description</li>
+          <li>Time</li>
+          <li>Date</li>
+        
+
         </ul>
         <ul>
           <li>{singleRow?.name}</li>
-          <li>{singleRow?.phone}</li>
+          <li>{singleRow?.phoneNumber}</li>
+          <li>{singleRow?.name}</li>
+          <li>{singleRow?.phoneNumber}</li>
         </ul>
       </div>
     </Modal>
   );
 };
 
-export default EditCategory;
+export default ViewNotification;

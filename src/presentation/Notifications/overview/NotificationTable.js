@@ -4,7 +4,7 @@ import { UserTableStyleWrapper } from "../style";
 import { TableWrapper } from "../../common/Style/styled";
 import { Cards } from "../../common/UI/cards/frame/cards-frame";
 
-const UserTable = ({usersTableData}) => {
+const NotificationTable = ({usersTableData}) => {
   const usersTableColumns = [
     {
       title: "Webinars",
@@ -59,4 +59,4 @@ const UserTable = ({usersTableData}) => {
   );
 };
 
-export default UserTable;
+export default NotificationTable;

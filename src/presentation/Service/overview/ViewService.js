@@ -7,10 +7,11 @@ import moment from "moment";
 import { useStudentStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
+import Default from "../../common/Assets/Images/default.png"
 
 const { Option } = Select;
 
-const EditCategory = () => {
+const ViewService = () => {
   const [form] = Form.useForm();
   const [{ viewVisible, singleRow }, { onEdit, setVisible }] =
     useStudentStore();
@@ -48,16 +49,16 @@ const EditCategory = () => {
       <div className="project-modal display">
        
         <ul>
-          <li>Username</li>
-          <li>Phone</li>
+          <li>Title</li>
+          <li>Image</li>
         </ul>
         <ul>
           <li>{singleRow?.name}</li>
-          <li>{singleRow?.phone}</li>
+          <li><img src={Default} /></li>
         </ul>
       </div>
     </Modal>
   );
 };
 
-export default EditCategory;
+export default ViewService;
