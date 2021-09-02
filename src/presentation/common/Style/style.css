@@ -314,7 +314,7 @@ ul {
 /* progress bars */
 
 .progress-primary .ant-progress-bg {
-  background: #40BFB4;
+  background: #40bfb4;
 }
 .progress-secondery .ant-progress-bg {
   background: #65cf9e;
@@ -398,7 +398,7 @@ ul {
 }
 
 .ant-btn-white:hover {
-  color: #40BFB4 !important;
+  color: #40bfb4 !important;
   background-color: #fff !important;
   border-color: #fff;
 }
@@ -443,8 +443,8 @@ ul {
 }
 
 .ant-btn-dashed:hover {
-  color: #40BFB4;
-  border: 1px dashed #40BFB4;
+  color: #40bfb4;
+  border: 1px dashed #40bfb4;
 }
 
 .ant-btn-primary[disabled] {
@@ -514,7 +514,7 @@ ul {
 }
 
 .ant-picker-input > input::placeholder {
-  color: #40BFB4 !important;
+  color: #40bfb4 !important;
 }
 
 /* Calendar Styles */
@@ -844,6 +844,9 @@ ul {
 .project-modal {
   padding: 5px !important;
 }
+.project-modal img {
+  width: 240px;
+}
 
 .project-modal .projects-members {
   margin-top: -12px;
@@ -862,7 +865,7 @@ ul {
   padding: 10px !important;
   text-align: left !important;
 }
-.project-modal-footer-delete{
+.project-modal-footer-delete {
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -1364,7 +1367,7 @@ ul {
 }
 
 .ant-cascader-picker input::placeholder {
-  color: #40BFB4;
+  color: #40bfb4;
 }
 
 /* Comment Styles */

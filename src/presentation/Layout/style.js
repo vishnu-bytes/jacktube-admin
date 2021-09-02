@@ -263,6 +263,13 @@ const Div = Styled.div`
     }
     
     .navbar-brand{
+        display:flex;
+        .logo_main{
+            width:126px;
+            max-width:unset;
+            object-fit:cover;
+            height:24.13px
+        }
         button{
             padding: ${({ theme }) =>
               theme.rtl ? "0 15px 0 25px" : "0 25px 0 15px"};

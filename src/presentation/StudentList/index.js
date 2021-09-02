@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Row, Col, Popconfirm } from "antd";
+import { Row, Col, Popconfirm, Switch } from "antd";
 import FeatherIcon from "feather-icons-react";
 import UserListTable from "./overview/UserTable";
 import { PageHeader } from "../common/UI/page-headers/page-headers";
@@ -52,18 +52,16 @@ const UserList = () => {
             <Heading className="user-name" as="h6">
               {student.name}
             </Heading>
-            <span className="user-designation">{student.school}</span>
+            <span className="user-designation">{student.email}</span>
           </figcaption>
         </div>
       ),
-      email: "test!@gmail.com",
-      grade: student.grade,
-      school: student.school,
-      joinDate: "January 20, 2020",
+      phone: student.phone,
+      type: student.type,
       status:
-        student.status === "1" ? (
+        student.status === 1 ? (
           <span className={`status-text active`}>{"active"}</span>
-        ) : student.status === "0" ? (
+        ) : student.status === 2 ? (
           <span className={`status-text blocked`}>{"blocked"}</span>
         ) : (
           <span className={`status-text deactivate`}>{"deactive"}</span>
@@ -71,6 +69,11 @@ const UserList = () => {
       action: (
         <div className="table-actions">
           <>
+            <Switch
+              defaultChecked={student.status === 1 ? true : false}
+              style={{ height: "unset!important" }}
+            />
+
             <Button
               onClick={() => setVisible({ value: true, data: student })}
               className="btn-icon"

@@ -12,6 +12,16 @@ const UserTable = ({ usersTableData }) => {
       key: "user",
     },
     {
+      title: "PAN Number",
+      dataIndex: "pan",
+      key: "pan",
+    },
+    {
+      title: "Image",
+      dataIndex: "img",
+      key: "img",
+    },
+    {
       title: "Actions",
       dataIndex: "action",
       key: "action",

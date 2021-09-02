@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Form, Input, Select } from "antd";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
-import moment from "moment";
 import { useStudentStore } from "../store";
 import { logError } from "../../common/Utils";
-import { onEdit } from "../../../infrastructure/faculty";
-import { Col, Row, DatePicker, TimePicker, Switch } from "antd";
-
-const { Option } = Select;
-const dateFormat = "DD/MM/YYYY";
+import { Col, Row } from "antd";
 
 const EditCategory = () => {
   const [form] = Form.useForm();
-  const [{ editVisible, singleCourse }, { onEdit, onfinish, setEditVisible }] =
+  const [{ editVisible, singleRow }, { onEdit, onfinish, setEditVisible }] =
     useStudentStore();
 
   return (
@@ -55,25 +50,40 @@ const EditCategory = () => {
             onFinish={(values) => onfinish(values)}
           >
             <Form.Item name="name">
-              <Input placeholder="Name" />
+              <Input placeholder="Name" defaultValue={singleRow?.name} />
             </Form.Item>
             <Form.Item name="email">
-              <Input placeholder="Email" />
+              <Input placeholder="Email" defaultValue={singleRow?.email} />
+            </Form.Item>
+            <Row gutter={15}>
+              <Col md={12}>
+                <Form.Item name="title">
+                  <Input
+                    placeholder="Job Title"
+                    defaultValue={singleRow?.jobTitle}
+                  />
+                </Form.Item>
+              </Col>
+              <Col md={12}>
+                <Form.Item name="phone">
+                  <Input placeholder="Phone" defaultValue={singleRow?.phone} />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Form.Item name="eligibility">
+              <Input
+                placeholder="Eligibility"
+                defaultValue={singleRow?.eligibility}
+              />
+            </Form.Item>
+            <Form.Item name="bio">
+              <Input.TextArea
+                rows={4}
+                placeholder="Bio"
+                defaultValue={singleRow?.bio}
+              />
             </Form.Item>
           </Form>
-
-          <Row gutter={15}>
-            <Col md={12}>
-              <Form.Item name="title">
-                <Input placeholder="Job Title" />
-              </Form.Item>
-            </Col>
-            <Col md={12}>
-              <Form.Item name="phone">
-                <Input placeholder="Phone" />
-              </Form.Item>
-            </Col>
-          </Row>
         </BasicFormWrapper>
       </div>
     </Modal>
