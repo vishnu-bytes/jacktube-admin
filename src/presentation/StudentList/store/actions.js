@@ -6,6 +6,7 @@ import {
 } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
+import UserData from "../../../demoData/usersData.json";
 
 const actions = {
   onSubmit:
@@ -34,6 +35,7 @@ const actions = {
   setVisibleEdit:
     (params) =>
     ({ setState }) => {
+      console.log(params.data,"data")
       setState({ viewVisibleEdit: params.value });
       setState({ singleRow: params.data });
     },
@@ -57,8 +59,10 @@ const actions = {
     async ({ setState, dispatch }) => {
       try {
         const res = await getStudentList();
-        setState({ studentList: res.results });
-        dispatch(actions.setSearchData(res.results));
+        // setState({ studentList: res.results });
+        setState({ studentList: UserData });
+        // dispatch(actions.setSearchData(res.results));
+        dispatch(actions.setSearchData(UserData));
       } catch (error) {
         logError(error);
       }

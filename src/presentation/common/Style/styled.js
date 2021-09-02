@@ -1537,7 +1537,9 @@ const TableWrapper = Styled.div`
         .table-actions{
             text-align: ${({ theme }) => (theme.rtl ? "left" : "right")};
             min-width:  150px !important;
-            button{
+            display:flex;
+            align-items:center;
+            .btn-icon{
                 height: 40px;
                 padding: 0 11px;
                 background: transparent;

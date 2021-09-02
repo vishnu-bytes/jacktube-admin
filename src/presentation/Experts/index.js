@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Popconfirm } from "antd";
+import { Row, Col, Popconfirm, Switch } from "antd";
 import FeatherIcon from "feather-icons-react";
 import UserListTable from "./overview/UserTable";
 import { PageHeader } from "../common/UI/page-headers/page-headers";
@@ -10,7 +10,7 @@ import CreateStudent from "./overview/CreateExperts";
 import { useStudentStore } from "./store";
 import Heading from "../common/UI/heading/heading";
 import EditCategory from "./overview/EditExperts";
-
+import ViewExperts from "./overview/ViewExperts";
 
 const UserList = () => {
   const [
@@ -23,6 +23,7 @@ const UserList = () => {
       setSearchData,
       onEdit,
       onDelete,
+      setViewVisible,
     },
   ] = useStudentStore();
   const [currentPage] = useState(1);
@@ -54,18 +55,16 @@ const UserList = () => {
             <Heading className="user-name" as="h6">
               {student.name}
             </Heading>
-            <span className="user-designation">{student.school}</span>
+            <span className="user-designation">{student.email}</span>
           </figcaption>
         </div>
       ),
-      email: "test!@gmail.com",
-      grade: student.grade,
-      school: student.school,
-      joinDate: "January 20, 2020",
+      pan: student.pan,
+      img: student.image,
       status:
-        student.status === "1" ? (
+        student.status === 1 ? (
           <span className={`status-text active`}>{"active"}</span>
-        ) : student.status === "0" ? (
+        ) : student.status === 2 ? (
           <span className={`status-text blocked`}>{"blocked"}</span>
         ) : (
           <span className={`status-text deactivate`}>{"deactive"}</span>
@@ -73,6 +72,20 @@ const UserList = () => {
       action: (
         <div className="table-actions">
           <>
+            <Switch
+              defaultChecked={student.status === 1 ? true : false}
+              style={{ height: "unset!important" }}
+            />
+
+            <Button
+              onClick={() => setViewVisible({ value: true, data: student })}
+              className="btn-icon"
+              type="info"
+              to="#"
+              shape="circle"
+            >
+              <FeatherIcon icon="eye" size={16} />
+            </Button>
             <Button
               onClick={() => setEditVisible({ value: true, data: student })}
               className="btn-icon"
@@ -139,8 +152,8 @@ const UserList = () => {
           </Col>
         </Row>
         <CreateStudent />
-        <EditCategory/>
-
+        <EditCategory />
+        <ViewExperts />
       </Main>
     </>
   );

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Form, Input, Select, Switch, Upload, InputNumber, Radio } from "antd";
-import { Col, Row, DatePicker, TimePicker } from "antd";
+import React from "react";
+import { Form, Input, Select } from "antd";
+import { Col, Row } from "antd";
 import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
@@ -15,8 +15,6 @@ const dateFormat = "DD/MM/YYYY";
 function CreateStudent() {
   const [form] = Form.useForm();
   const [{ visible }, { onfinish, setVisible }] = useStudentStore();
-  const [value, setValue] = useState(1);
-  const [image, setimage] = useState({});
 
   return (
     <Modal
@@ -61,20 +59,25 @@ function CreateStudent() {
             <Form.Item name="email">
               <Input placeholder="Email" />
             </Form.Item>
+            <Row gutter={15}>
+              <Col md={12}>
+                <Form.Item name="title">
+                  <Input placeholder="Job Title" />
+                </Form.Item>
+              </Col>
+              <Col md={12}>
+                <Form.Item name="phone">
+                  <Input placeholder="Phone" />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Form.Item name="eligibility">
+              <Input placeholder="Eligibility" />
+            </Form.Item>
+            <Form.Item name="bio">
+              <Input.TextArea rows={4} placeholder="Bio" />
+            </Form.Item>
           </Form>
-          
-          <Row gutter={15}>
-            <Col md={12}>
-              <Form.Item name="title">
-                <Input placeholder="Job Title" />
-              </Form.Item>
-            </Col>
-            <Col md={12}>
-              <Form.Item name="phone">
-                <Input placeholder="Phone" />
-              </Form.Item>
-            </Col>
-          </Row>
         </BasicFormWrapper>
       </div>
     </Modal>

@@ -12,7 +12,7 @@ import {
   webinar,
   review,
   service,
-  report
+  report,
 } from "../common/Assets/Icons";
 
 const MenuItems = ({ darkMode, topMenu, events }) => {
@@ -94,6 +94,16 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
         <Link to={routes.STUDENTLIST}>User</Link>
       </Menu.Item>
       <Menu.Item
+        key="blog"
+        icon={
+          <NavLink className="menuItem-icon" to={routes.EXPERTS}>
+            <img src={experts} />
+          </NavLink>
+        }
+      >
+        <Link to={routes.EXPERTS}>Experts</Link>
+      </Menu.Item>
+      <Menu.Item
         key="categories"
         icon={
           <NavLink className="menuItem-icon" to={routes.CATEGORY}>
@@ -123,16 +133,7 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
       >
         <Link to={routes.REVIEW}>Reviews</Link>
       </Menu.Item>
-      <Menu.Item
-        key="blog"
-        icon={
-          <NavLink className="menuItem-icon" to={routes.EXPERTS}>
-            <img src={experts} />
-          </NavLink>
-        }
-      >
-        <Link to={routes.EXPERTS}>Experts</Link>
-      </Menu.Item>
+
       <Menu.Item
         key="facultylist"
         icon={

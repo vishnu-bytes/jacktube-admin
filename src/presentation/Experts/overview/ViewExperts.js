@@ -12,13 +12,13 @@ const { Option } = Select;
 
 const EditCategory = () => {
   const [form] = Form.useForm();
-  const [{ viewVisible, singleRow }, { onEdit, setVisible }] =
+  const [{ viewVisible, singleRow }, { onEdit, setViewVisible }] =
     useStudentStore();
   console.log(singleRow, "single course");
   return (
     <Modal
       type="primary"
-      title="View User"
+      title="View Expert"
       visible={viewVisible}
       footer={[
         <div key="1" className="project-modal-footer-delete">
@@ -27,7 +27,7 @@ const EditCategory = () => {
             type="white"
             key="back"
             outlined
-            onClick={() => setVisible(false)}
+            onClick={() => setViewVisible(false)}
           >
             Cancel
           </Button>
@@ -43,17 +43,28 @@ const EditCategory = () => {
           </Button>
         </div>,
       ]}
-      onCancel={() => setVisible(false)}
+      onCancel={() => setViewVisible(false)}
     >
       <div className="project-modal">
-       
         <ul>
-          <li>Username</li>
-          <li>Phone</li>
+          <li>Expert Name</li>
+          <li>Phone Number</li>
+          <li>Email</li>
+          <li>Job Title</li>
+          <li>Eligibility</li>
+          <li>Bio</li>
+          <li>Pan Card</li>
         </ul>
         <ul>
           <li>{singleRow?.name}</li>
           <li>{singleRow?.phone}</li>
+          <li>{singleRow?.email}</li>
+          <li>{singleRow?.jobTitle}</li>
+          <li>{singleRow?.eligibility}</li>
+          <li>{singleRow?.bio}</li>
+          <li>
+            <img src={singleRow?.image}></img>
+          </li>
         </ul>
       </div>
     </Modal>

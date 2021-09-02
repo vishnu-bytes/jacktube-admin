@@ -59,9 +59,8 @@ function CreateStudent() {
               <Col md={12}>
                 <Form.Item name="address" initialValue="">
                   <Select style={{ width: "100%" }}>
-                    <Option value="">Presentor</Option>
-                    <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>
+                    <Option value="">Admin</Option>
+                    <Option value="1">Pregnant</Option>
                   </Select>
                 </Form.Item>
               </Col>
@@ -71,6 +70,12 @@ function CreateStudent() {
                 </Form.Item>
               </Col>
             </Row>
+            {/* <Form.Item name="address" initialValue="">
+              <Select style={{ width: "50%" }}>
+                <Option value="">Admin</Option>
+                <Option value="1">Pregnant</Option>
+              </Select>
+            </Form.Item> */}
           </Form>
         </BasicFormWrapper>
       </div>

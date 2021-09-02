@@ -8,10 +8,9 @@ import { Col, Row } from "antd";
 
 const EditCategory = () => {
   const [form] = Form.useForm();
-  const [
-    { viewVisibleEdit, singleCourse },
-    { onEdit, onfinish, setVisibleEdit },
-  ] = useStudentStore();
+  const [{ viewVisibleEdit, singleRow }, { onEdit, onfinish, setVisibleEdit }] =
+    useStudentStore();
+  const { Option } = Select;
 
   return (
     <Modal
@@ -51,20 +50,23 @@ const EditCategory = () => {
             onFinish={(values) => onfinish(values)}
           >
             <Form.Item name="name">
-              <Input placeholder="Name" />
+              <Input placeholder="Name" defaultValue={singleRow?.name} />
             </Form.Item>
             <Form.Item name="email">
-              <Input placeholder="Email" />
+              <Input placeholder="Email" defaultValue={singleRow?.email} />
             </Form.Item>
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item name="address">
-                  <Input placeholder="Address" />
+                <Form.Item name="address" initialValue="1">
+                  <Select style={{ width: "100%" }}>
+                    <Option value="1">Pregnant</Option>
+                    <Option value="2">Admin</Option>
+                  </Select>
                 </Form.Item>
               </Col>
               <Col md={12}>
                 <Form.Item name="phone">
-                  <Input placeholder="Phone" />
+                  <Input placeholder="Phone" defaultValue={singleRow?.phone} />
                 </Form.Item>
               </Col>
             </Row>

@@ -83,28 +83,33 @@ function CreateStudent() {
                 </Form.Item>
               </Col>
             </Row>
-            <Row gutter={15}>
-              <Col md={12}>
-                <Form.Item name="startDate">
-                  <DatePicker
-                    placeholder="Date"
-                    format={dateFormat}
-                    style={{ width: "100%" }}
-                  />
-                </Form.Item>
-              </Col>
-              <Col md={12}>
-                <Form.Item name="time" initialValue={moment("00:00", "HH:mm")}>
-                  <TimePicker style={{ width: "100%" }} />
-                </Form.Item>
-              </Col>
-            </Row>
+            <Form.Item>
+              <Row gutter={15}>
+                <Col md={12}>
+                  <Form.Item name="startDate">
+                    <DatePicker
+                      placeholder="Date"
+                      format={dateFormat}
+                      style={{ width: "100%" }}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col md={12}>
+                  <Form.Item
+                    name="time"
+                    initialValue={moment("00:00", "HH:mm")}
+                  >
+                    <TimePicker style={{ width: "100%" }} />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form.Item>
             <Form.Item name="presentor" initialValue="">
               <Row gutter={15} className="switch-webinar">
                 <Col md={12}>
                   <span>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
                   <Switch
-                  checked={visiblePrice}
+                    checked={visiblePrice}
                     onChange={() => setVisiblePrice(true)}
                     style={{ height: "unset!important" }}
                   />
