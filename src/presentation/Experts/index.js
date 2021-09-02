@@ -6,10 +6,11 @@ import { PageHeader } from "../common/UI/page-headers/page-headers";
 import { AutoComplete } from "../common/UI/autoComplete/autoComplete";
 import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
-import CreateStudent from "./overview/CreateWebinar";
+import CreateStudent from "./overview/CreateExperts";
 import { useStudentStore } from "./store";
 import Heading from "../common/UI/heading/heading";
-import EditCategory from "./overview/EditWebinar";
+import EditCategory from "./overview/EditExperts";
+
 
 const UserList = () => {
   const [

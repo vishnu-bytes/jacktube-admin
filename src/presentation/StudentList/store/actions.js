@@ -25,6 +25,18 @@ const actions = {
       setState({ viewVisible: params.value });
       setState({ singleRow: params.data });
     },
+  setVisibleCreate:
+    (params) =>
+    ({ setState }) => {
+      console.log("done", params);
+      setState({ VisibleCreate: params.value });
+    },
+  setVisibleEdit:
+    (params) =>
+    ({ setState }) => {
+      setState({ viewVisibleEdit: params.value });
+      setState({ singleRow: params.data });
+    },
   setSearchData:
     (params) =>
     ({ setState }) => {

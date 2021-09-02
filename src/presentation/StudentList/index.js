@@ -9,11 +9,21 @@ import { Button } from "../common/UI/buttons/buttons";
 import { useStudentStore } from "./store";
 import Heading from "../common/UI/heading/heading";
 import ViewStudent from "./overview/ViewStudent";
+import CreateUser from "./overview/CreateUser";
+import EditUser from "./overview/EditUser";
 
 const UserList = () => {
   const [
     { studentList, searchData },
-    { setVisible, getStudent, setSearchData, onEdit, onDelete },
+    {
+      setVisible,
+      getStudent,
+      setSearchData,
+      onEdit,
+      onDelete,
+      setVisibleEdit,
+      setVisibleCreate,
+    },
   ] = useStudentStore();
   useEffect(() => {
     window.scroll(0, 0);
@@ -70,6 +80,15 @@ const UserList = () => {
             >
               <FeatherIcon icon="eye" size={16} />
             </Button>
+            <Button
+              onClick={() => setVisibleEdit({ value: true, data: student })}
+              className="btn-icon"
+              type="info"
+              to="#"
+              shape="circle"
+            >
+              <FeatherIcon icon="edit" size={16} />
+            </Button>
             <Popconfirm
               title="Are you sure to delete this user?"
               onConfirm={() => {
@@ -107,6 +126,16 @@ const UserList = () => {
               />
             </>
           }
+          buttons={[
+            <Button
+              onClick={() => setVisibleCreate({ value: true })}
+              key="1"
+              type="primary"
+              size="default"
+            >
+              <FeatherIcon icon="plus" size={16} /> Add New User
+            </Button>,
+          ]}
         />
       </CardToolbox>
 
@@ -116,7 +145,9 @@ const UserList = () => {
             <UserListTable usersTableData={studentData} />
           </Col>
         </Row>
-        <ViewStudent/>
+        <ViewStudent />
+        <CreateUser />
+        <EditUser />
       </Main>
     </>
   );

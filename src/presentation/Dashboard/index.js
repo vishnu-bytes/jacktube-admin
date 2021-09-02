@@ -22,8 +22,8 @@ const Business = () => {
         >
           <CardGroup />
         </Suspense>
-        <Row gutter={[60, 60]}>
-          <Col xxl={16}>
+        <Row gutter={40}>
+          <Col span={18}>
             <Suspense
               fallback={
                 <Cards headless>
@@ -34,7 +34,7 @@ const Business = () => {
               <AccountGroup />
             </Suspense>
           </Col>
-          <Col xxl={8}>
+          <Col span={6}>
             <Suspense
               fallback={
                 <Cards headless>
