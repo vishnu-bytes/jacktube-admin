@@ -843,20 +843,16 @@ ul {
 
 .project-modal {
   padding: 5px !important;
-  
- 
 }
 .project-modal img {
   width: 240px;
 }
-.display{
+.display {
   display: flex !important;
 }
-.display ul:first-child{
-  width:30%;
-
+.display ul:first-child {
+  width: 30%;
 }
-
 
 .project-modal .projects-members {
   margin-top: -12px;
@@ -1544,7 +1540,7 @@ html[dir="rtl"] .sDash_upload-basic .sDash_upload-browse {
   box-shadow: 0 5px 20px #9299b820;
   background: #fff;
   border-radius: 6px;
-  padding: 15px 0 !important;
+  /* padding: 15px 0 !important; */
   border: 0 none;
 }
 
@@ -2847,10 +2843,39 @@ html[dir="rtl"] .ant-menu-vertical .ant-menu-submenu-title {
   padding-left: 10px;
 }
 
-.display {
-  display: none;
-}
-
 li.active > .display {
   display: block;
+}
+.profileBody {
+  padding: 24px 31px 18px;
+}
+.profileBody .top {
+  display: flex;
+  align-items: center;
+}
+.profileBody .top .left {
+  margin-right: 10px;
+}
+.profileBody .ant-avatar-image {
+  height: 80px;
+  width: 80px;
+}
+.profileBody .bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profileBody .top .name {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  color: #000000;
+}
+.profileBody .top .email{
+  font-size: 14px;
+line-height: 19px;
+color: #ADB4D2;
+}
+.profileBody p{
+  margin-bottom: 0 !important;
 }

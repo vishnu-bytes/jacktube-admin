@@ -1,5 +1,37 @@
 import Styled from 'styled-components';
 
+const ModalContent = Styled.div`
+.display {
+  display: none;
+  .varHeight {
+    .label{
+      margin-bottom:14px;
+      font-size: 14px;
+      line-height: 19px;
+      color: #9299B8;
+    }
+    .value{
+      font-size: 14px;
+      line-height: 19px;
+      color: #535768;
+      margin-bottom:14px;
+    }
+    li:first-child{
+      height:95px;
+      img{
+        display: block;
+        width: 89px;
+        height: 89px;
+        border-radius: 50%;
+      }
+    
+  }
+}
+}
+
+
+`
+
 const PricingCard = Styled.div`
   background: #fff;
   border-radius: 10px;
@@ -2239,6 +2271,7 @@ const SupportContentWrap = Styled.div`
 `;
 
 export {
+  ModalContent,
   TestimonialWrapper,
   PricingCard,
   ListGroup,

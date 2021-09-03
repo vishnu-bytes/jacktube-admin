@@ -44,21 +44,16 @@ const UserList = () => {
       key: index,
       user: (
         <div className="user-info">
-          <figure>
-            <img
-              style={{ width: "50px", height: "50px", "border-radius": "50%" }}
-              src="https://picsum.photos/id/237/200/300"
-              alt="Faculty"
-            />
-          </figure>
+         
           <figcaption>
             <Heading className="user-name" as="h6">
-              {student.name}
+              {student.title}
             </Heading>
             <span className="user-designation">{student.school}</span>
           </figcaption>
         </div>
       ),
+     
       email: "test!@gmail.com",
       grade: student.grade,
       school: student.school,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Select } from "antd";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
-import { BasicFormWrapper } from "../../common/Style/styled";
+import { ModalContent } from "../style";
 import moment from "moment";
 import { useStudentStore } from "../store";
 import { logError } from "../../common/Utils";
@@ -45,17 +45,31 @@ const EditCategory = () => {
       ]}
       onCancel={() => setVisible(false)}
     >
+      <ModalContent>
+
       <div className="project-modal display">
        
-        <ul>
-          <li>Username</li>
-          <li>Phone</li>
+        <ul className="varHeight">
+          <li className="label">Image</li>
+          <li className="label">Phone Number</li>
+          <li className="label">User Name</li>
+          <li className="label">Email</li>
+          <li className="label">Pregnant/Mother</li>
+          <li className="label">Due Date</li>
         </ul>
-        <ul>
-          <li>{singleRow?.name}</li>
-          <li>{singleRow?.phone}</li>
+        <ul className="varHeight">
+          <li className="value"><img src={singleRow?.cover}/></li>
+          <li className="value">{singleRow?.phone}</li>
+          <li className="value">{singleRow?.name}</li>
+          <li className="value">{singleRow?.email}</li>
+          <li className="value">{singleRow?.type===1?"Pregnant":"Mother"}</li>
+          <li className="value">{singleRow?.due_date}</li>
+        
+
         </ul>
       </div>
+      </ModalContent>
+
     </Modal>
   );
 };

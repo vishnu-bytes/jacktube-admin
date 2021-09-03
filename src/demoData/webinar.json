@@ -1,7 +1,8 @@
 [
   {
     "id": 1,
-    "persecutor": "Jerin",
+    "title":"title 1",
+    "presenter": "Jerin",
     "email": "Jerin@gmail.com",
     "date": "12/10/2021",
     "time": "13:30",
@@ -13,7 +14,8 @@
   },
   {
     "id": 2,
-    "persecutor": "Vishnu UR",
+    "title":"title 2",
+    "presenter": "Vishnu UR",
     "email": "Vishnu@gmail.com",
     "date": "12/10/2021",
     "time": "13:30",
@@ -25,7 +27,8 @@
   },
   {
     "id": 3,
-    "persecutor": "Sreeraj",
+    "title":"title 3",
+    "presenter": "Sreeraj",
     "email": "Sreeraj@gmail.com",
     "date": "12/10/2021",
     "time": "13:30",
@@ -37,7 +40,8 @@
   },
   {
     "id": 4,
-    "persecutor": "Bhavya",
+    "title":"title 4",
+    "presenter": "Bhavya",
     "email": "Bhavya@gmail.com",
     "date": "12/10/2021",
     "time": "13:30",
@@ -49,7 +53,9 @@
   },
   {
     "id": 5,
-    "persecutor": "Blessy",
+    "title":"title 5",
+
+    "presenter": "Blessy",
     "email": "Blessy@gmail.com",
     "date": "12/10/2021",
     "time": "13:30",
@@ -61,7 +67,9 @@
   },
   {
     "id": 6,
-    "persecutor": "Vishnu P",
+    "title":"title 6",
+
+    "presenter": "Vishnu P",
     "email": "testuser@gmail.com",
     "date": "12/10/2021",
     "time": "13:30",
@@ -73,7 +81,9 @@
   },
   {
     "id": 7,
-    "persecutor": "Nidhi",
+    "title":"title 8",
+
+    "presenter": "Nidhi",
     "email": "Nidhi@gmail.com",
     "date": "12/10/2021",
     "time": "13:30",
@@ -85,7 +95,9 @@
   },
   {
     "id": 8,
-    "persecutor": "Sajad",
+    "title":"title 8",
+
+    "presenter": "Sajad",
     "email": "testuser@gmail.com",
     "date": "12/10/2021",
     "time": "13:30",
