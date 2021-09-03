@@ -45,7 +45,7 @@ const EditCategory = () => {
       ]}
       onCancel={() => setViewVisible(false)}
     >
-      <div className="project-modal">
+      <div className="project-modal display">
         <ul>
           <li>Expert Name</li>
           <li>Phone Number</li>

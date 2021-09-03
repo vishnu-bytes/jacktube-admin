@@ -57,10 +57,12 @@ function CreateStudent() {
             </Form.Item>
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item name="address" initialValue="">
+                <Form.Item name="address" initialValue="1">
                   <Select style={{ width: "100%" }}>
-                    <Option value="">Admin</Option>
-                    <Option value="1">Pregnant</Option>
+                    <Option value="1">Mother</Option>
+                    <Option value="2">Pregnant</Option>
+                    <Option value="3">Admin</Option>
+
                   </Select>
                 </Form.Item>
               </Col>

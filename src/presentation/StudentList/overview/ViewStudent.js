@@ -48,7 +48,9 @@ const EditCategory = () => {
       <ModalContent>
 
       <div className="project-modal display">
-       
+       <ul>
+         
+       </ul>
         <ul className="varHeight">
           <li className="label">Image</li>
           <li className="label">Phone Number</li>
