@@ -9,6 +9,7 @@ import { leftIcon, rightIcon } from "../common/Assets/Icons";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../common/Theme/themeVariables";
 import { routes } from "../common/Routes";
+import Profile from "./Profile"
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -88,6 +89,8 @@ export default class LayoutProvider extends Component {
         <Layout className="layout">
           <Header
             style={{
+              alignItems:"center",
+              justifyContent:"space-between",
               position: "fixed",
               display: "flex",
               width: "100%",
@@ -124,6 +127,7 @@ export default class LayoutProvider extends Component {
                   <div className="mobile-action">
                     <Link className="btn-auth" onClick={onShowHide} to="#">
                       <FeatherIcon icon="more-vertical" />
+             
                     </Link>
                   </div>
                 </>
@@ -131,7 +135,9 @@ export default class LayoutProvider extends Component {
               <Col style={{ position: "fixed", right: "20px" }}>
                 {/* </Row> */}
               </Col>
+             
             </Row>
+            <Profile/>
           </Header>
           <Layout>
             {!topMenu || window.innerWidth <= 991 ? (

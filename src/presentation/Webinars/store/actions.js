@@ -6,6 +6,8 @@ import {
 } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
+import WebinarData from "../../../demoData/webinar.json";
+
 
 const actions = {
   onSubmit:
@@ -53,9 +55,9 @@ const actions = {
     () =>
     async ({ setState, dispatch }) => {
       try {
-        const res = await getStudentList();
-        setState({ studentList: res.results });
-        dispatch(actions.setSearchData(res.results));
+        // const res = await getStudentList();
+        setState({ studentList:  WebinarData});
+        dispatch(actions.setSearchData(WebinarData));
       } catch (error) {
         logError(error);
       }

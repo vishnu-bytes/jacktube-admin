@@ -46,12 +46,26 @@ const ViewWebinar = () => {
     >
       <div className="project-modal display">
         <ul>
-          <li>Username</li>
-          <li>Phone</li>
+          <li>Title</li>
+          <li>Desccription</li>
+          <li>Category</li>
+          <li>Persecutor</li>
+          <li>Date</li>
+          <li>Time</li>
+          <li>Premium webinar</li>
+          <li>Price</li>
+          <li>Image</li>
         </ul>
         <ul>
           <li>{singleRow?.name}</li>
           <li>{singleRow?.phone}</li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li><img src=""/></li>
         </ul>
       </div>
     </Modal>
