@@ -2,9 +2,12 @@ import Styled from 'styled-components';
 
 const ModalContent = Styled.div`
 .display {
-  display: none;
-  .varHeight {
-    .label{
+  .rowContainer{
+    display:flex;
+  }
+  .label{
+   display:inline-block;
+      width:150px;
       margin-bottom:14px;
       font-size: 14px;
       line-height: 19px;
@@ -16,17 +19,15 @@ const ModalContent = Styled.div`
       color: #535768;
       margin-bottom:14px;
     }
-    li:first-child{
-      height:95px;
       img{
-        display: block;
+        display: inline-block;
         width: 89px;
         height: 89px;
         border-radius: 50%;
       }
     
-  }
-}
+  
+
 }
 
 

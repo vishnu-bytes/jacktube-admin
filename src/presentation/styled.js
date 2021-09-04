@@ -1476,14 +1476,14 @@ const TableWrapper = Styled.div`
                         min-width: 165px;
                     }
                     .table-actions{
-                        min-width: 60px;
+                        min-width: 60px !important;
                     }
                 }
             }
         }
         .table-actions{
             text-align: ${({ theme }) => (theme.rtl ? 'left' : 'right')};
-            min-width: 150px !important;
+            min-width: 60px !important;
             button{
                 height: 40px;
                 padding: 0 11px;

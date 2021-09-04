@@ -47,7 +47,7 @@ const UserList = () => {
             <Heading className="user-name" as="h6">
               {student.name}
             </Heading>
-            <span className="user-designation">{student.school}</span>
+           
           </figcaption>
         </div>
       ),

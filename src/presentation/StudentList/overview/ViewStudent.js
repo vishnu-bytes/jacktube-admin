@@ -7,6 +7,7 @@ import moment from "moment";
 import { useStudentStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
+import ViewCards from "../../common/ViewCards"
 
 const { Option } = Select;
 
@@ -46,32 +47,15 @@ const EditCategory = () => {
       onCancel={() => setVisible(false)}
     >
       <ModalContent>
-
-      <div className="project-modal display">
-       <ul>
-         
-       </ul>
-        <ul className="varHeight">
-          <li className="label">Image</li>
-          <li className="label">Phone Number</li>
-          <li className="label">User Name</li>
-          <li className="label">Email</li>
-          <li className="label">Pregnant/Mother</li>
-          <li className="label">Due Date</li>
-        </ul>
-        <ul className="varHeight">
-          <li className="value"><img src={singleRow?.cover}/></li>
-          <li className="value">{singleRow?.phone}</li>
-          <li className="value">{singleRow?.name}</li>
-          <li className="value">{singleRow?.email}</li>
-          <li className="value">{singleRow?.type===1?"Pregnant":"Mother"}</li>
-          <li className="value">{singleRow?.due_date}</li>
-        
-
-        </ul>
-      </div>
+        <div className="project-modal display">
+          <ViewCards label="Image" value={<img className="avatar" src={singleRow?.cover} />} />
+          <ViewCards label="Phone Number" value={singleRow?.phone} />
+          <ViewCards label="User Name" value={singleRow?.name} />
+          <ViewCards label="Email" value={singleRow?.email} />
+          <ViewCards label="Pregnant/Mother" value={singleRow?.type === 1 ? "Pregnant" : "Mother"} />
+          <ViewCards label="Due Date" value={singleRow?.due_date} />
+        </div>
       </ModalContent>
-
     </Modal>
   );
 };

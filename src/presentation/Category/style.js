@@ -236,6 +236,7 @@ const UserTableStyleWrapper = Styled.nav`
         }
       }
       .table-actions{
+      
         button{
           width: auto;
           height: auto;

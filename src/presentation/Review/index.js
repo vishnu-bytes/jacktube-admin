@@ -7,9 +7,8 @@ import { AutoComplete } from "../common/UI/autoComplete/autoComplete";
 import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
 // import CreateStudent from "./overview/CreateStudent";
-import { useStudentStore } from "./store";
+import { useReviewStore } from "./store";
 import Heading from "../common/UI/heading/heading";
-import EditCategory from "./overview/EditCategory";
 import { Rate } from 'antd';
 import ViewReview from "./overview/ViewReview"
 
@@ -25,7 +24,7 @@ const UserList = () => {
       onEdit,
       onDelete,
     },
-  ] = useStudentStore();
+  ] = useReviewStore();
   const [currentPage] = useState(1);
 
   useEffect(() => {
@@ -143,8 +142,6 @@ const UserList = () => {
           </Col>
         </Row>
         <ViewReview />
-        {/* <CreateStudent /> */}
-        <EditCategory/>
 
       </Main>
     </>

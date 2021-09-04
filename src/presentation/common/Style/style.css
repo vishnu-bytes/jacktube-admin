@@ -847,12 +847,7 @@ ul {
 .project-modal img {
   width: 240px;
 }
-.display {
-  display: flex !important;
-}
-.display ul:first-child {
-  width: 30%;
-}
+
 
 .project-modal .projects-members {
   margin-top: -12px;
@@ -2781,9 +2776,7 @@ html[dir="rtl"]
   padding-left: 10px;
 }
 
-.display {
-  display: none;
-}
+
 
 li.active > .display {
   display: block;
@@ -2843,9 +2836,9 @@ html[dir="rtl"] .ant-menu-vertical .ant-menu-submenu-title {
   padding-left: 10px;
 }
 
-.display {
+/* .display {
   display: flex;
-}
+} */
 .display ul:first-child {
   width: 30%;
 }

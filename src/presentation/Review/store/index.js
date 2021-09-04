@@ -8,6 +8,6 @@ const StudentStore = createStore({
   actions,
 });
 
-export const useStudentStore = createHook(StudentStore, {
+export const useReviewStore = createHook(StudentStore, {
   selector: (state) => state,
 });

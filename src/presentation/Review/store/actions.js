@@ -22,6 +22,7 @@ const actions = {
   setVisible:
     (params) =>
     ({ setState }) => {
+      console.log("visibe check",params.value)
       setState({ viewVisible: params.value });
       setState({ singleRow: params.data });
     },

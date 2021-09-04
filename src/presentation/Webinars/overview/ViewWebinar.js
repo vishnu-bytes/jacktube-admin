@@ -7,6 +7,7 @@ import moment from "moment";
 import { useStudentStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
+import ViewCards from "../../common/ViewCards"
 
 const { Option } = Select;
 
@@ -45,28 +46,14 @@ const ViewWebinar = () => {
       onCancel={() => setViewVisible(false)}
     >
       <div className="project-modal display">
-        <ul>
-          <li>Title</li>
-          <li>Desccription</li>
-          <li>Category</li>
-          <li>Persecutor</li>
-          <li>Date</li>
-          <li>Time</li>
-          <li>Premium webinar</li>
-          <li>Price</li>
-          <li>Image</li>
-        </ul>
-        <ul>
-          <li>{singleRow?.name}</li>
-          <li>{singleRow?.phone}</li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li><img src=""/></li>
-        </ul>
+        <ViewCards label="Title" value={singleRow?.title} />
+        <ViewCards label="Desccription" value={singleRow?.desc} />
+        <ViewCards label="Category" value={singleRow?.category} />
+        <ViewCards label="Presenter" value={singleRow?.presenter} />
+        <ViewCards label="Date" value={singleRow?.date} />
+        <ViewCards label="Time" value={singleRow?.time} />
+        <ViewCards label="Premium webinar" value={singleRow?.premium === 1 ? "Yes" : "No"} />
+        <ViewCards label="Image" value={<img src={singleRow?.image} />} />
       </div>
     </Modal>
   );
