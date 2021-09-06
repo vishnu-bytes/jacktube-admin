@@ -4,7 +4,7 @@ import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { ModalContent } from "../style";
 import moment from "moment";
-import { useStudentStore } from "../store";
+import { useUserStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
 import ViewCards from "../../common/ViewCards"
@@ -14,7 +14,7 @@ const { Option } = Select;
 const EditCategory = () => {
   const [form] = Form.useForm();
   const [{ viewVisible, singleRow }, { onEdit, setVisible }] =
-    useStudentStore();
+    useUserStore();
   console.log(singleRow, "single course");
   return (
     <Modal
@@ -48,12 +48,12 @@ const EditCategory = () => {
     >
       <ModalContent>
         <div className="project-modal display">
-          <ViewCards label="Image" value={<img className="avatar" src={singleRow?.cover} />} />
-          <ViewCards label="Phone Number" value={singleRow?.phone} />
+          {/* <ViewCards label="Image" value={<img className="avatar" src={singleRow?.cover} />} /> */}
           <ViewCards label="User Name" value={singleRow?.name} />
+          <ViewCards label="Phone Number" value={singleRow?.phone} />
           <ViewCards label="Email" value={singleRow?.email} />
           <ViewCards label="Pregnant/Mother" value={singleRow?.type === 1 ? "Pregnant" : "Mother"} />
-          <ViewCards label="Due Date" value={singleRow?.due_date} />
+          <ViewCards label="Due Date" value={singleRow?.Date} />
         </div>
       </ModalContent>
     </Modal>

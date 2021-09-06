@@ -8,8 +8,8 @@ import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
 import { useStudentStore } from "./store";
 import Heading from "../common/UI/heading/heading";
-import ViewStudent from "./overview/ViewStudent";
-import CreateUser from "./overview/CreateUser";
+import ViewStudent from "./overview/ViewUser";
+import CreateUser from "./overview/CreateAdmin";
 import EditUser from "./overview/EditUser";
 
 const UserList = () => {
@@ -41,13 +41,13 @@ const UserList = () => {
       key: index,
       user: (
         <div className="user-info">
-          <figure>
+          {/* <figure>
             <img
               style={{ width: "50px", height: "50px", "border-radius": "50%" }}
               src="https://picsum.photos/id/237/200/300"
               alt="Faculty"
             />
-          </figure>
+          </figure> */}
           <figcaption>
             <Heading className="user-name" as="h6">
               {student.name}
@@ -83,7 +83,7 @@ const UserList = () => {
             >
               <FeatherIcon icon="eye" size={16} />
             </Button>
-            <Button
+            {/* <Button
               onClick={() => setVisibleEdit({ value: true, data: student })}
               className="btn-icon"
               type="info"
@@ -91,7 +91,7 @@ const UserList = () => {
               shape="circle"
             >
               <FeatherIcon icon="edit" size={16} />
-            </Button>
+            </Button> */}
             <Popconfirm
               title="Are you sure to delete this user?"
               onConfirm={() => {
@@ -129,16 +129,16 @@ const UserList = () => {
               />
             </>
           }
-          buttons={[
-            <Button
-              onClick={() => setVisibleCreate({ value: true })}
-              key="1"
-              type="primary"
-              size="default"
-            >
-              <FeatherIcon icon="plus" size={16} /> Add New User
-            </Button>,
-          ]}
+          // buttons={[
+          //   <Button
+          //     onClick={() => setVisibleCreate({ value: true })}
+          //     key="1"
+          //     type="primary"
+          //     size="default"
+          //   >
+          //     <FeatherIcon icon="plus" size={16} /> Add New User
+          //   </Button>,
+          // ]}
         />
       </CardToolbox>
 

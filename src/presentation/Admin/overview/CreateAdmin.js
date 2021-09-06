@@ -7,7 +7,7 @@ import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import { useStudentStore } from "../store";
 
-function CreateStudent() {
+function CreateAdmin() {
   const [form] = Form.useForm();
   const [{ VisibleCreate }, { onfinish, setVisibleCreate }] = useStudentStore();
   const { Option } = Select;
@@ -84,9 +84,9 @@ function CreateStudent() {
     </Modal>
   );
 }
-CreateStudent.propTypes = {
+CreateAdmin.propTypes = {
   visible: propTypes.bool.isRequired,
   onCancel: propTypes.func.isRequired,
 };
 
-export default CreateStudent;
+export default CreateAdmin;

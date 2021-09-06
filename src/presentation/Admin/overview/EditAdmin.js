@@ -6,7 +6,7 @@ import { BasicFormWrapper } from "../../common/Style/styled";
 import { useStudentStore } from "../store";
 import { Col, Row } from "antd";
 
-const EditCategory = () => {
+const EditAdmin = () => {
   const [form] = Form.useForm();
   const [{ viewVisibleEdit, singleRow }, { onEdit, onfinish, setVisibleEdit }] =
     useStudentStore();
@@ -77,4 +77,4 @@ const EditCategory = () => {
   );
 };
 
-export default EditCategory;
+export default EditAdmin;

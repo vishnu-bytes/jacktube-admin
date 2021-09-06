@@ -15,7 +15,7 @@ import LayoutProvider from "./presentation/Layout";
 const Login = React.lazy(() => import("./presentation/Login"));
 const Signup = React.lazy(() => import("./presentation/Signup"));
 const Dashboard = React.lazy(() => import("./presentation/Dashboard"));
-const StudentList = React.lazy(() => import("./presentation/StudentList"));
+const StudentList = React.lazy(() => import("./presentation/UserList"));
 const Calendar = React.lazy(() => import("./presentation/Calendar"));
 const Notification = React.lazy(() => import("./presentation/Notifications"));
 const Course = React.lazy(() => import("./presentation/Project"));

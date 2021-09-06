@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Select } from "antd";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
-import { BasicFormWrapper } from "../../common/Style/styled";
+import { ModalContent } from "../style";
 import moment from "moment";
 import { useStudentStore } from "../store";
 import { logError } from "../../common/Utils";
@@ -13,13 +13,13 @@ const { Option } = Select;
 
 const EditCategory = () => {
   const [form] = Form.useForm();
-  const [{ viewVisible, singleRow }, { onEdit, setViewVisible }] =
+  const [{ viewVisible, singleRow }, { onEdit, setVisible }] =
     useStudentStore();
   console.log(singleRow, "single course");
   return (
     <Modal
       type="primary"
-      title="View Expert"
+      title="View User"
       visible={viewVisible}
       footer={[
         <div key="1" className="project-modal-footer-delete">
@@ -28,7 +28,7 @@ const EditCategory = () => {
             type="white"
             key="back"
             outlined
-            onClick={() => setViewVisible(false)}
+            onClick={() => setVisible(false)}
           >
             Cancel
           </Button>
@@ -44,18 +44,18 @@ const EditCategory = () => {
           </Button>
         </div>,
       ]}
-      onCancel={() => setViewVisible(false)}
+      onCancel={() => setVisible(false)}
     >
-      <div className="project-modal display">
-      <ViewCards label="Image" value={ <img className="avatar" src={singleRow?.image}></img>}/>
-      <ViewCards label="Expert Name" value={singleRow?.name}/>
-      <ViewCards label="Phone Number" value={singleRow?.name}/>
-      <ViewCards label="Email" value={singleRow?.name}/>
-      <ViewCards label="Job Title" value={singleRow?.name}/>
-      <ViewCards label="Eligibility" value={singleRow?.name}/>
-      <ViewCards label="Bio" value={singleRow?.name}/>
-      <ViewCards label="Pan Card" value={ <img src={singleRow?.image}></img>}/>
-      </div>
+      <ModalContent>
+        <div className="project-modal display">
+          {/* <ViewCards label="Image" value={<img className="avatar" src={singleRow?.cover} />} /> */}
+          <ViewCards label="User Name" value={singleRow?.name} />
+          <ViewCards label="Phone Number" value={singleRow?.phone} />
+          <ViewCards label="Email" value={singleRow?.email} />
+          <ViewCards label="Pregnant/Mother" value={singleRow?.type === 1 ? "Pregnant" : "Mother"} />
+          <ViewCards label="Due Date" value={singleRow?.due_date} />
+        </div>
+      </ModalContent>
     </Modal>
   );
 };
