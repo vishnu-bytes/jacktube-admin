@@ -6,6 +6,8 @@ import {
 } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
+import UserData from "../../../demoData/usersData.json";
+import firebase from "../../../config/api/firebase"
 
 const actions = {
   onSubmit:
@@ -22,8 +24,20 @@ const actions = {
   setVisible:
     (params) =>
     ({ setState }) => {
-      console.log("visibe check",params.value)
       setState({ viewVisible: params.value });
+      setState({ singleRow: params.data });
+    },
+  setVisibleCreate:
+    (params) =>
+    ({ setState }) => {
+      console.log("done", params);
+      setState({ VisibleCreate: params.value });
+    },
+  setVisibleEdit:
+    (params) =>
+    ({ setState }) => {
+      console.log(params.data,"data")
+      setState({ viewVisibleEdit: params.value });
       setState({ singleRow: params.data });
     },
   setSearchData:
@@ -41,22 +55,20 @@ const actions = {
       }
       dispatch(actions.onSubmit(form_data));
     },
-  getStudent:
+    getStudent:
     () =>
     async ({ setState, dispatch }) => {
       try {
-        const res = await getStudentList();
-        setState({ studentList: res.results });
-        dispatch(actions.setSearchData(res.results));
+        firebase.database().ref(`/users`).on('value', snapshot => {
+          let responselist = Object.values(snapshot.val())
+          console.log(responselist,"firabse")
+          setState({ studentList: responselist });
+          dispatch(actions.setSearchData(responselist));
+        });
+       
       } catch (error) {
         logError(error);
       }
-    },
-  setEditVisible:
-    (params) =>
-    ({ setState }) => {
-      setState({ editVisible: params.value });
-      setState({ singleRow: params.data });
     },
   onEdit:
     (params) =>
@@ -71,17 +83,6 @@ const actions = {
         await onDelete(params);
         message.success("Succesfully Deleted");
         dispatch(actions.getStudent());
-      } catch (error) {
-        logError(error);
-      }
-    },
-  getCourse:
-    (page) =>
-    async ({ setState }) => {
-      try {
-        const res = await getStudentList(page);
-        setState({ course: res });
-        setState({ pageNumber: page });
       } catch (error) {
         logError(error);
       }

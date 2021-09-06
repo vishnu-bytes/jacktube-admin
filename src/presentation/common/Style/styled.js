@@ -1533,7 +1533,7 @@ const TableWrapper = Styled.div`
                         min-width: 165px;
                     }
                     .table-actions{
-                        min-width: 60px;
+                        min-width: 60px !important;
                     }
                 }
             }

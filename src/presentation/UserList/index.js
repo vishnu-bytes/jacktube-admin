@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Row, Col, Popconfirm, Switch } from "antd";
 import FeatherIcon from "feather-icons-react";
 import UserListTable from "./overview/UserTable";
@@ -6,32 +6,29 @@ import { PageHeader } from "../common/UI/page-headers/page-headers";
 import { AutoComplete } from "../common/UI/autoComplete/autoComplete";
 import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
-import CreateStudent from "./overview/CreateExperts";
-import { useStudentStore } from "./store";
+import { useUserStore } from "./store";
 import Heading from "../common/UI/heading/heading";
-import EditCategory from "./overview/EditExperts";
-import ViewExperts from "./overview/ViewExperts";
+import ViewStudent from "./overview/ViewUser";
+import CreateUser from "./overview/CreateUser";
+import EditUser from "./overview/EditUser";
 
 const UserList = () => {
   const [
     { studentList, searchData },
     {
       setVisible,
-      setEditVisible,
       getStudent,
-      getCourse,
       setSearchData,
       onEdit,
       onDelete,
-      setViewVisible,
+      setVisibleEdit,
+      setVisibleCreate,
     },
-  ] = useStudentStore();
-  const [currentPage] = useState(1);
-
+  ] = useUserStore();
   useEffect(() => {
     window.scroll(0, 0);
     getStudent();
-  }, [currentPage]);
+  }, []);
   const handleSearch = (searchText) => {
     const data = studentList?.filter((value) =>
       value.name.toUpperCase().startsWith(searchText.toUpperCase())
@@ -44,13 +41,13 @@ const UserList = () => {
       key: index,
       user: (
         <div className="user-info">
-          <figure>
+          {/* <figure>
             <img
               style={{ width: "50px", height: "50px", "border-radius": "50%" }}
               src="https://picsum.photos/id/237/200/300"
               alt="Faculty"
             />
-          </figure>
+          </figure> */}
           <figcaption>
             <Heading className="user-name" as="h6">
               {student.name}
@@ -59,8 +56,8 @@ const UserList = () => {
           </figcaption>
         </div>
       ),
-      pan: student.pan,
-      img: <a target="_blank" href={student.image}>{student.image.substring(0,40)+"..."}</a>,
+      phone: student.phone,
+      type: student.type,
       status:
         student.status === 1 ? (
           <span className={`status-text active`}>{"active"}</span>
@@ -78,7 +75,7 @@ const UserList = () => {
             />
 
             <Button
-              onClick={() => setViewVisible({ value: true, data: student })}
+              onClick={() => setVisible({ value: true, data: student })}
               className="btn-icon"
               type="info"
               to="#"
@@ -86,17 +83,17 @@ const UserList = () => {
             >
               <FeatherIcon icon="eye" size={16} />
             </Button>
-            <Button
-              onClick={() => setEditVisible({ value: true, data: student })}
+            {/* <Button
+              onClick={() => setVisibleEdit({ value: true, data: student })}
               className="btn-icon"
               type="info"
               to="#"
               shape="circle"
             >
               <FeatherIcon icon="edit" size={16} />
-            </Button>
+            </Button> */}
             <Popconfirm
-              title="Are you sure to delete this expert?"
+              title="Are you sure to delete this user?"
               onConfirm={() => {
                 onDelete({ id: student?._id });
               }}
@@ -118,11 +115,11 @@ const UserList = () => {
       <CardToolbox>
         <PageHeader
           ghost
-          title="Experts Management"
+          title="User Management"
           subTitle={
             <>
               <span className="title-counter">
-                {studentList?.length} Webinars{" "}
+                {studentList?.length} Users{" "}
               </span>
               <AutoComplete
                 onSearch={handleSearch}
@@ -132,16 +129,16 @@ const UserList = () => {
               />
             </>
           }
-          buttons={[
-            <Button
-              onClick={() => setVisible(true)}
-              key="1"
-              type="primary"
-              size="default"
-            >
-              <FeatherIcon icon="plus" size={16} /> New Expert
-            </Button>,
-          ]}
+          // buttons={[
+          //   <Button
+          //     onClick={() => setVisibleCreate({ value: true })}
+          //     key="1"
+          //     type="primary"
+          //     size="default"
+          //   >
+          //     <FeatherIcon icon="plus" size={16} /> Add New User
+          //   </Button>,
+          // ]}
         />
       </CardToolbox>
 
@@ -151,9 +148,9 @@ const UserList = () => {
             <UserListTable usersTableData={studentData} />
           </Col>
         </Row>
-        <CreateStudent />
-        <EditCategory />
-        <ViewExperts />
+        <ViewStudent />
+        <CreateUser />
+        <EditUser />
       </Main>
     </>
   );

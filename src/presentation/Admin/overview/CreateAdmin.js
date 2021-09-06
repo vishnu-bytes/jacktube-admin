@@ -1,45 +1,45 @@
-import React, { useState, useEffect } from "react";
-import { Form, Input, Select } from "antd";
+import React from "react";
+import { Form, Input } from "antd";
+import { Col, Row, Select } from "antd";
+import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import { useStudentStore } from "../store";
-import { Col, Row } from "antd";
 
-const EditCategory = () => {
+function CreateAdmin() {
   const [form] = Form.useForm();
-  const [{ viewVisibleEdit, singleRow }, { onEdit, onfinish, setVisibleEdit }] =
-    useStudentStore();
+  const [{ VisibleCreate }, { onfinish, setVisibleCreate }] = useStudentStore();
   const { Option } = Select;
 
   return (
     <Modal
-      type="primary"
-      title="Edit User"
-      visible={viewVisibleEdit}
+      type={"primary"}
+      title="Add New User"
+      visible={VisibleCreate}
       footer={[
         <div key="1" className="project-modal-footer">
           <Button
-            form="editProject"
             size="default"
-            htmlType="submit"
             type="primary"
             key="submit"
+            htmlType="submit"
+            form="createStudent"
           >
-            Confirm
+            Create
           </Button>
           <Button
             size="default"
             type="white"
             key="back"
             outlined
-            onClick={() => setVisibleEdit(false)}
+            onClick={() => setVisibleCreate(false)}
           >
             Cancel
           </Button>
         </div>,
       ]}
-      onCancel={() => setVisibleEdit(false)}
+      onCancel={() => setVisibleCreate(false)}
     >
       <div className="project-modal">
         <BasicFormWrapper>
@@ -50,31 +50,43 @@ const EditCategory = () => {
             onFinish={(values) => onfinish(values)}
           >
             <Form.Item name="name">
-              <Input placeholder="Name" defaultValue={singleRow?.name} />
+              <Input placeholder="Name" />
             </Form.Item>
             <Form.Item name="email">
-              <Input placeholder="Email" defaultValue={singleRow?.email} />
+              <Input placeholder="Email" />
             </Form.Item>
             <Row gutter={15}>
               <Col md={12}>
                 <Form.Item name="address" initialValue="1">
                   <Select style={{ width: "100%" }}>
-                    <Option value="1">Pregnant</Option>
-                    <Option value="2">Admin</Option>
+                    <Option value="1">Mother</Option>
+                    <Option value="2">Pregnant</Option>
+                    <Option value="3">Admin</Option>
+
                   </Select>
                 </Form.Item>
               </Col>
               <Col md={12}>
                 <Form.Item name="phone">
-                  <Input placeholder="Phone" defaultValue={singleRow?.phone} />
+                  <Input placeholder="Phone" />
                 </Form.Item>
               </Col>
             </Row>
+            {/* <Form.Item name="address" initialValue="">
+              <Select style={{ width: "50%" }}>
+                <Option value="">Admin</Option>
+                <Option value="1">Pregnant</Option>
+              </Select>
+            </Form.Item> */}
           </Form>
         </BasicFormWrapper>
       </div>
     </Modal>
   );
+}
+CreateAdmin.propTypes = {
+  visible: propTypes.bool.isRequired,
+  onCancel: propTypes.func.isRequired,
 };
 
-export default EditCategory;
+export default CreateAdmin;

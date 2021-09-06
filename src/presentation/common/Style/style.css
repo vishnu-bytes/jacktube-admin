@@ -847,12 +847,7 @@ ul {
 .project-modal img {
   width: 240px;
 }
-.display {
-  display: flex !important;
-}
-.display ul:first-child {
-  width: 30%;
-}
+
 
 .project-modal .projects-members {
   margin-top: -12px;
@@ -2781,9 +2776,7 @@ html[dir="rtl"]
   padding-left: 10px;
 }
 
-.display {
-  display: none;
-}
+
 
 li.active > .display {
   display: block;
@@ -2842,6 +2835,27 @@ html[dir="rtl"] .ant-menu-vertical .ant-menu-submenu-title {
   padding: 5px 0;
   padding-left: 10px;
 }
+
+/* .display {
+  display: flex;
+} */
+.display ul:first-child {
+  width: 30%;
+}
+.display .varHeight .label{
+  margin-bottom:14px;
+  font-size: 14px;
+  line-height: 19px;
+  color: #9299B8;
+
+}
+.display .varHeight .value{
+  font-size: 14px;
+  line-height: 19px;
+  color: #535768;
+  margin-bottom:14px;
+}
+
 
 li.active > .display {
   display: block;

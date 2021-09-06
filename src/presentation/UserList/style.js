@@ -1,5 +1,38 @@
 import Styled from 'styled-components';
 
+const ModalContent = Styled.div`
+.display {
+  .rowContainer{
+    display:flex;
+  }
+  .label{
+   display:inline-block;
+      width:150px;
+      margin-bottom:14px;
+      font-size: 14px;
+      line-height: 19px;
+      color: #9299B8;
+    }
+    .value{
+      font-size: 14px;
+      line-height: 19px;
+      color: #535768;
+      margin-bottom:14px;
+    }
+      img{
+        display: inline-block;
+        width: 89px;
+        height: 89px;
+        border-radius: 50%;
+      }
+    
+  
+
+}
+
+
+`
+
 const PricingCard = Styled.div`
   background: #fff;
   border-radius: 10px;
@@ -203,23 +236,14 @@ const UserTableStyleWrapper = Styled.nav`
       text-align: center;
     }
   }
-  .notification-table{
-    th{
-      &:last-child{
-        text-align:center;
-        svg{
-          width : 19px;
-          height: 18px;
-        }
-      }
-    }
-    td{
-      &:last-child{
-        text-align:center;
-        svg{
-          width: 18px;
-          height: 16px;
-        }
+  .span-flex{
+    span{
+      display: flex;
+      justify-content:center;
+      gap:10px;
+      svg{
+        width:18px;
+        height:16px;
       }
     }
   }
@@ -236,7 +260,6 @@ const UserTableStyleWrapper = Styled.nav`
         }
       }
       .table-actions{
-      
         button{
           width: auto;
           height: auto;
@@ -2249,6 +2272,7 @@ const SupportContentWrap = Styled.div`
 `;
 
 export {
+  ModalContent,
   TestimonialWrapper,
   PricingCard,
   ListGroup,

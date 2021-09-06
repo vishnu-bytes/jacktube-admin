@@ -4,7 +4,7 @@ import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import moment from "moment";
-import { useStudentStore } from "../store";
+import { useReviewStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
 import Default from "../../common/Assets/Images/default.png"
@@ -16,7 +16,7 @@ const { Option } = Select;
 const ViewReview = () => {
   const [form] = Form.useForm();
   const [{ viewVisible, singleRow }, { onEdit, setVisible }] =
-    useStudentStore();
+  useReviewStore();
   console.log(singleRow, "single course");
   return (
     <Modal
