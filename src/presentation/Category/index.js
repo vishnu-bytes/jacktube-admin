@@ -42,27 +42,13 @@ const UserList = () => {
       key: index,
       user: (
         <div className="user-info">
-         
           <figcaption>
             <Heading className="user-name" as="h6">
-              {student.name}
+              {student.category}
             </Heading>
-           
           </figcaption>
         </div>
       ),
-      email: "test!@gmail.com",
-      grade: student.grade,
-      school: student.school,
-      joinDate: "January 20, 2020",
-      status:
-        student.status === "1" ? (
-          <span className={`status-text active`}>{"active"}</span>
-        ) : student.status === "0" ? (
-          <span className={`status-text blocked`}>{"blocked"}</span>
-        ) : (
-          <span className={`status-text deactivate`}>{"deactive"}</span>
-        ),
       action: (
         <div className="table-actions">
           <>
@@ -78,7 +64,8 @@ const UserList = () => {
             <Popconfirm
               title="Are you sure to delete this category?"
               onConfirm={() => {
-                onDelete({ id: student?._id });
+                console.log("clicked", student);
+                onDelete(student.id);
               }}
               okText="Yes"
               cancelText="No"
@@ -132,8 +119,7 @@ const UserList = () => {
           </Col>
         </Row>
         <CreateStudent />
-        <EditCategory/>
-
+        <EditCategory />
       </Main>
     </>
   );

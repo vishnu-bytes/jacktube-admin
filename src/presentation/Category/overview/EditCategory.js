@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from "react";
-import {
-  Form,
-  Input,
-  Select,
-} from "antd";
+import { Form, Input, Select } from "antd";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import moment from "moment";
 import { useStudentStore } from "../store";
 import { logError } from "../../common/Utils";
-import { onEdit } from '../../../infrastructure/faculty';
+import { onEdit } from "../../../infrastructure/faculty";
 
 const { Option } = Select;
 
 const EditCategory = () => {
   const [form] = Form.useForm();
-  const [{ editVisible, singleCourse }, { onEdit, setEditVisible }] =
+  const [{ editVisible, singleRow }, { onEdit, setEditVisible }] =
     useStudentStore();
 
   return (
@@ -33,7 +29,7 @@ const EditCategory = () => {
             type="primary"
             key="submit"
           >
-           Confirm
+            Confirm
           </Button>
           <Button
             size="default"
@@ -54,10 +50,13 @@ const EditCategory = () => {
             form={form}
             id="editProject"
             name="editProject"
-            onFinish={onEdit}
+            onFinish={(values) => onEdit({ values, initial: singleRow })}
           >
             <Form.Item name="category" label="Category">
-              <Input placeholder="Category" />
+              <Input
+                placeholder="Category"
+                defaultValue={singleRow?.category}
+              />
             </Form.Item>
           </Form>
         </BasicFormWrapper>

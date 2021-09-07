@@ -26,7 +26,7 @@ function CreateStudent() {
             type="primary"
             key="submit"
             htmlType="submit"
-            form="createStudent"
+            form="createCategory"
           >
             Create
           </Button>
@@ -46,10 +46,10 @@ function CreateStudent() {
       <div className="project-modal">
         <BasicFormWrapper>
           <Form
-            id="createStudent"
+            id="createCategory"
             form={form}
-            name="createStudent"
-            onFinish={(values) => onfinish(values, image)}
+            name="createCategory"
+            onFinish={(values) => onfinish(values)}
           >
             <Form.Item name="category">
               <Input placeholder="Category name" />

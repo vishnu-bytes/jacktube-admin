@@ -7,7 +7,7 @@ import moment from "moment";
 import { useStudentStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
-import ViewCards from "../../common/ViewCards"
+import ViewCards from "../../common/ViewCards";
 
 const { Option } = Select;
 
@@ -47,14 +47,20 @@ const EditCategory = () => {
       onCancel={() => setViewVisible(false)}
     >
       <div className="project-modal display">
-      <ViewCards label="Image" value={ <img className="avatar" src={singleRow?.image}></img>}/>
-      <ViewCards label="Expert Name" value={singleRow?.name}/>
-      <ViewCards label="Phone Number" value={singleRow?.name}/>
-      <ViewCards label="Email" value={singleRow?.name}/>
-      <ViewCards label="Job Title" value={singleRow?.name}/>
-      <ViewCards label="Eligibility" value={singleRow?.name}/>
-      <ViewCards label="Bio" value={singleRow?.name}/>
-      <ViewCards label="Pan Card" value={ <img src={singleRow?.image}></img>}/>
+        <ViewCards
+          label="Image"
+          value={<img className="avatar" src={singleRow?.profileImage}></img>}
+        />
+        <ViewCards label="Expert Name" value={singleRow?.name} />
+        <ViewCards label="Phone Number" value={singleRow?.phone} />
+        <ViewCards label="Email" value={singleRow?.email} />
+        <ViewCards label="Job Title" value={singleRow?.title} />
+        <ViewCards label="Eligibility" value={singleRow?.eligibility} />
+        <ViewCards label="Bio" value={singleRow?.bio} />
+        <ViewCards
+          label="Pan Card"
+          value={<img src={singleRow?.image}></img>}
+        />
       </div>
     </Modal>
   );

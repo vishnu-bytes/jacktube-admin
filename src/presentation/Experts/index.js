@@ -60,7 +60,7 @@ const UserList = () => {
         </div>
       ),
       pan: student.pan,
-      img: <a target="_blank" href={student.image}>{student.image.substring(0,40)+"..."}</a>,
+      // img: <a target="_blank" href={student.image}>{student.image.substring(0,40)+"..."}</a>,
       status:
         student.status === 1 ? (
           <span className={`status-text active`}>{"active"}</span>
@@ -98,7 +98,7 @@ const UserList = () => {
             <Popconfirm
               title="Are you sure to delete this expert?"
               onConfirm={() => {
-                onDelete({ id: student?._id });
+                onDelete(student?.id);
               }}
               okText="Yes"
               cancelText="No"
