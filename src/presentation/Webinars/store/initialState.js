@@ -1,6 +1,7 @@
 const initialState = {
   studentList: null,
   categoryList: null,
+  expertList: null,
   currentPage: 1,
   editVisible: false,
   visible: false,
@@ -8,6 +9,7 @@ const initialState = {
   singleRow: {},
   visiblePrice: false,
   viewVisible: false,
+  price: "",
 };
 
 export default initialState;

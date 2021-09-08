@@ -73,16 +73,6 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
       >
         <Link to={routes.DASHBOARD}>Dashboard</Link>
       </Menu.Item>
-      {/* <Menu.Item
-        key="schedule"
-        icon={
-          <NavLink className="menuItem-icon" to={`${routes.CALENDER}/month`}>
-            <FeatherIcon icon="calendar" />
-          </NavLink>
-        }
-      >
-        <Link to={`${routes.CALENDER}/month`}>Schedule</Link>
-      </Menu.Item> */}
       <Menu.Item
         key="studenlist"
         icon={

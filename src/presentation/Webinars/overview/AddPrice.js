@@ -15,7 +15,7 @@ const dateFormat = "DD/MM/YYYY";
 function AddPrice() {
   const [{ visiblePrice }, { setVisiblePrice }] = useStudentStore();
   const [form] = Form.useForm();
-  const [{ visible }, { onfinish, setVisible }] = useStudentStore();
+  const [{ visible }, { onAddPrice, setVisible }] = useStudentStore();
   const [value, setValue] = useState(1);
   const [image, setimage] = useState({});
 
@@ -31,7 +31,7 @@ function AddPrice() {
             type="primary"
             key="submit"
             htmlType="submit"
-            form="createStudent"
+            form="createProject"
           >
             Confirm
           </Button>
@@ -41,7 +41,6 @@ function AddPrice() {
             key="back"
             outlined
             onClick={() => {
-                console.log("object")
                 setVisiblePrice(false)}}
           >
             Cancel
@@ -56,7 +55,7 @@ function AddPrice() {
             form={form}
             id="createProject"
             name="createProject"
-            // onFinish={(values) => onfinish(values)}
+            onFinish={(values) => onAddPrice(values)}
           >
             <Form.Item name="price">
               <Input placeholder="Price" />
