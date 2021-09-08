@@ -13,7 +13,8 @@ import AddPrice from "./AddPrice";
 const { Option } = Select;
 const dateFormat = "DD/MM/YYYY";
 
-function CreateStudent() {
+function CreateStudent(props) {
+  console.log(props.category, "props data");
   const [{ visiblePrice }, { setVisiblePrice }] = useStudentStore();
   const [form] = Form.useForm();
   const [{ visible }, { onfinish, setVisible }] = useStudentStore();
@@ -32,7 +33,7 @@ function CreateStudent() {
             type="primary"
             key="submit"
             htmlType="submit"
-            form="createStudent"
+            form="createWebinar"
           >
             Create
           </Button>
@@ -53,23 +54,41 @@ function CreateStudent() {
         <BasicFormWrapper>
           <Form
             form={form}
-            id="createProject"
-            name="createProject"
+            id="createWebinar"
+            name="createWebinar"
             onFinish={(values) => onfinish(values)}
           >
-            <Form.Item name="title">
+            <Form.Item
+              name="title"
+              rules={[{ required: true, message: "Please input your title!" }]}
+            >
               <Input placeholder="Title" />
             </Form.Item>
-            <Form.Item name="description">
+            <Form.Item
+              name="description"
+              rules={[
+                { required: true, message: "Please input your description!" },
+              ]}
+            >
               <Input placeholder="Description" />
             </Form.Item>
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item name="category" initialValue="">
+                <Form.Item
+                  name="category"
+                  initialValue=""
+                  placeholder="Category"
+                >
                   <Select style={{ width: "100%" }}>
                     <Option value="">Category</Option>
+                    {props.category
+                      ? props?.category.map((res) => (
+                          <Option value={res.id}>{res.category}</Option>
+                        ))
+                      : null}
+                    {/* <Option value="">Category</Option>
                     <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>D
+                    <Option value="2">Grade Two</Option>D */}
                   </Select>
                 </Form.Item>
               </Col>
@@ -99,7 +118,7 @@ function CreateStudent() {
                     name="time"
                     initialValue={moment("00:00", "HH:mm")}
                   >
-                    <TimePicker style={{ width: "100%" }} />
+                    <TimePicker style={{ width: "100%" }} format={"HH:mm"} />
                   </Form.Item>
                 </Col>
               </Row>
@@ -115,10 +134,6 @@ function CreateStudent() {
                   />
                 </Col>
               </Row>
-            </Form.Item>
-
-            <Form.Item name="description" label="Description">
-              <Input.TextArea rows={4} placeholder="Add description" />
             </Form.Item>
           </Form>
         </BasicFormWrapper>

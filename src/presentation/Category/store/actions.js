@@ -1,54 +1,15 @@
-import {
-  getStudentList,
-  onSubmit,
-  onDelete,
-  onEdit,
-} from "../../../infrastructure/student";
+import { onDelete, onEdit } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
+import firebase from "../../../config/api/firebase";
+
+const categoryData = firebase.database().ref("Category");
 
 const actions = {
-  onSubmit:
-    (values) =>
-    async ({ setState, dispatch }) => {
-      try {
-        await onSubmit(values);
-        dispatch(actions.setVisible(false));
-        dispatch(actions.getStudent());
-      } catch (error) {
-        logError(error);
-      }
-    },
   setVisible:
     (params) =>
     ({ setState }) => {
       setState({ visible: params });
-    },
-  setSearchData:
-    (params) =>
-    ({ setState }) => {
-      setState({ searchData: params });
-    },
-  onfinish:
-    (values, image) =>
-    ({ setState, dispatch }) => {
-      const formdata = { ...values, image: image };
-      var form_data = new FormData();
-      for (var key in formdata) {
-        form_data.append(key, formdata[key]);
-      }
-      dispatch(actions.onSubmit(form_data));
-    },
-  getStudent:
-    () =>
-    async ({ setState, dispatch }) => {
-      try {
-        const res = await getStudentList();
-        setState({ studentList: res.results });
-        dispatch(actions.setSearchData(res.results));
-      } catch (error) {
-        logError(error);
-      }
     },
   setEditVisible:
     (params) =>
@@ -56,9 +17,51 @@ const actions = {
       setState({ editVisible: params.value });
       setState({ singleRow: params.data });
     },
+  setSearchData:
+    (params) =>
+    ({ setState }) => {
+      setState({ searchData: params });
+    },
+  onfinish:
+    (values) =>
+    async ({ setState, dispatch }) => {
+      const key = categoryData.push().key;
+      var data = {
+        category: values.category,
+        id: key,
+      };
+      try {
+        categoryData.child(key).update(data);
+        dispatch(actions.setVisible(false));
+        dispatch(actions.getStudent());
+      } catch (error) {
+        logError(error);
+      }
+    },
+  getStudent:
+    () =>
+    async ({ setState, dispatch }) => {
+      try {
+        categoryData.on("value", (snapshot) => {
+          let responselist = Object.values(snapshot.val());
+          setState({ studentList: responselist });
+          dispatch(actions.setSearchData(responselist));
+        });
+      } catch (error) {
+        logError(error);
+      }
+    },
+
   onEdit:
     (params) =>
-    ({ dispatch }) => {
+    async ({ dispatch }) => {
+      console.log(params,"params")
+      try {
+        categoryData.child(params.initial.id).update(params.values);
+        dispatch(actions.setEditVisible(false));
+      } catch (error) {
+        logError(error);
+      }
       logError(params, "Edit value");
       dispatch(actions.getStudent());
     },
@@ -66,22 +69,9 @@ const actions = {
     (params) =>
     async ({ dispatch }) => {
       try {
-        await onDelete(params);
-        message.success("Succesfully Deleted");
-        dispatch(actions.getStudent());
-      } catch (error) {
-        logError(error);
-      }
-    },
-  getCourse:
-    (page) =>
-    async ({ setState }) => {
-      try {
-        const res = await getStudentList(page);
-        setState({ course: res });
-        setState({ pageNumber: page });
-      } catch (error) {
-        logError(error);
+        categoryData.child(params).remove();
+      } catch {
+        logError(params, "Edit value");
       }
     },
 };

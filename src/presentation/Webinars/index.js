@@ -14,11 +14,12 @@ import ViewWebinar from "./overview/ViewWebinar";
 
 const UserList = () => {
   const [
-    { studentList, searchData },
+    { studentList, searchData, categoryList },
     {
       setVisible,
       setEditVisible,
       getStudent,
+      getCategory,
       getCourse,
       setSearchData,
       onEdit,
@@ -31,6 +32,8 @@ const UserList = () => {
   useEffect(() => {
     window.scroll(0, 0);
     getStudent();
+    getCategory();
+    console.log(categoryList, "category data");
   }, [currentPage]);
   const handleSearch = (searchText) => {
     const data = studentList?.filter((value) =>
@@ -44,7 +47,6 @@ const UserList = () => {
       key: index,
       user: (
         <div className="user-info">
-         
           <figcaption>
             <Heading className="user-name" as="h6">
               {student.title}
@@ -53,7 +55,7 @@ const UserList = () => {
           </figcaption>
         </div>
       ),
-     
+
       email: "test!@gmail.com",
       grade: student.grade,
       school: student.school,
@@ -143,8 +145,8 @@ const UserList = () => {
             <UserListTable usersTableData={studentData} />
           </Col>
         </Row>
-        <CreateStudent />
-        <EditCategory />
+        <CreateStudent category={categoryList} />
+        <EditCategory category={categoryList} />
         <ViewWebinar />
       </Main>
     </>

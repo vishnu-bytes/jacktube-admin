@@ -6,7 +6,9 @@ import {
 } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
-import UserData from "../../../demoData/expert.json";
+import firebase from "../../../config/api/firebase";
+
+const expertData = firebase.database().ref("/expert");
 
 const actions = {
   onSubmit:
@@ -32,23 +34,31 @@ const actions = {
     },
   onfinish:
     (values, image) =>
-    ({ setState, dispatch }) => {
-      const formdata = { ...values, image: image };
-      var form_data = new FormData();
-      for (var key in formdata) {
-        form_data.append(key, formdata[key]);
+    async ({ setState, dispatch }) => {
+      const key = expertData.push().key;
+      var data = {
+        id: key,
+        ...values,
+        profileImage: image,
+      };
+      try {
+        expertData.child(key).update(data);
+        dispatch(actions.setVisible(false));
+        dispatch(actions.getStudent());
+      } catch (error) {
+        logError(error);
       }
-      dispatch(actions.onSubmit(form_data));
     },
   getStudent:
     () =>
     async ({ setState, dispatch }) => {
       try {
-        const res = await getStudentList();
-        // setState({ studentList: res.results });
-        setState({ studentList: UserData });
-        // dispatch(actions.setSearchData(res.results));
-        dispatch(actions.setSearchData(UserData));
+        expertData.on("value", (snapshot) => {
+          let responselist = Object.values(snapshot.val());
+          console.log(responselist, "data list");
+          setState({ studentList: responselist });
+          dispatch(actions.setSearchData(responselist));
+        });
       } catch (error) {
         logError(error);
       }
@@ -71,15 +81,13 @@ const actions = {
       logError(params, "Edit value");
       dispatch(actions.getStudent());
     },
-  onDelete:
+    onDelete:
     (params) =>
     async ({ dispatch }) => {
       try {
-        await onDelete(params);
-        message.success("Succesfully Deleted");
-        dispatch(actions.getStudent());
-      } catch (error) {
-        logError(error);
+        expertData.child(params).remove();
+      } catch {
+        logError(params, "Edit value");
       }
     },
   getCourse:

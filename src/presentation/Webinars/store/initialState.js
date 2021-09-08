@@ -1,5 +1,6 @@
 const initialState = {
   studentList: null,
+  categoryList: null,
   currentPage: 1,
   editVisible: false,
   visible: false,

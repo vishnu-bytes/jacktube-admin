@@ -7,7 +7,10 @@ import {
 import { logError } from "../../common/Utils";
 import { message } from "antd";
 import WebinarData from "../../../demoData/webinar.json";
+import firebase from "../../../config/api/firebase";
 
+const webinarData = firebase.database().ref("webinar");
+const categoryData = firebase.database().ref("Category");
 
 const actions = {
   onSubmit:
@@ -34,7 +37,7 @@ const actions = {
   setViewVisible:
     (params) =>
     ({ setState }) => {
-      setState({ viewVisible: params.value,singleRow:params.data });
+      setState({ viewVisible: params.value, singleRow: params.data });
     },
   setSearchData:
     (params) =>
@@ -44,6 +47,7 @@ const actions = {
   onfinish:
     (values, image) =>
     ({ setState, dispatch }) => {
+      console.log(values, "values");
       const formdata = { ...values, image: image };
       var form_data = new FormData();
       for (var key in formdata) {
@@ -56,8 +60,21 @@ const actions = {
     async ({ setState, dispatch }) => {
       try {
         // const res = await getStudentList();
-        setState({ studentList:  WebinarData});
+        setState({ studentList: WebinarData });
         dispatch(actions.setSearchData(WebinarData));
+      } catch (error) {
+        logError(error);
+      }
+    },
+  getCategory:
+    () =>
+    async ({ setState, dispatch }) => {
+      try {
+        categoryData.on("value", (snapshot) => {
+          let responselist = Object.values(snapshot.val());
+          console.log(responselist,"category data")
+          setState({ categoryList: responselist });
+        });
       } catch (error) {
         logError(error);
       }
