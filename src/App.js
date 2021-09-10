@@ -30,6 +30,8 @@ const BlogExpanded = React.lazy(() =>
   import("./presentation/Blog/BlogsExpanded")
 );
 const Review = React.lazy(() => import("./presentation/Review"));
+const Subscription =React.lazy(()=>import("./presentation/Subscription"))
+const admin =React.lazy(()=>import("./presentation/Admin"))
 
 function App() {
   return (
@@ -81,6 +83,8 @@ function App() {
                   component={BlogExpanded}
                 />
                 <Route exact path={routes.REVIEW} component={Review} />
+                <Route exact path={routes.SUBSCRIPTION} component={Subscription}/>
+                <Route exact path={routes.ADMIN} component={admin}/>
 
               </LayoutProvider>
             </Switch>

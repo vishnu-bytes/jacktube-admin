@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card } from './style';
 import { Cards } from '../cards/frame/cards-frame';
 import { Dropdown } from '../dropdown/dropdown';
-import { Bullet } from '../../container/note/style';
-import { noteDeleteData, onStarUpdate, onLabelUpdate } from '../../redux/note/actionCreator';
+import { Bullet } from '../../../../container/note/style';
+import { noteDeleteData, onStarUpdate, onLabelUpdate } from '../../../../redux/note/actionCreator';
 
 const NoteCard = ({ data, Dragger }) => {
   const dispatch = useDispatch();

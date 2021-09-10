@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { Row, Col, Popconfirm, Switch } from "antd";
 import FeatherIcon from "feather-icons-react";
-import UserListTable from "./overview/UserTable";
+import UserListTable from "./overview/AdminTable";
 import { PageHeader } from "../common/UI/page-headers/page-headers";
 import { AutoComplete } from "../common/UI/autoComplete/autoComplete";
 import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
 import { useStudentStore } from "./store";
 import Heading from "../common/UI/heading/heading";
-import ViewStudent from "./overview/ViewUser";
+import ViewStudent from "./overview/ViewAdmin";
 import CreateUser from "./overview/CreateAdmin";
-import EditUser from "./overview/EditUser";
+import EditAdmin from "./overview/EditAdmin";
 
-const UserList = () => {
+const AdminList = () => {
   const [
     { studentList, searchData },
     {
@@ -41,31 +41,17 @@ const UserList = () => {
       key: index,
       user: (
         <div className="user-info">
-          {/* <figure>
-            <img
-              style={{ width: "50px", height: "50px", "border-radius": "50%" }}
-              src="https://picsum.photos/id/237/200/300"
-              alt="Faculty"
-            />
-          </figure> */}
           <figcaption>
             <Heading className="user-name" as="h6">
               {student.name}
             </Heading>
-            <span className="user-designation">{student.email}</span>
+           
           </figcaption>
         </div>
       ),
       phone: student.phone,
       type: student.type,
-      status:
-        student.status === 1 ? (
-          <span className={`status-text active`}>{"active"}</span>
-        ) : student.status === 2 ? (
-          <span className={`status-text blocked`}>{"blocked"}</span>
-        ) : (
-          <span className={`status-text deactivate`}>{"deactive"}</span>
-        ),
+      email:student.email,
       action: (
         <div className="table-actions">
           <>
@@ -115,11 +101,11 @@ const UserList = () => {
       <CardToolbox>
         <PageHeader
           ghost
-          title="User Management"
+          title="Admin Management"
           subTitle={
             <>
               <span className="title-counter">
-                {studentList?.length} Users{" "}
+                {studentList?.length} Admins{" "}
               </span>
               <AutoComplete
                 onSearch={handleSearch}
@@ -150,10 +136,10 @@ const UserList = () => {
         </Row>
         <ViewStudent />
         <CreateUser />
-        <EditUser />
+        <EditAdmin />
       </Main>
     </>
   );
 };
 
-export default UserList;
+export default AdminList;

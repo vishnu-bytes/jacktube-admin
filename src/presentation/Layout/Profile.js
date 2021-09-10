@@ -1,26 +1,34 @@
 import React from 'react';
 import { Avatar, Dropdown, Button, Menu, Divider } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 const Profile = () => {
     const menu = (
         <div className="profileBody">
             <div className="top">
                 <div className="left">
-                <Avatar src="https://cdn0.iconfinder.com/data/icons/user-pictures/100/matureman1-512.png" />
+                    <Avatar
+                        style={{
+                            color: '#f56a00',
+                            backgroundColor: '#fde3cf',
+                        }}
+                    >
+                        U
+    </Avatar>
                 </div>
                 <div className="right">
                     <p className="name">
-                    John Doe
+                        John Doe
                     </p>
                     <span className="email">
-                    johndoe@example.com
+                        johndoe@example.com
                     </span>
                 </div>
             </div>
             <Divider />
 
             <div className="bottom">
-            <Button type="primary">Sign Out</Button>
+                <Button type="primary">Sign Out</Button>
             </div>
 
         </div>
@@ -29,7 +37,13 @@ const Profile = () => {
         <div className="profile">
 
             <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
-                <Avatar src="https://cdn0.iconfinder.com/data/icons/user-pictures/100/matureman1-512.png" />
+                <Avatar
+                    style={{
+                        color: '#f56a00',
+                        backgroundColor: '#fde3cf',
+                    }}>
+                    U
+                </Avatar>
             </Dropdown>
         </div>
 

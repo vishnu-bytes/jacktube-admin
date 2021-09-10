@@ -14,7 +14,10 @@ const routes = {
   EXPERTS:`/experts`,
   SERVICE:`/service`,
   REVIEW:'/review',
-  REPORT:`/reports`
+  REPORT:`/reports`,
+  SUBSCRIPTION:"/subscription",
+  ADMIN:"/admin"
+
 };
 
 // Change initial route if required
