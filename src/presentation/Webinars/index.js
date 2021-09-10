@@ -14,12 +14,13 @@ import ViewWebinar from "./overview/ViewWebinar";
 
 const UserList = () => {
   const [
-    { studentList, searchData, categoryList },
+    { studentList, searchData, categoryList ,expertList},
     {
       setVisible,
       setEditVisible,
       getStudent,
       getCategory,
+      getExperts,
       getCourse,
       setSearchData,
       onEdit,
@@ -33,7 +34,8 @@ const UserList = () => {
     window.scroll(0, 0);
     getStudent();
     getCategory();
-    console.log(categoryList, "category data");
+    getExperts();
+    console.log(expertList, "expert data");
   }, [currentPage]);
   const handleSearch = (searchText) => {
     const data = studentList?.filter((value) =>
@@ -145,7 +147,7 @@ const UserList = () => {
             <UserListTable usersTableData={studentData} />
           </Col>
         </Row>
-        <CreateStudent category={categoryList} />
+        <CreateStudent category={categoryList} experts={expertList} />
         <EditCategory category={categoryList} />
         <ViewWebinar />
       </Main>

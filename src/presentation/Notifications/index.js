@@ -79,7 +79,7 @@ const UserList = () => {
             >
               <FeatherIcon icon="eye" size={16} />
             </Button>
-            <Button
+            {/* <Button
               onClick={() => setEditVisible({ value: true, data: student })}
               className="btn-icon"
               type="info"
@@ -99,7 +99,7 @@ const UserList = () => {
               <Button className="btn-icon" type="danger" to="#" shape="circle">
                 <FeatherIcon icon="trash-2" size={16} />
               </Button>
-            </Popconfirm>
+            </Popconfirm> */}
           </>
         </div>
       ),

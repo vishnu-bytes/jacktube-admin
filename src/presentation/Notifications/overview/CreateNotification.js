@@ -14,7 +14,8 @@ const dateFormat = "DD/MM/YYYY";
 
 function CreateNotification() {
   const [form] = Form.useForm();
-  const [{ VisibleCreate }, { onfinish, setVisibleCreate }] = useNotificationStore();
+  const [{ VisibleCreate }, { onfinish, setVisibleCreate }] =
+    useNotificationStore();
   const [value, setValue] = useState(1);
   const [image, setimage] = useState({});
 
@@ -61,8 +62,7 @@ function CreateNotification() {
             <Form.Item name="description">
               <Input placeholder="Description" />
             </Form.Item>
-          
-         
+
             <Row gutter={15}>
               <Col md={12}>
                 <Form.Item name="startDate">
@@ -75,11 +75,10 @@ function CreateNotification() {
               </Col>
               <Col md={12}>
                 <Form.Item name="time" initialValue={moment("00:00", "HH:mm")}>
-                  <TimePicker style={{ width: "100%" }} />
+                  <TimePicker style={{ width: "100%" }} format="HH:mm" />
                 </Form.Item>
               </Col>
             </Row>
-
           </Form>
         </BasicFormWrapper>
       </div>

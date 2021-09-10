@@ -11,6 +11,7 @@ import firebase from "../../../config/api/firebase";
 
 const webinarData = firebase.database().ref("webinar");
 const categoryData = firebase.database().ref("Category");
+const expertData = firebase.database().ref("/expert");
 
 const actions = {
   onSubmit:
@@ -45,16 +46,28 @@ const actions = {
       setState({ searchData: params });
     },
   onfinish:
-    (values, image) =>
-    ({ setState, dispatch }) => {
-      console.log(values, "values");
-      const formdata = { ...values, image: image };
-      var form_data = new FormData();
-      for (var key in formdata) {
-        form_data.append(key, formdata[key]);
-      }
-      dispatch(actions.onSubmit(form_data));
+    (values, date, time, price) =>
+    async ({ setState, dispatch }) => {
+      console.log(values, date, time, price, "values check");
+      // const key = webinarData.push().key;
+      // var data = {
+      //   id: key,
+      // };
+      // try {
+      //   webinarData.child(key).update(data);
+      //   dispatch(actions.setVisible(false));
+      //   dispatch(actions.getStudent());
+      // } catch (error) {
+      //   logError(error);
+      // }
     },
+  onAddPrice:
+    (params) =>
+    async ({ setState, dispatch }) => {
+      setState({ price: params.price });
+      dispatch(actions.setVisiblePrice(false));
+    },
+
   getStudent:
     () =>
     async ({ setState, dispatch }) => {
@@ -72,8 +85,20 @@ const actions = {
       try {
         categoryData.on("value", (snapshot) => {
           let responselist = Object.values(snapshot.val());
-          console.log(responselist,"category data")
           setState({ categoryList: responselist });
+        });
+      } catch (error) {
+        logError(error);
+      }
+    },
+  getExperts:
+    () =>
+    async ({ setState, dispatch }) => {
+      try {
+        expertData.on("value", (snapshot) => {
+          let responselist = Object.values(snapshot.val());
+          setState({ expertList: responselist });
+          console.log(responselist, "expert data2");
         });
       } catch (error) {
         logError(error);

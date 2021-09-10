@@ -14,12 +14,12 @@ const { Option } = Select;
 const dateFormat = "DD/MM/YYYY";
 
 function CreateStudent(props) {
-  console.log(props.category, "props data");
   const [{ visiblePrice }, { setVisiblePrice }] = useStudentStore();
   const [form] = Form.useForm();
-  const [{ visible }, { onfinish, setVisible }] = useStudentStore();
-  const [value, setValue] = useState(1);
+  const [{ visible, price }, { onfinish, setVisible }] = useStudentStore();
+  const [Time, setTime] = useState("");
   const [image, setimage] = useState({});
+  const [Date, setDate] = useState("");
 
   return (
     <Modal
@@ -56,7 +56,7 @@ function CreateStudent(props) {
             form={form}
             id="createWebinar"
             name="createWebinar"
-            onFinish={(values) => onfinish(values)}
+            onFinish={(values) => onfinish(values, Date, Time,price)}
           >
             <Form.Item
               name="title"
@@ -81,14 +81,10 @@ function CreateStudent(props) {
                 >
                   <Select style={{ width: "100%" }}>
                     <Option value="">Category</Option>
-                    {props.category
-                      ? props?.category.map((res) => (
-                          <Option value={res.id}>{res.category}</Option>
-                        ))
-                      : null}
-                    {/* <Option value="">Category</Option>
-                    <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>D */}
+                    {props.category &&
+                      props?.category.map((res) => (
+                        <Option value={res.id}>{res.category}</Option>
+                      ))}
                   </Select>
                 </Form.Item>
               </Col>
@@ -96,8 +92,10 @@ function CreateStudent(props) {
                 <Form.Item name="presentor" initialValue="">
                   <Select style={{ width: "100%" }}>
                     <Option value="">Presentor</Option>
-                    <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>
+                    {props?.experts &&
+                      props.experts.map((res) => (
+                        <Option value={res.id}>{res.name}</Option>
+                      ))}
                   </Select>
                 </Form.Item>
               </Col>
@@ -110,6 +108,7 @@ function CreateStudent(props) {
                       placeholder="Date"
                       format={dateFormat}
                       style={{ width: "100%" }}
+                      onChange={(date, dateString) => setDate(dateString)}
                     />
                   </Form.Item>
                 </Col>
@@ -118,7 +117,11 @@ function CreateStudent(props) {
                     name="time"
                     initialValue={moment("00:00", "HH:mm")}
                   >
-                    <TimePicker style={{ width: "100%" }} format={"HH:mm"} />
+                    <TimePicker
+                      onChange={(time, timeString) => setTime(timeString)}
+                      style={{ width: "100%" }}
+                      format={"HH:mm"}
+                    />
                   </Form.Item>
                 </Col>
               </Row>
