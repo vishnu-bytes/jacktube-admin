@@ -10,7 +10,7 @@ import Settings from './settings';
 import Support from './support';
 import { Popover } from '../../popup/popup';
 import { Dropdown } from '../../dropdown/dropdown';
-import { logOut } from '../../../redux/authentication/actionCreator';
+import { logOut } from '../../../../../redux/authentication/actionCreator';
 import Heading from '../../heading/heading';
 
 const AuthInfo = () => {

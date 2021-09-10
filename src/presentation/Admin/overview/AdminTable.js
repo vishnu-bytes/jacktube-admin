@@ -11,7 +11,16 @@ const AdminTable = ({usersTableData}) => {
       dataIndex: "user",
       key: "user",
     },
-  
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+  {
+    title:'Phone Number',
+    dataIndex:"phone",
+    key:"phone"
+  },
     {
       title: "Actions",
       dataIndex: "action",

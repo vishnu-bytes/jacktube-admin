@@ -13,6 +13,8 @@ import {
   review,
   service,
   report,
+  subscription,
+  admin
 } from "../common/Assets/Icons";
 
 const MenuItems = ({ darkMode, topMenu, events }) => {
@@ -153,6 +155,26 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
         }
       >
         <Link to={routes.REPORT}>Reports</Link>
+      </Menu.Item>
+      <Menu.Item
+        key="subscription"
+        icon={
+          <NavLink className="menuItem-icon" to={routes.SUBSCRIPTION}>
+            <img src={subscription} />
+          </NavLink>
+        }
+      >
+        <Link to={routes.SUBSCRIPTION}>Subscription</Link>
+      </Menu.Item>
+      <Menu.Item
+        key="admin"
+        icon={
+          <NavLink className="menuItem-icon" to={routes.ADMIN}>
+            <img src={admin} />
+          </NavLink>
+        }
+      >
+        <Link to={routes.ADMIN}>Admin</Link>
       </Menu.Item>
     </Menu>
   );

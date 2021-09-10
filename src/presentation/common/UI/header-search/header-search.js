@@ -5,7 +5,7 @@ import FeatherIcon from 'feather-icons-react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Div } from './header-search-style';
-import { headerSearchAction } from '../../redux/headerSearch/actionCreator';
+import { headerSearchAction } from '../../../../redux/headerSearch/actionCreator';
 import { Popover } from '../popup/popup';
 
 const HeaderSearch = ({ darkMode }) => {

@@ -13,6 +13,12 @@ import report from "./reports.svg"
 import user from "./user.svg";
 import expert from "./expert.svg";
 import dollar from "./dollar.svg";
+import done from "./doneIcon.svg"
+import increment from "./increment.svg";
+import decrement from "./decrement.svg";
+import subscription from "./subscription.svg"
+import admin from "./admin.svg"
+
 
 export {
   leftIcon,
@@ -29,4 +35,9 @@ export {
   user,
   expert,
   dollar,
+  done,
+  increment,
+  decrement,
+  subscription,
+  admin
 };
