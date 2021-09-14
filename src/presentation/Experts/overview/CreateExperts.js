@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Form, Input, Select, Upload, message } from "antd";
+import { Form, Input, Select, Upload, message, Radio } from "antd";
+
 import { Col, Row } from "antd";
 import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
@@ -65,10 +66,18 @@ function CreateStudent() {
   const [image, setimage] = useState({});
   const [panImage, setpanImage] = useState({});
   const [quaifications, setQualifications] = useState([]);
-  const [qualText, setQualText] = useState([]);
-  const [serviceText,setServiceText]=useState([])
+  const [qualText, setQualText] = useState();
+  const [serviceText, setServiceText] = useState()
+  const [services, setServices] = useState([]);
 
 
+
+
+  function handleChange(value) {
+    console.log(`Selected: ${value}`);
+  }
+
+  
 
   const onHandleChange = (info) => {
     setState({ ...state, panImageUrl: info.fileoriginFileObj });
@@ -91,8 +100,8 @@ function CreateStudent() {
   const { profImageUrl, panImageUrl } = state;
 
   const [form] = Form.useForm();
-  const [{ visible, studentList }, { onfinish, setVisible }] = useStudentStore();
-
+  const [{ visible, studentList, serviceList }, { onfinish, setVisible }] = useStudentStore();
+console.log("serviceList",serviceList)
   return (
     <Modal
       type={"primary"}
@@ -183,54 +192,44 @@ function CreateStudent() {
             </Row>
             <Row gutter={15}>
               <Col md={12}>
-              <Form.Item value={serviceText} >
-                    <Input value={serviceText} onChange={(value) => setQualText(value.target.value)} suffix={<img className="button_img" src={increment} onClick={() => {
-                      console.log(serviceText, "serviceText")
-                      setQualifications([...quaifications, serviceText]);
-                      console.log(quaifications, "quaifications")
-                      setQualText("");
-                    }} />} placeholder="Qualifications" />
-                     <ul className="qualifications">
-                    {quaifications?.map((item, index) => <li>
-                      <span>
-                        <PlusOutlined className="dot" />
-                        {item}
-                      </span>
-                      <img className="button_img" src={decrement} type="button" onClick={() => {
-                        quaifications.splice(index, 1)
-                        setQualifications([...quaifications])
-                      }} />
-                    </li>)}
-                  </ul>
-                  </Form.Item>
-                 
-                  <Form.Item value={qualText} >
-                    <Input value={qualText} onChange={(value) => setServiceText(value.target.value)} suffix={<img className="button_img" src={increment} onClick={() => {
-                      console.log(qualText, "qualText")
-                      setQualifications([...quaifications, qualText]);
-                      console.log(quaifications, "quaifications")
-                      setServiceText("");
-                    }} />} placeholder="Qualifications" />
-                     <ul className="qualifications">
-                    {quaifications?.map((item, index) => <li>
-                      <span>
-                        <PlusOutlined className="dot" />
-                        {item}
-                      </span>
-                      <img className="button_img" src={decrement} type="button" onClick={() => {
-                        quaifications.splice(index, 1)
-                        setQualifications([...quaifications])
-                      }} />
-                    </li>)}
-                  </ul>
-                  </Form.Item>
-                 
-                
+                <Form.Item rules={[{ required: true, message: 'Please select your services' }]} >
+                  <Select
+                    mode="multiple"
 
+                    placeholder="Please select"
+
+                    onChange={handleChange}
+                    style={{ width: '100%' }}
+                  >
+                    {serviceList?.map((option) => <Option key={option.id} value={option.id} >{option.title}</Option>)}
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col md={12}>
+                <Form.Item value={qualText} >
+                  <Input value={qualText} onChange={(value) => setQualText(value.target.value)} suffix={<img className="button_img" src={increment} onClick={() => {
+                    console.log(qualText, "qualText")
+                    setQualifications([...quaifications, qualText]);
+                    console.log(quaifications, "quaifications")
+                    setQualText("");
+                  }} />} placeholder="Qualifications" />
+                  <ul className="qualifications">
+                    {quaifications?.map((item, index) => <li>
+                      <span>
+                        <PlusOutlined className="dot" />
+                        {item}
+                      </span>
+                      <img className="button_img" src={decrement} type="button" onClick={() => {
+                        quaifications.splice(index, 1)
+                        setQualifications([...quaifications])
+                      }} />
+                    </li>)}
+                  </ul>
+                </Form.Item>
               </Col>
             </Row>
             <Form.Item name="experience">
-              <Input placeholder="Experience" />
+              <Input placeholder="Experience (In years)" />
             </Form.Item>
             <Form.Item name="bio">
               <Input.TextArea rows={4} placeholder="Bio" />
