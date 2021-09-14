@@ -3,6 +3,7 @@ import {
   onSubmit,
   onDelete,
   onEdit,
+ 
 } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
@@ -10,6 +11,8 @@ import firebase from "../../../config/api/firebase";
 import { getStorage, ref, uploadBytes,getDownloadURL } from "firebase/storage";
 
 const expertData = firebase.database().ref("/expert");
+const serviceData = firebase.database().ref("/service");
+
 
 const storage = getStorage();
 const actions = {
@@ -91,6 +94,15 @@ const actions = {
             console.log(responselist, "data list");
             setState({ studentList: responselist });
             dispatch(actions.setSearchData(responselist));
+          });
+          serviceData.on("value", (snapshot) => {
+            let servicelist = Object.values(snapshot.val());
+            console.log(servicelist, "data list");
+            setState({ serviceList: servicelist },()=>{
+            
+            });
+
+            dispatch(actions.setSearchData(servicelist));
           });
         } catch (error) {
           logError(error);
