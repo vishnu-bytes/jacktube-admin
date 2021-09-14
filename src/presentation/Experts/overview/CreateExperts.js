@@ -13,6 +13,7 @@ import {
   LoadingOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
+import { increment, decrement } from "../../common/Assets/Icons"
 
 const { Option } = Select;
 const dateFormat = "DD/MM/YYYY";
@@ -33,12 +34,6 @@ const props = {
       message.error(`${info.file.name} file upload failed.`);
     }
   },
-};
-
-const getBase64 = (img, callback) => {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
 };
 
 const beforeUpload = (file) => {
@@ -69,22 +64,19 @@ function CreateStudent() {
   });
   const [image, setimage] = useState({});
   const [panImage, setpanImage] = useState({});
+  const [quaifications, setQualifications] = useState([]);
+  const [qualText, setQualText] = useState([]);
+  const [serviceText,setServiceText]=useState([])
+
 
 
   const onHandleChange = (info) => {
-    setState({ ...state, panImage: info.fileoriginFileObj });
-    // if (info.file.status === "uploading") {
-    //   setState({ ...state, loading: true });
-    //   return;
-    // }
-    // if (info.file.status === "done") {
-    //   // Get this url from response in real world.
-    //   getBase64(
-    //     info.file.originFileObj,
-    //     (imageUrl) => setState({ ...state, imageUrl, loading: false }),
-    //     console.log(state, "imageUrl")
-    //   );
-    // }
+    setState({ ...state, panImageUrl: info.fileoriginFileObj });
+
+    info.file.status = "done";
+    setpanImage(info.file.originFileObj);
+    console.log(info.file.originFileObj, "image");
+    setState({ ...state, panImageUrl: URL.createObjectURL(info.file.originFileObj) });
   };
 
   const uploadButton = (loading) => {
@@ -96,10 +88,10 @@ function CreateStudent() {
     );
   };
 
-  const { imageUrl, profImageUrl } = state;
+  const { profImageUrl, panImageUrl } = state;
 
   const [form] = Form.useForm();
-  const [{ visible,studentList }, { onfinish, setVisible }] = useStudentStore();
+  const [{ visible, studentList }, { onfinish, setVisible }] = useStudentStore();
 
   return (
     <Modal
@@ -142,33 +134,35 @@ function CreateStudent() {
             form={form}
             id="createExpert"
             name="createExpert"
-            onFinish={(values) => onfinish(values, image,studentList)}
-            
+            onFinish={(values) => onfinish(values, image, studentList, panImage)}
           >
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              showUploadList={false}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              beforeUpload={beforeUpload}
-              onChange={(info) => {
-                info.file.status = "done";
-                setimage(info.file.originFileObj);
-                console.log(info.file.originFileObj, "image");
-              }}
-            >
-              {profImageUrl ? (
-                <img
-                  src={profImageUrl}
-                  alt="avatar"
-                  style={{ width: "100%" }}
-                />
-              ) : (
-                uploadButton(state.image)
-              )}
-            </Upload>
-
+            <Form.Item name="profImage" rules={[{ required: true, message: 'Please input your profile photo!' }]} >
+              <span>Profile Image</span>
+              <Upload
+                name="avatar"
+                listType="picture-card"
+                className="avatar-uploader"
+                showUploadList={false}
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                beforeUpload={beforeUpload}
+                onChange={(info) => {
+                  info.file.status = "done";
+                  setimage(info.file.originFileObj);
+                  console.log(info.file.originFileObj, "image");
+                  setState({ ...state, profImageUrl: URL.createObjectURL(info.file.originFileObj) });
+                }}
+              >
+                {profImageUrl ? (
+                  <img
+                    src={profImageUrl}
+                    alt="avatar"
+                    style={{ width: "100%" }}
+                  />
+                ) : (
+                    uploadButton(state.image)
+                  )}
+              </Upload>
+            </Form.Item>
             <Form.Item name="name" rules={[{ required: true, message: 'Please input your name!' }]} >
               <Input placeholder="Name" />
             </Form.Item>
@@ -187,13 +181,62 @@ function CreateStudent() {
                 </Form.Item>
               </Col>
             </Row>
-            <Form.Item name="eligibility">
-              <Input placeholder="Eligibility" />
+            <Row gutter={15}>
+              <Col md={12}>
+              <Form.Item value={serviceText} >
+                    <Input value={serviceText} onChange={(value) => setQualText(value.target.value)} suffix={<img className="button_img" src={increment} onClick={() => {
+                      console.log(serviceText, "serviceText")
+                      setQualifications([...quaifications, serviceText]);
+                      console.log(quaifications, "quaifications")
+                      setQualText("");
+                    }} />} placeholder="Qualifications" />
+                     <ul className="qualifications">
+                    {quaifications?.map((item, index) => <li>
+                      <span>
+                        <PlusOutlined className="dot" />
+                        {item}
+                      </span>
+                      <img className="button_img" src={decrement} type="button" onClick={() => {
+                        quaifications.splice(index, 1)
+                        setQualifications([...quaifications])
+                      }} />
+                    </li>)}
+                  </ul>
+                  </Form.Item>
+                 
+                  <Form.Item value={qualText} >
+                    <Input value={qualText} onChange={(value) => setServiceText(value.target.value)} suffix={<img className="button_img" src={increment} onClick={() => {
+                      console.log(qualText, "qualText")
+                      setQualifications([...quaifications, qualText]);
+                      console.log(quaifications, "quaifications")
+                      setServiceText("");
+                    }} />} placeholder="Qualifications" />
+                     <ul className="qualifications">
+                    {quaifications?.map((item, index) => <li>
+                      <span>
+                        <PlusOutlined className="dot" />
+                        {item}
+                      </span>
+                      <img className="button_img" src={decrement} type="button" onClick={() => {
+                        quaifications.splice(index, 1)
+                        setQualifications([...quaifications])
+                      }} />
+                    </li>)}
+                  </ul>
+                  </Form.Item>
+                 
+                
+
+              </Col>
+            </Row>
+            <Form.Item name="experience">
+              <Input placeholder="Experience" />
             </Form.Item>
             <Form.Item name="bio">
               <Input.TextArea rows={4} placeholder="Bio" />
             </Form.Item>
-            <Form.Item name="pan card">
+            <Form.Item name="pan card" rules={[{ required: true, message: 'Please input your PAN card image!' }]}>
+              <span>PAN Card</span>
               <Upload
                 name="panCard Image"
                 listType="picture-card"
@@ -203,11 +246,11 @@ function CreateStudent() {
                 beforeUpload={beforeUpload}
                 onChange={onHandleChange}
               >
-                {imageUrl ? (
-                  <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
+                {panImageUrl ? (
+                  <img src={panImageUrl} alt="avatar" style={{ width: "100%" }} />
                 ) : (
-                  uploadButton(state.loading)
-                )}
+                    uploadButton(state.loading)
+                  )}
               </Upload>
             </Form.Item>
           </Form>

@@ -35,7 +35,7 @@ const actions = {
         setState({ searchData: params });
       },
   onfinish:
-    (values, image, studentList) =>
+    (values, image, studentList,panImage) =>
       async ({ setState, dispatch }) => {
         console.log("image", image);
 
@@ -43,6 +43,9 @@ const actions = {
         const UploadedData = await uploadBytes(storageRef, image);
         const url= await getDownloadURL(UploadedData.ref);
         
+        const panStorageRef = ref(storage, panImage.name);
+        const UploadedPanData = await uploadBytes(panStorageRef, panImage);
+        const panIamgeUrl= await getDownloadURL(UploadedPanData.ref);
 
         let checked=false;
         for (let item = 0; item < studentList.length; item++) {
@@ -58,6 +61,7 @@ const actions = {
               var data = {
                 ...values,
                 profileImage: url,
+                panIamgeUrl
               };
               console.log(data,"data")
               try {
