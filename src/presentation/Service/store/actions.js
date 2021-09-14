@@ -6,6 +6,11 @@ import {
 } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
+import firebase from "../../../config/api/firebase";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+const serviceData = firebase.database().ref("service");
+const storage = getStorage();
 
 const actions = {
   onSubmit:
@@ -19,13 +24,13 @@ const actions = {
         logError(error);
       }
     },
-    setVisibleCreate:
+  setVisibleCreate:
     (params) =>
     ({ setState }) => {
       console.log("done", params);
       setState({ VisibleCreate: params.value });
     },
-    setVisible:
+  setVisible:
     (params) =>
     ({ setState }) => {
       setState({ viewVisible: params.value });
@@ -34,9 +39,9 @@ const actions = {
   setVisiblePrice:
     (params) =>
     ({ setState }) => {
-      console.log("object")
-      setState({ visiblePrice: params },()=>{
-        console.log("checking",params)
+      console.log("object");
+      setState({ visiblePrice: params }, () => {
+        console.log("checking", params);
       });
     },
   setSearchData:
@@ -46,21 +51,36 @@ const actions = {
     },
   onfinish:
     (values, image) =>
-    ({ setState, dispatch }) => {
-      const formdata = { ...values, image: image };
-      var form_data = new FormData();
-      for (var key in formdata) {
-        form_data.append(key, formdata[key]);
+    async ({ setState, dispatch }) => {
+      const storageRef = ref(storage, image.name);
+      const UploadedData = await uploadBytes(storageRef, image);
+      const url = await getDownloadURL(UploadedData.ref);
+
+      const key = serviceData.push().key;
+      var data = {
+        ...values,
+        image: url,
+        id: key,
+      };
+      console.log(values, key);
+      try {
+        await serviceData.child(key).update(data);
+        dispatch(actions.setVisibleCreate(false));
+        dispatch(actions.getStudent());
+      } catch (error) {
+        logError(error);
       }
-      dispatch(actions.onSubmit(form_data));
     },
   getStudent:
     () =>
     async ({ setState, dispatch }) => {
       try {
-        const res = await getStudentList();
-        setState({ studentList: res.results });
-        dispatch(actions.setSearchData(res.results));
+        serviceData.on("value", (snapshot) => {
+          let responselist = Object.values(snapshot.val());
+          console.log(responselist, "data checfk");
+          setState({ studentList: responselist });
+          dispatch(actions.setSearchData(responselist));
+        });
       } catch (error) {
         logError(error);
       }
@@ -81,11 +101,10 @@ const actions = {
     (params) =>
     async ({ dispatch }) => {
       try {
-        await onDelete(params);
-        message.success("Succesfully Deleted");
+        serviceData.child(params).remove();
+      } catch {
+        logError(params, "Edit value");
         dispatch(actions.getStudent());
-      } catch (error) {
-        logError(error);
       }
     },
   getCourse:
