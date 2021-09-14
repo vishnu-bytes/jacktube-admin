@@ -7,13 +7,13 @@ import moment from "moment";
 import { useStudentStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
-import Default from "../../common/Assets/Images/default.png"
+import Default from "../../common/Assets/Images/default.png";
 
 const { Option } = Select;
 
 const ViewService = () => {
   const [form] = Form.useForm();
-  const [{ viewVisible, singleRow }, { onEdit, setVisible }] =
+  const [{ viewVisible, singleRow }, { onEdit, setVisible, onDelete }] =
     useStudentStore();
   console.log(singleRow, "single course");
   return (
@@ -39,6 +39,7 @@ const ViewService = () => {
             type="primary"
             key="submit"
             danger
+            onClick={() => onDelete({ id: singleRow?.id })}
           >
             Delete
           </Button>
@@ -47,14 +48,17 @@ const ViewService = () => {
       onCancel={() => setVisible(false)}
     >
       <div className="project-modal display">
-       
         <ul>
           <li>Title</li>
+          <li>Description</li>
           <li>Image</li>
         </ul>
         <ul>
-          <li>{singleRow?.name}</li>
-          <li><img src={Default} /></li>
+          <li>{singleRow?.title}</li>
+          <li>{singleRow.description}</li>
+          <li>
+            <img src={singleRow.image} />
+          </li>
         </ul>
       </div>
     </Modal>

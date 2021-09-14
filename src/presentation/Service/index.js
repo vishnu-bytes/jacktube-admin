@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Row, Col, Popconfirm } from "antd";
 import FeatherIcon from "feather-icons-react";
@@ -11,12 +10,13 @@ import CreateStudent from "./overview/CreateService";
 import { useStudentStore } from "./store";
 import Heading from "../common/UI/heading/heading";
 import EditCategory from "./overview/EditService";
-import ViewService from "./overview/ViewService"
+import ViewService from "./overview/ViewService";
 
 const UserList = () => {
   const [
     { studentList, searchData },
-    {setVisibleCreate,
+    {
+      setVisibleCreate,
       setVisible,
       setEditVisible,
       getStudent,
@@ -44,31 +44,17 @@ const UserList = () => {
       key: index,
       user: (
         <div className="user-info">
-          
           <figcaption>
             <Heading className="user-name" as="h6">
-              {student.name}
+              {student.title}
             </Heading>
-            <span className="user-designation">{student.school}</span>
           </figcaption>
         </div>
       ),
-      email: "test!@gmail.com",
-      grade: student.grade,
-      school: student.school,
-      joinDate: "January 20, 2020",
-      status:
-        student.status === "1" ? (
-          <span className={`status-text active`}>{"active"}</span>
-        ) : student.status === "0" ? (
-          <span className={`status-text blocked`}>{"blocked"}</span>
-        ) : (
-          <span className={`status-text deactivate`}>{"deactive"}</span>
-        ),
       action: (
         <div className="table-actions">
           <>
-          <Button
+            <Button
               onClick={() => setVisible({ value: true, data: student })}
               className="btn-icon"
               type="info"
@@ -89,7 +75,7 @@ const UserList = () => {
             <Popconfirm
               title="Are you sure to delete this service?"
               onConfirm={() => {
-                onDelete({ id: student?._id });
+                onDelete(student?.id);
               }}
               okText="Yes"
               cancelText="No"
@@ -125,7 +111,7 @@ const UserList = () => {
           }
           buttons={[
             <Button
-              onClick={() => setVisibleCreate({value:true})}
+              onClick={() => setVisibleCreate({ value: true })}
               key="1"
               type="primary"
               size="default"
@@ -144,9 +130,7 @@ const UserList = () => {
         </Row>
         <ViewService />
         <CreateStudent />
-        <EditCategory/>
-        
-
+        <EditCategory />
       </Main>
     </>
   );
