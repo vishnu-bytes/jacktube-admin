@@ -68,6 +68,8 @@ function CreateStudent() {
     image: null,
   });
   const [image, setimage] = useState({});
+  const [panImage, setpanImage] = useState({});
+
 
   const onHandleChange = (info) => {
     setState({ ...state, panImage: info.fileoriginFileObj });
@@ -97,7 +99,7 @@ function CreateStudent() {
   const { imageUrl, profImageUrl } = state;
 
   const [form] = Form.useForm();
-  const [{ visible }, { onfinish, setVisible }] = useStudentStore();
+  const [{ visible,studentList }, { onfinish, setVisible }] = useStudentStore();
 
   return (
     <Modal
@@ -140,7 +142,8 @@ function CreateStudent() {
             form={form}
             id="createExpert"
             name="createExpert"
-            onFinish={(values) => onfinish(values, image)}
+            onFinish={(values) => onfinish(values, image,studentList)}
+            
           >
             <Upload
               name="avatar"
@@ -166,10 +169,10 @@ function CreateStudent() {
               )}
             </Upload>
 
-            <Form.Item name="name">
+            <Form.Item name="name" rules={[{ required: true, message: 'Please input your name!' }]} >
               <Input placeholder="Name" />
             </Form.Item>
-            <Form.Item name="email">
+            <Form.Item name="email" rules={[{ required: true, message: 'Please input your email!' }]} >
               <Input placeholder="Email" />
             </Form.Item>
             <Row gutter={15}>
@@ -190,7 +193,7 @@ function CreateStudent() {
             <Form.Item name="bio">
               <Input.TextArea rows={4} placeholder="Bio" />
             </Form.Item>
-            {/* <Form.Item name="pan card">
+            <Form.Item name="pan card">
               <Upload
                 name="panCard Image"
                 listType="picture-card"
@@ -206,7 +209,7 @@ function CreateStudent() {
                   uploadButton(state.loading)
                 )}
               </Upload>
-            </Form.Item> */}
+            </Form.Item>
           </Form>
         </BasicFormWrapper>
       </div>

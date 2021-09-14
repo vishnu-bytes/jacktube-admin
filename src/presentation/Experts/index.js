@@ -98,7 +98,7 @@ const UserList = () => {
             <Popconfirm
               title="Are you sure to delete this expert?"
               onConfirm={() => {
-                onDelete(student?.id);
+                onDelete(student?.phone);
               }}
               okText="Yes"
               cancelText="No"
