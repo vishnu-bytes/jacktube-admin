@@ -47,8 +47,8 @@ const UserList = () => {
           <figure>
             <img
               style={{ width: "50px", height: "50px", "border-radius": "50%" }}
-              src="https://picsum.photos/id/237/200/300"
-              alt="Faculty"
+              src={student.profileImage}
+              alt="profile"
             />
           </figure>
           <figcaption>

@@ -59,7 +59,7 @@ const EditCategory = () => {
         <ViewCards label="Bio" value={singleRow?.bio} />
         <ViewCards
           label="Pan Card"
-          value={<img src={singleRow?.image}></img>}
+          value={<img src={singleRow?.panIamgeUrl}></img>}
         />
       </div>
     </Modal>

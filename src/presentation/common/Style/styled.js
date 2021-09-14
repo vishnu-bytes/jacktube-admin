@@ -938,6 +938,22 @@ const MessageStyleWrapper = Styled.div`
 `;
 
 const BasicFormWrapper = Styled.div`
+.button_img{
+    height:15px;
+    width:15px;
+}
+ul.qualifications{
+    list-style-type: disc;
+    padding-left:40px;
+    margin-top:10px;
+    li{
+        display:flex;
+        justify-content:space-between;
+        .dot{
+            padding-right:10px;
+        }
+    }
+}
     .ant-form {
         .form-item{
             margin-bottom: 30px;
