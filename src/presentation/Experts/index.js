@@ -59,6 +59,7 @@ const UserList = () => {
           </figcaption>
         </div>
       ),
+      image:(<a target="_blank" href={student.panIamgeUrl} >{student?.panIamgeUrl?.slice(0,40)}...</a>),
       pan: student.pan,
       // img: <a target="_blank" href={student.image}>{student.image.substring(0,40)+"..."}</a>,
       status:
@@ -73,6 +74,7 @@ const UserList = () => {
         <div className="table-actions">
           <>
             <Switch
+            onChange={(value => console.log(value,"value"))}
               defaultChecked={student.status === 1 ? true : false}
               style={{ height: "unset!important" }}
             />

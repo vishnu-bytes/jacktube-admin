@@ -17,25 +17,6 @@ import {
 import { increment, decrement } from "../../common/Assets/Icons"
 
 const { Option } = Select;
-const dateFormat = "DD/MM/YYYY";
-
-const props = {
-  name: "file",
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  headers: {
-    authorization: "authorization-text",
-  },
-  onChange(info) {
-    if (info.file.status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (info.file.status === "done") {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};
 
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
@@ -65,26 +46,21 @@ function CreateStudent() {
   });
   const [image, setimage] = useState({});
   const [panImage, setpanImage] = useState({});
-  const [quaifications, setQualifications] = useState([]);
-  const [qualText, setQualText] = useState();
-  const [serviceText, setServiceText] = useState()
-  const [services, setServices] = useState([]);
+  const { profImageUrl, panImageUrl } = state;
 
-
-
-
-  function handleChange(value) {
-    console.log(`Selected: ${value}`);
-  }
-
-  
+  const children = [];
+ 
+  // function handleChange(value) {
+  //   console.log(`Selected: ${value}`);
+  // }
+  // function changeQualifications(value) {
+  //   console.log(`Selected: ${value}`);
+  // }
 
   const onHandleChange = (info) => {
     setState({ ...state, panImageUrl: info.fileoriginFileObj });
 
-    info.file.status = "done";
     setpanImage(info.file.originFileObj);
-    console.log(info.file.originFileObj, "image");
     setState({ ...state, panImageUrl: URL.createObjectURL(info.file.originFileObj) });
   };
 
@@ -97,11 +73,10 @@ function CreateStudent() {
     );
   };
 
-  const { profImageUrl, panImageUrl } = state;
 
   const [form] = Form.useForm();
   const [{ visible, studentList, serviceList }, { onfinish, setVisible }] = useStudentStore();
-console.log("serviceList",serviceList)
+  console.log("serviceList", serviceList)
   return (
     <Modal
       type={"primary"}
@@ -145,60 +120,56 @@ console.log("serviceList",serviceList)
             name="createExpert"
             onFinish={(values) => onfinish(values, image, studentList, panImage)}
           >
-            <Form.Item name="profImage" rules={[{ required: true, message: 'Please input your profile photo!' }]} >
-              <span>Profile Image</span>
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                beforeUpload={beforeUpload}
-                onChange={(info) => {
-                  info.file.status = "done";
-                  setimage(info.file.originFileObj);
-                  console.log(info.file.originFileObj, "image");
-                  setState({ ...state, profImageUrl: URL.createObjectURL(info.file.originFileObj) });
-                }}
-              >
-                {profImageUrl ? (
-                  <img
-                    src={profImageUrl}
-                    alt="avatar"
-                    style={{ width: "100%" }}
-                  />
-                ) : (
-                    uploadButton(state.image)
-                  )}
-              </Upload>
-            </Form.Item>
+
+            <span className="label">Profile Image</span>
+            <Upload
+              name="profImage"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+        
+              beforeUpload={beforeUpload}
+              onChange={(info) => {
+                setimage(info.file.originFileObj);
+                setState({ ...state, profImageUrl: URL.createObjectURL(info.file.originFileObj) });
+              }}
+            >
+              {profImageUrl ? (
+                <img
+                  src={profImageUrl}
+                  alt="avatar"
+                  style={{ width: "100%" }}
+                />
+              ) : (
+                  uploadButton(state.image)
+                )}
+            </Upload>
+
             <Form.Item name="name" rules={[{ required: true, message: 'Please input your name!' }]} >
-              <Input placeholder="Name" />
+              <Input  placeholder="Name" />
             </Form.Item>
             <Form.Item name="email" rules={[{ required: true, message: 'Please input your email!' }]} >
               <Input placeholder="Email" />
             </Form.Item>
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item name="title">
+                <Form.Item name="title" rules={[{ required: true, message: 'Please input your job title!' }]}>
                   <Input placeholder="Job Title" />
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item name="phone">
+                <Form.Item name="phone" rules={[{ required: true, message: 'Please input your phone number!' }]}>
                   <Input placeholder="Phone" />
                 </Form.Item>
               </Col>
             </Row>
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item rules={[{ required: true, message: 'Please select your services' }]} >
+                <Form.Item name="services" rules={[{ required: true, message: 'Please select your services' }]} >
                   <Select
+                    name="services"
                     mode="multiple"
-
                     placeholder="Please select"
-
-                    onChange={handleChange}
                     style={{ width: '100%' }}
                   >
                     {serviceList?.map((option) => <Option key={option.id} value={option.id} >{option.title}</Option>)}
@@ -206,8 +177,16 @@ console.log("serviceList",serviceList)
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item value={qualText} >
-                  <Input value={qualText} onChange={(value) => setQualText(value.target.value)} suffix={<img className="button_img" src={increment} onClick={() => {
+                <Form.Item name="qualifications" rules={[{ required: true, message: 'Please add your qaulifications!' }]} >
+                  <Select
+                    mode="tags"
+                    name="qualifications"
+                    placeholder="Please select"
+                    style={{ width: '100%' }}
+                  >
+                    {children}
+                  </Select>
+                  {/* <Input value={qualText} onChange={(value) => setQualText(value.target.value)} suffix={<img className="button_img" src={increment} onClick={() => {
                     console.log(qualText, "qualText")
                     setQualifications([...quaifications, qualText]);
                     console.log(quaifications, "quaifications")
@@ -224,34 +203,34 @@ console.log("serviceList",serviceList)
                         setQualifications([...quaifications])
                       }} />
                     </li>)}
-                  </ul>
+                  </ul> */}
                 </Form.Item>
               </Col>
             </Row>
-            <Form.Item name="experience">
+            <Form.Item name="experience" rules={[{ required: true, message: 'Please input your experience!' }]}>
               <Input placeholder="Experience (In years)" />
             </Form.Item>
-            <Form.Item name="bio">
+            <Form.Item name="bio" rules={[{ required: true, message: 'Please input your bio!' }]}>
               <Input.TextArea rows={4} placeholder="Bio" />
             </Form.Item>
-            <Form.Item name="pan card" rules={[{ required: true, message: 'Please input your PAN card image!' }]}>
-              <span>PAN Card</span>
-              <Upload
-                name="panCard Image"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                beforeUpload={beforeUpload}
-                onChange={onHandleChange}
-              >
-                {panImageUrl ? (
-                  <img src={panImageUrl} alt="avatar" style={{ width: "100%" }} />
-                ) : (
-                    uploadButton(state.loading)
-                  )}
-              </Upload>
-            </Form.Item>
+
+            <span className="label">PAN Card</span>
+            <Upload
+              name="panCard Image"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+             
+              beforeUpload={beforeUpload}
+              onChange={onHandleChange}
+            >
+              {panImageUrl ? (
+                <img src={panImageUrl} alt="avatar" style={{ width: "100%" }} />
+              ) : (
+                  uploadButton(state.loading)
+                )}
+            </Upload>
+
           </Form>
         </BasicFormWrapper>
       </div>
