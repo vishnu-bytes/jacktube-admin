@@ -11,15 +11,15 @@ const UserTable = ({ usersTableData }) => {
       dataIndex: "user",
       key: "user",
     },
+    // {
+    //   title: "PAN Number",
+    //   dataIndex: "pan",
+    //   key: "pan",
+    // },
     {
-      title: "PAN Number",
-      dataIndex: "pan",
-      key: "pan",
-    },
-    {
-      title: "Image",
-      dataIndex: "img",
-      key: "img",
+      title: "PAN Card Image",
+      dataIndex: "image",
+      key: "image",
     },
     {
       title: "Actions",

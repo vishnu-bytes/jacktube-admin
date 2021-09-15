@@ -1,39 +1,123 @@
-import React from "react";
-import { Form, Input, Select } from "antd";
+import React, { useState, useEffect } from "react";
+import { Form, Input, Select, Upload, message, Radio } from "antd";
+
+import { Col, Row } from "antd";
+import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
+import FeatherIcon from "feather-icons-react";
 import { useStudentStore } from "../store";
-import { logError } from "../../common/Utils";
-import { Col, Row } from "antd";
+import moment from "moment";
+import {
+  UploadOutlined,
+  LoadingOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
+import { increment, decrement } from "../../common/Assets/Icons"
 
-const EditCategory = () => {
-  const [form] = Form.useForm();
-  const [{ editVisible, singleRow }, { onEdit, onfinish, setEditVisible }] =
-    useStudentStore();
+const { Option } = Select;
 
+const beforeUpload = (file) => {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+  return isJpgOrPng && isLt2M;
+};
+
+
+
+
+
+function EditExpert() {
+  const [{ editVisible, studentList, serviceList, singleRow }, { onEdit, setEditVisible }] = useStudentStore();
+
+  const [state, setState] = useState({
+    fileList: [
+      {
+        uid: "-1",
+        name: "xxx.png",
+        status: "done",
+        url: "http://www.baidu.com/xxx.png",
+      },
+    ],
+    loading: false,
+    profImgLoading: false,
+    image: null,
+  });
+
+  const [image, setimage] = useState(singleRow?.profileImage);
+  const [panImage, setpanImage] = useState(singleRow?.panIamgeUrl);
+  const [profImageUrl, setProfileImageUrl] = useState(singleRow?.profileImage);
+  const [panImageUrl, setPanImageUrl] = useState(singleRow?.panIamgeUrl);
+
+
+  const [form] = Form.useForm()
+  useEffect(() => {
+    setProfileImageUrl(singleRow?.profileImage);
+    setPanImageUrl(singleRow?.panIamgeUrl);
+    setimage(singleRow?.profileImage);
+    setpanImage(singleRow?.panIamgeUrl);
+    form.setFieldsValue(singleRow)
+  }, [singleRow])
+
+
+  const children = [];
+
+  profImageUrl !== undefined && console.log("urllllll", profImageUrl);
+
+  const onHandleChange = (info) => {
+    setState({ ...state, panImageUrl: info.fileoriginFileObj });
+
+    setpanImage(info.file.originFileObj);
+    setPanImageUrl(URL.createObjectURL(info.file.originFileObj))
+
+  };
+
+  const uploadButton = (loading) => {
+    return (
+      <div>
+        {loading ? <LoadingOutlined /> : <PlusOutlined />}
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    );
+  };
+
+
+  console.log("serviceList", serviceList)
   return (
     <Modal
-      type="primary"
-      title="Edit Experts"
+      type={"primary"}
+      title="Edit Expert"
       visible={editVisible}
       footer={[
         <div key="1" className="project-modal-footer">
           <Button
-            form="editProject"
             size="default"
-            htmlType="submit"
             type="primary"
             key="submit"
+            htmlType="submit"
+            form="editExpert"
+            onClick={() => {
+              console.log(state, "current state");
+            }}
           >
-            Confirm
+           Submit
           </Button>
           <Button
             size="default"
             type="white"
             key="back"
             outlined
-            onClick={() => setEditVisible(false)}
+            onClick={() => {
+              console.log(state, "current state");
+              setEditVisible(false);
+            }}
           >
             Cancel
           </Button>
@@ -45,53 +129,130 @@ const EditCategory = () => {
         <BasicFormWrapper>
           <Form
             form={form}
-            id="editProject"
-            name="editProject"
-            onFinish={(values) =>console.log(values,"values")|| onfinish(values) }
+            id="editExpert"
+            name="editExpert"
+            onFinish={(values) => onEdit(values, image, studentList, panImage, singleRow.phone) || console.log(singleRow.id, "iddddddd")}
+            initialValues={{}}
           >
-            <Form.Item name="name"> 
-              {singleRow?.name && <Input name="name" placeholder="Name" defaultValue={singleRow?.name}  /> }
-              
+
+            <span className="label">Profile Image</span>
+            <Upload
+              name="profImage"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+
+              beforeUpload={beforeUpload}
+              onChange={(info) => {
+                setimage(info.file.originFileObj);
+                setProfileImageUrl(URL.createObjectURL(info.file.originFileObj))
+              }}
+            >
+              {profImageUrl ? (
+                <img
+                  src={profImageUrl}
+                  alt="avatar"
+                  style={{ width: "100%" }}
+                />
+              ) : (
+                  uploadButton(state.image)
+                )}
+            </Upload>
+
+            <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input your name!' }]} >
+              <Input placeholder="Name" />
             </Form.Item>
-            <Form.Item name="email">
-              <Input name="email" placeholder="Email" defaultValue={singleRow?.email} />
+            <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]} >
+              <Input placeholder="Email" />
             </Form.Item>
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item name="title">
-                  <Input
-                    name="title"
-                    placeholder="Job Title"
-                    defaultValue={singleRow?.title}
-                  />
+                <Form.Item label="Job Title" name="title" rules={[{ required: true, message: 'Please input your job title!' }]}>
+                  <Input placeholder="Job Title" />
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item name="phone">
-                  <Input placeholder="Phone" name="phone" defaultValue={singleRow?.phone} />
+                <Form.Item label="Phone" disabled name="phone" rules={[{ required: true, message: 'Please input your phone number!' }]}>
+                  <Input disabled placeholder="Phone" />
                 </Form.Item>
               </Col>
             </Row>
-            <Form.Item name="eligibility">
-              <Input
-              name="eligibility"
-                placeholder="Eligibility"
-                defaultValue={singleRow?.eligibility}
-              />
+            <Row gutter={15}>
+              <Col md={12}>
+                <Form.Item label="Services" name="services" rules={[{ required: true, message: 'Please select your services' }]} >
+                  <Select
+                    name="services"
+                    mode="multiple"
+                    placeholder="Services"
+                    style={{ width: '100%' }}
+                  >
+                    {serviceList?.map((option) => <Option key={option.id} value={option.id} >{option.title}</Option>)}
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col md={12}>
+                <Form.Item label="Qualifications" name="qualifications" rules={[{ required: true, message: 'Please add your qaulifications!' }]} >
+                  <Select
+                    mode="tags"
+                    name="qualifications"
+                    placeholder="Qualifications"
+                    style={{ width: '100%' }}
+                  >
+                    {children}
+                  </Select>
+                  {/* <Input value={qualText} onChange={(value) => setQualText(value.target.value)} suffix={<img className="button_img" src={increment} onClick={() => {
+                    console.log(qualText, "qualText")
+                    setQualifications([...quaifications, qualText]);
+                    console.log(quaifications, "quaifications")
+                    setQualText("");
+                  }} />} placeholder="Qualifications" />
+                  <ul className="qualifications">
+                    {quaifications?.map((item, index) => <li>
+                      <span>
+                        <PlusOutlined className="dot" />
+                        {item}
+                      </span>
+                      <img className="button_img" src={decrement} type="button" onClick={() => {
+                        quaifications.splice(index, 1)
+                        setQualifications([...quaifications])
+                      }} />
+                    </li>)}
+                  </ul> */}
+                </Form.Item>
+              </Col>
+            </Row>
+            <Form.Item label="Experience" name="experience" rules={[{ required: true, message: 'Please input your experience!' }]}>
+              <Input placeholder="Experience (In years)" />
             </Form.Item>
-            <Form.Item name="bio">
-              <Input.TextArea
-              name="bio"
-                rows={4}
-                placeholder="Bio"
-                defaultValue={singleRow?.bio}
-              />
+            <Form.Item label="Bio" name="bio" rules={[{ required: true, message: 'Please input your bio!' }]}>
+              <Input.TextArea rows={4} placeholder="Bio" />
             </Form.Item>
+
+            <span className="label">PAN Card</span>
+            <Upload
+              name="panCard Image"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+              beforeUpload={beforeUpload}
+              onChange={onHandleChange}
+            >
+              {panImageUrl ? (
+                <img src={panImageUrl} alt="avatar" style={{ width: "100%" }} />
+              ) : (
+                  uploadButton(state.loading)
+                )}
+            </Upload>
+
           </Form>
         </BasicFormWrapper>
       </div>
     </Modal>
   );
+}
+EditExpert.propTypes = {
+  visible: propTypes.bool.isRequired,
+  onCancel: propTypes.func.isRequired,
 };
 
-export default EditCategory;
+export default EditExpert;

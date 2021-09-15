@@ -938,6 +938,9 @@ const MessageStyleWrapper = Styled.div`
 `;
 
 const BasicFormWrapper = Styled.div`
+.label{
+    color: #9299B8;
+}
 .button_img{
     height:15px;
     width:15px;
