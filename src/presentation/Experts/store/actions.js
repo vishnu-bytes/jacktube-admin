@@ -75,12 +75,6 @@ const actions = {
               }
           }
         }
-
-
-
-
-
-
       },
   getStudent:
     () =>

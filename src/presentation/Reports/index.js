@@ -8,6 +8,7 @@ import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
 import CreateStudent from "./overview/CreateService";
 import { useStudentStore } from "./store";
+import { CSVLink } from "react-csv";
 
 const UserList = () => {
   const [
@@ -34,6 +35,19 @@ const UserList = () => {
     );
     setSearchData(data);
   };
+  const headers = [
+    { label: "First Name", key: "name" },
+    { label: "Phone", key: "phone" },
+    { label: "School", key: "school" },
+  ];
+
+  const csvReport = {
+    data: studentList && studentList,
+    headers: headers,
+    filename: "Clue_Mediator_Report.csv",
+  };
+  console.log(csvReport, "studentlsit");
+
   const studentData = searchData?.map((student, index) => {
     console.log(student);
     return {
@@ -79,7 +93,7 @@ const UserList = () => {
               type="primary"
               size="default"
             >
-              <FeatherIcon icon="download" size={16} /> Download Report
+              <CSVLink {...csvReport}>Export to CSV</CSVLink>
             </Button>,
           ]}
         />
