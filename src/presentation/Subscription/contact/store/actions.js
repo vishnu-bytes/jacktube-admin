@@ -6,6 +6,9 @@ import {
 } from "../../../../infrastructure/student";
 import { logError } from "../../../common/Utils";
 import { message } from "antd";
+import firebase from "../../../../config/api/firebase";
+
+const subscriptionData = firebase.database().ref("subscription");
 
 const actions = {
   onSubmit:
@@ -19,24 +22,24 @@ const actions = {
         logError(error);
       }
     },
-    setVisibleCreate:
+  setVisibleCreate:
     (params) =>
     ({ setState }) => {
       console.log("done", params);
       setState({ VisibleCreate: params.value });
     },
-    setVisible:
+  setVisible:
     (params) =>
     ({ setState }) => {
-      console.log("object",params)
+      console.log("object", params);
       setState({ viewVisible: params });
     },
   setVisiblePrice:
     (params) =>
     ({ setState }) => {
-      console.log("object")
-      setState({ visiblePrice: params },()=>{
-        console.log("checking",params)
+      console.log("object");
+      setState({ visiblePrice: params }, () => {
+        console.log("checking", params);
       });
     },
   setSearchData:
@@ -45,22 +48,35 @@ const actions = {
       setState({ searchData: params });
     },
   onfinish:
-    (values, image) =>
-    ({ setState, dispatch }) => {
-      const formdata = { ...values, image: image };
-      var form_data = new FormData();
-      for (var key in formdata) {
-        form_data.append(key, formdata[key]);
+    (values, web, one, options) =>
+    async ({ setState, dispatch }) => {
+      const key = subscriptionData.push().key;
+      var data = {
+        values: values,
+        webinar: web,
+        oneonone: one,
+        options: options,
+        id: key,
+      };
+      try {
+        subscriptionData.child(key).update(data);
+        dispatch(actions.setVisible(false));
+        dispatch(actions.getStudent());
+      } catch (error) {
+        logError(error);
       }
-      dispatch(actions.onSubmit(form_data));
     },
   getStudent:
     () =>
     async ({ setState, dispatch }) => {
       try {
-        const res = await getStudentList();
-        setState({ studentList: res.results });
-        dispatch(actions.setSearchData(res.results));
+        let responselist;
+        subscriptionData.on("value", (snapshot) => {
+          responselist = Object.values(snapshot.val());
+          console.log(responselist, "userlist");
+          setState({ studentList: responselist });
+          dispatch(actions.setSearchData(responselist));
+        });
       } catch (error) {
         logError(error);
       }
@@ -68,25 +84,37 @@ const actions = {
   setEditVisible:
     (params) =>
     ({ setState }) => {
-      console.log(params.value,"valueee")
+      console.log(params.value, "valueee");
       setState({ editVisible: params.value });
       setState({ singleRow: params.data });
     },
   onEdit:
-    (params) =>
-    ({ dispatch }) => {
-      logError(params, "Edit value");
-      dispatch(actions.getStudent());
+    (values, web, one, options, id) =>
+    async ({ setState, dispatch }) => {
+      console.log(id, "id of this shit");
+      var data = {
+        values: values,
+        webinar: web,
+        oneonone: one,
+        options: options,
+      };
+      try {
+        subscriptionData.child(id).update(data);
+        dispatch(actions.setEditVisible(false));
+        dispatch(actions.getStudent());
+      } catch (error) {
+        logError(error);
+      }
     },
   onDelete:
     (params) =>
     async ({ dispatch }) => {
+      console.log(params, "params");
       try {
-        await onDelete(params);
-        message.success("Succesfully Deleted");
+        subscriptionData.child(params).remove();
         dispatch(actions.getStudent());
-      } catch (error) {
-        logError(error);
+      } catch {
+        logError(params, "Edit value");
       }
     },
   getCourse:

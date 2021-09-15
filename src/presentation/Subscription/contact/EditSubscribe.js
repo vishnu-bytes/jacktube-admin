@@ -1,27 +1,30 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Row, Col, Form, Input, Checkbox, Select } from 'antd';
-import { Link } from 'react-router-dom';
-import { ContactPageheaderStyle } from './style';
-import ContactCard from './overview/ContactCard';
-import { PageHeader } from '../../../components/page-headers/page-headers';
-import { Main, CardToolbox, BasicFormWrapper } from '../styled';
-import { AutoComplete } from '../../../components/autoComplete/autoComplete';
-import { Button } from '../../../components/buttons/buttons';
-import { Cards } from '../../../components/cards/frame/cards-frame';
-import { AddUser } from '../../../container/pages/style';
-import { contactSearchData, contactAddData } from '../../../redux/contact/actionCreator';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Row, Col, Form, Input, Checkbox, Select } from "antd";
+import { Link } from "react-router-dom";
+import { ContactPageheaderStyle } from "./style";
+import ContactCard from "./overview/ContactCard";
+import { PageHeader } from "../../../components/page-headers/page-headers";
+import { Main, CardToolbox, BasicFormWrapper } from "../styled";
+import { AutoComplete } from "../../../components/autoComplete/autoComplete";
+import { Button } from "../../../components/buttons/buttons";
+import { Cards } from "../../../components/cards/frame/cards-frame";
+import { AddUser } from "../../../container/pages/style";
+import {
+  contactSearchData,
+  contactAddData,
+} from "../../../redux/contact/actionCreator";
 // import { Modal } from '../../components/modals/antd-modals';
-import { Modal } from '../../../components/modals/antd-modals';
+import { Modal } from "../../../components/modals/antd-modals";
 import { useStudentStore } from "./store";
-import { increment, decrement } from "../../common/Assets/Icons"
+import { increment, decrement } from "../../common/Assets/Icons";
 
 const { Option } = Select;
 
 const EditSubscribe = () => {
   const dispatch = useDispatch();
   const [
-    { studentList, searchData, viewVisible ,editVisible},
+    { studentList, searchData, viewVisible, editVisible, singleRow },
     {
       setVisible,
       setEditVisible,
@@ -31,9 +34,9 @@ const EditSubscribe = () => {
       onEdit,
       onDelete,
       setViewVisible,
-      
     },
   ] = useStudentStore();
+  console.log(singleRow, "edit data");
   const [form] = Form.useForm();
 
   const [state, setState] = useState({
@@ -41,33 +44,27 @@ const EditSubscribe = () => {
     selectedRows: 0,
     visible: true,
     editVisible: false,
-    modalType: 'primary',
+    modalType: "primary",
     url: null,
     update: {},
   });
+  const [Onevalue, setOnevalue] = useState();
+  const [Webvalue, setWebvalue] = useState();
+  const [options, setOptions] = useState([]);
 
-  function onChange(e) {
-    console.log(`checked = ${e.target.checked}`);
-  }
-  const { update } = state;
+  useEffect(() => {
+    setWebvalue(singleRow?.webinar ? singleRow?.webinar : 0);
+    setOnevalue(singleRow?.oneonone ? singleRow?.oneonone : 1);
+    setOptions(singleRow?.options);
+  }, [singleRow]);
 
-  const handleSearch = searchText => {
-    dispatch(contactSearchData(searchText));
-  };
-
-  const showModal = () => {
-    setState({
-      ...state,
-      visible: true,
-    });
-  };
-
-  const showEditModal = data => {
-    setState({
-      ...state,
-      editVisible: true,
-      update: data,
-    });
+  const onChange = (checkedValues) => {
+    setOptions(checkedValues);
+    if (!checkedValues.includes("Webinar")) {
+      setOnevalue("");
+    } else if (!checkedValues.includes("One-on-one")) {
+      setWebvalue("");
+    }
   };
 
   const onCancel = () => {
@@ -78,16 +75,11 @@ const EditSubscribe = () => {
     });
   };
 
-
-  const handleCancel = () => {
-    onCancel();
-  };
+  const plainOptions = ["Webinar", "One-on-one"];
 
   return (
     <>
-
-      <Row gutter={25}>
-      </Row>
+      <Row gutter={25}></Row>
       <Modal
         type={state.modalType}
         title={null}
@@ -100,52 +92,86 @@ const EditSubscribe = () => {
         <div className="project-modal">
           <AddUser>
             <BasicFormWrapper>
-              <Form form={form} name="contact" >
-                <Form.Item name="name">
+              <Form
+                form={form}
+                name="contact"
+                onFinish={(values) =>
+                  onEdit(values, Webvalue, Onevalue, options, singleRow.id)
+                }
+                name="editSub"
+                id="editSub"
+              >
+                <Form.Item initialValue={singleRow?.values?.price} name="price">
                   <Input placeholder="Price" />
                 </Form.Item>
                 <div className="checkboxContainer">
-                  <Checkbox onChange={onChange}>One-on-one</Checkbox>
+                  <Checkbox.Group
+                    options={plainOptions}
+                    defaultValue={singleRow?.options}
+                    onChange={onChange}
+                  />
                 </div>
-                <div className="checkboxContainer">
-                  <Checkbox onChange={onChange}>Webinar</Checkbox>
-                </div>
-                <div className="rowContainer space">
-                  <span className="label">
-                    One-on-one
-                </span>
+                <div
+                  className="rowContainer space"
+                  style={{
+                    display: options?.includes("Webinar") ? "flex" : "none",
+                  }}
+                >
+                  <span className="label">Webinar</span>
                   <span className="value">
-                    <img src={decrement} />
-                    &nbsp;&nbsp;
-                    3
-                    &nbsp;&nbsp;
-                    <img src={increment} />
+                    <img
+                      src={decrement}
+                      onClick={() => Webvalue > 1 && setWebvalue(Webvalue - 1)}
+                    />
+                    &nbsp;&nbsp; {Webvalue} &nbsp;&nbsp;
+                    <img
+                      src={increment}
+                      onClick={() => setWebvalue(Webvalue + 1)}
+                    />
                   </span>
                 </div>
-                <div className="rowContainer">
-                  <span className="label">
-                    Webinar
-                </span>
+                <div
+                  className="rowContainer space"
+                  style={{
+                    display: options?.includes("One-on-one") ? "flex" : "none",
+                  }}
+                >
+                  <span className="label">One-on-one</span>
                   <span className="value">
-                    <img src={decrement} />
-                    &nbsp;&nbsp;
-                    1
-                    &nbsp;&nbsp;
-                    <img src={increment} />
+                    <img
+                      src={decrement}
+                      type="button"
+                      onClick={() => Onevalue > 1 && setOnevalue(Onevalue - 1)}
+                    />
+                    &nbsp;&nbsp; {Onevalue} &nbsp;&nbsp;
+                    <img
+                      src={increment}
+                      onClick={() => setOnevalue(Onevalue + 1)}
+                    />
                   </span>
                 </div>
-                <Form.Item name="presentor" className="space" initialValue="">
+                <Form.Item
+                  name="validity"
+                  className="space"
+                  initialValue={singleRow?.values?.validity}
+                >
                   <Select style={{ width: "100%" }}>
-                    <Option value="">1 Year</Option>
-                    <Option value="1">6 Months</Option>
-                    <Option value="2">1 Month</Option>
+                    <Option value="1 year">1 Year</Option>
+                    <Option value="6 months">6 Months</Option>
+                    <Option value="1 month">1 Month</Option>
                   </Select>
                 </Form.Item>
                 <div className="footer">
                   <Button htmlType="submit" size="default" key="submit">
                     Cancel
                   </Button>
-                  <Button htmlType="submit" size="default" type="primary" key="submit">
+                  <Button
+                    htmlType="submit"
+                    size="default"
+                    type="primary"
+                    key="submit"
+                    form="editSub"
+                  >
                     Create
                   </Button>
                 </div>
