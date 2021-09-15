@@ -89,15 +89,27 @@ const actions = {
       setState({ singleRow: params.data });
     },
   onEdit:
-    (params) =>
-    ({ dispatch }) => {
-      logError(params, "Edit value");
-      dispatch(actions.getStudent());
+    (values, web, one, options, id) =>
+    async ({ setState, dispatch }) => {
+      console.log(id, "id of this shit");
+      var data = {
+        values: values,
+        webinar: web,
+        oneonone: one,
+        options: options,
+      };
+      try {
+        subscriptionData.child(id).update(data);
+        dispatch(actions.setEditVisible(false));
+        dispatch(actions.getStudent());
+      } catch (error) {
+        logError(error);
+      }
     },
   onDelete:
     (params) =>
     async ({ dispatch }) => {
-      console.log(params,"params")
+      console.log(params, "params");
       try {
         subscriptionData.child(params).remove();
         dispatch(actions.getStudent());

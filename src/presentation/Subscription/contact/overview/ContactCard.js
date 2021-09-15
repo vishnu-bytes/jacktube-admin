@@ -35,21 +35,28 @@ const ContactCard = ({ user, showEditModal }) => {
         <span className="price">&#8377;{user.values.price}</span>
         <span className="timespan">{user.values.validity}</span>
         <ul className="features">
-          <li>
-            <img src={done} />
-            &nbsp;&nbsp;{user.webinar} free webinar passes
-          </li>
-          <li>
-            <img src={done} />
-            &nbsp;&nbsp;{user.oneonone} free consultation
-          </li>
+          {user.webinar > 0 && (
+            <li>
+              <img src={done} />
+              &nbsp;&nbsp;{user.webinar} free webinar passes
+            </li>
+          )}
+          {user.oneonone > 0 && (
+            <li>
+              <img src={done} />
+              &nbsp;&nbsp;{user.oneonone} free consultation
+            </li>
+          )}
         </ul>
       </div>
       <Dropdown
         className="wide-dropdwon"
         content={
           <>
-            <Link onClick={() => setEditVisible({ value: true })} to="#">
+            <Link
+              onClick={() => setEditVisible({ value: true, data: user })}
+              to="#"
+            >
               <span>Edit</span>
             </Link>
             <Link onClick={() => onDelete(user.id)} to="#">

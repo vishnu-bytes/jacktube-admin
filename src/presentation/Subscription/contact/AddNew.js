@@ -108,7 +108,7 @@ const AddNew = () => {
                   <span className="value">
                     <img
                       src={decrement}
-                      onClick={() => Webvalue > 0 && setWebvalue(Webvalue - 1)}
+                      onClick={() => Webvalue > 1 && setWebvalue(Webvalue - 1)}
                     />
                     &nbsp;&nbsp; {Webvalue} &nbsp;&nbsp;
                     <img
@@ -128,7 +128,7 @@ const AddNew = () => {
                     <img
                       src={decrement}
                       type="button"
-                      onClick={() => Onevalue > 0 && setOnevalue(Onevalue - 1)}
+                      onClick={() => Onevalue > 1 && setOnevalue(Onevalue - 1)}
                     />
                     &nbsp;&nbsp; {Onevalue} &nbsp;&nbsp;
                     <img
