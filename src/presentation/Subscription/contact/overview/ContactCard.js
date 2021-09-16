@@ -32,8 +32,8 @@ const ContactCard = ({ user, showEditModal }) => {
   return (
     <ContactCardWrapper>
       <div className="contact-card">
-        <span className="price">&#8377;{user.values.price}</span>
-        <span className="timespan">{user.values.validity}</span>
+        <span className="price">&#8377;{user?.values?.price}</span>
+        <span className="timespan">{user?.values?.validity}</span>
         <ul className="features">
           {user.webinar > 0 && (
             <li>
