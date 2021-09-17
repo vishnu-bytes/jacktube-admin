@@ -47,13 +47,15 @@ const ViewWebinar = () => {
     >
       <div className="project-modal display">
         <ViewCards label="Title" value={singleRow?.title} />
-        <ViewCards label="Desccription" value={singleRow?.desc} />
+        <ViewCards label="Desccription" value={singleRow?.description} />
         <ViewCards label="Category" value={singleRow?.category} />
-        <ViewCards label="Presenter" value={singleRow?.presenter} />
-        <ViewCards label="Date" value={singleRow?.date} />
+        <ViewCards label="Presentor" value={singleRow?.presentor} />
+        <ViewCards label="Date" value={singleRow?.startDate} />
         <ViewCards label="Time" value={singleRow?.time} />
+        <ViewCards label="Month" value={"Month "+singleRow?.month} />
         <ViewCards label="Premium webinar" value={singleRow?.premium === 1 ? "Yes" : "No"} />
-        <ViewCards label="Image" value={<img src={singleRow?.image} />} />
+        <ViewCards label="Image" value={<img src={singleRow?.imageUrl} />} />
+        <ViewCards label="Price" value={singleRow?.commonPrice} />
       </div>
     </Modal>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Select, Switch, Upload, InputNumber, Radio } from "antd";
+import { Form, Input, Select, Switch, Upload, InputNumber, Radio ,message} from "antd";
 import { Col, Row, DatePicker, TimePicker } from "antd";
 import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
@@ -9,9 +9,26 @@ import FeatherIcon from "feather-icons-react";
 import { useStudentStore } from "../store";
 import moment from "moment";
 import AddPrice from "./AddPrice";
+import {
+  LoadingOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 
 const { Option } = Select;
-const dateFormat = "DD/MM/YYYY";
+const dateFormat = "DD MMM YYYY";
+
+
+const beforeUpload = (file) => {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+  return isJpgOrPng && isLt2M;
+};
 
 function CreateStudent(props) {
   const [{ visiblePrice }, { setVisiblePrice }] = useStudentStore();
@@ -20,8 +37,31 @@ function CreateStudent(props) {
   const [Time, setTime] = useState("");
   const [image, setimage] = useState({});
   const [Date, setDate] = useState("");
+ 
 
 
+  const [state, setState] = useState({
+    fileList: [
+      {
+        uid: "-1",
+        name: "xxx.png",
+        status: "done",
+        url: "http://www.baidu.com/xxx.png",
+      },
+    ],
+    loading: false,
+    image: null,
+  });
+  const { imageUrl,  } = state;
+const months=[1,2,3,4,5,6,7,8,9];
+  const uploadButton = (loading) => {
+    return (
+      <div>
+        {loading ? <LoadingOutlined /> : <PlusOutlined />}
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    );
+  };
   return (
     <Modal
       type={"primary"}
@@ -57,7 +97,7 @@ function CreateStudent(props) {
             form={form}
             id="createWebinar"
             name="createWebinar"
-            onFinish={(values) => onfinish(values, Date, Time, price)}
+            onFinish={(values) => onfinish(values, Date, Time, price,image)}
           >
             <Form.Item
               name="title"
@@ -65,6 +105,7 @@ function CreateStudent(props) {
             >
               <Input placeholder="Title" />
             </Form.Item>
+           
             <Form.Item
               name="description"
               rules={[
@@ -111,7 +152,7 @@ function CreateStudent(props) {
                 </Form.Item>
               </Col>
             </Row>
-
+            
             <Form.Item>
               <Row gutter={15}>
                 <Col md={12}>
@@ -144,7 +185,29 @@ function CreateStudent(props) {
                 </Col>
               </Row>
             </Form.Item>
-            <span>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
+            <Row gutter={15}>
+              <Col md={12}>
+                <Form.Item
+                  name="month"
+>
+                  <Select
+                 
+                    rules={[
+                      { required: true, message: "Please select month!" },
+                    ]}
+                  
+                    style={{ width: "100%" }}
+                    onChange={(value) => console.log(value, "valuue")}
+                    placeholder="Month">
+                    {
+                      months.map((res) => (
+                        <Option value={res}>{"Month "+res}</Option>
+                      ))}
+                  </Select>
+                </Form.Item>
+              </Col>
+            </Row>
+            <span className="label" style={{marginTop:"15px",display:"block"}}>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
 
             <Form.Item name="premium">
               
@@ -154,6 +217,29 @@ function CreateStudent(props) {
                   />
            
             </Form.Item>
+            <span className="label">Image</span>
+            <Upload
+              name="profImage"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+        
+              beforeUpload={beforeUpload}
+              onChange={(info) => {
+                setimage(info.file.originFileObj);
+                setState({ ...state, imageUrl: URL.createObjectURL(info.file.originFileObj) });
+              }}
+            >
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt="avatar"
+                  style={{ width: "100%" }}
+                />
+              ) : (
+                  uploadButton(state.image)
+                )}
+            </Upload>
             <Form.Item
               name="commonPrice"
               rules={[{ required: true, message: "Please input your title!" }]}

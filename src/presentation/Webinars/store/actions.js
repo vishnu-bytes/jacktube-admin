@@ -6,12 +6,15 @@ import {
 } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
-import WebinarData from "../../../demoData/webinar.json";
+// import WebinarData from "../../../demoData/webinar.json";
 import firebase from "../../../config/api/firebase";
+import {getStorage,ref,uploadBytes,getDownloadURL} from "firebase/storage"; 
 
-const webinarData = firebase.database().ref("webinar");
-const categoryData = firebase.database().ref("Category");
+const webinarData = firebase.database().ref("/webinar");
+const categoryData = firebase.database().ref("/Category");
 const expertData = firebase.database().ref("/expert");
+
+const storage=getStorage();
 
 const actions = {
   onSubmit:
@@ -46,20 +49,26 @@ const actions = {
       setState({ searchData: params });
     },
   onfinish:
-    (values, date, time, price) =>
+    (values, date, time, price,image) =>
     async ({ setState, dispatch }) => {
+      const storageRef = await ref(storage,image.name);
+      const uploadedData=await uploadBytes(storageRef,image);
+      const imageUrl=await getDownloadURL(uploadedData.ref)
       console.log(values, date, time, price, "values check");
 
-      values.time=time;
-      values.startDate=date;
-      values.price=price;
-      console.log(values, "values");
+      // values.time=time;
+      // values.startDate=date;
+      // values.price=price;
+      // console.log(values, "values");
       // const key = webinarData.push().key;
       // var data = {
+      //   ...values,
       //   id: key,
+      //   imageUrl:imageUrl
       // };
       // try {
-      //   webinarData.child(key).update(data);
+      //   const res= webinarData.child(key).update(data);
+      //   console.log("reponse",res);
       //   dispatch(actions.setVisible(false));
       //   dispatch(actions.getStudent());
       // } catch (error) {
@@ -77,9 +86,12 @@ const actions = {
     () =>
     async ({ setState, dispatch }) => {
       try {
-        // const res = await getStudentList();
-        setState({ studentList: WebinarData });
-        dispatch(actions.setSearchData(WebinarData));
+          webinarData.on("value", (snapshot) => {
+          let responselist = Object.values(snapshot.val());
+          setState({ studentList: responselist });
+          dispatch(actions.setSearchData(responselist));
+          console.log(responselist, "webinar");
+        });
       } catch (error) {
         logError(error);
       }

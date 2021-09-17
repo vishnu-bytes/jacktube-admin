@@ -35,11 +35,14 @@ const UserList = () => {
     getStudent();
     getCategory();
     getExperts();
-    console.log(expertList, "expert data");
+   
   }, [currentPage]);
+  console.log(studentList, "studentList data");
+  console.log("serachData",searchData)
+
   const handleSearch = (searchText) => {
     const data = studentList?.filter((value) =>
-      value.name.toUpperCase().startsWith(searchText.toUpperCase())
+      value.title.toUpperCase().startsWith(searchText.toUpperCase())
     );
     setSearchData(data);
   };
@@ -61,7 +64,7 @@ const UserList = () => {
       email: "test!@gmail.com",
       grade: student.grade,
       school: student.school,
-      joinDate: "January 20, 2020",
+      joinDate: student.date,
       status:
         student.status === "1" ? (
           <span className={`status-text active`}>{"active"}</span>

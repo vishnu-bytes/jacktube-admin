@@ -1,11 +1,11 @@
 const initialState = {
-  studentList: null,
+  studentList: [],
   categoryList: null,
   expertList: null,
   currentPage: 1,
   editVisible: false,
   visible: false,
-  searchData: null,
+  searchData: [],
   singleRow: {},
   visiblePrice: false,
   viewVisible: false,
