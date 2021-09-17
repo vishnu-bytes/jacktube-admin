@@ -73,7 +73,8 @@ const actions = {
               ...values,
               // id: "+91" + values.phone,
               profileImage: url,
-              panIamgeUrl: panIamgeUrl
+              panIamgeUrl: panIamgeUrl,
+              status:1
             };
             console.log(data, "data")
             try {
@@ -199,6 +200,16 @@ const actions = {
           setState({ pageNumber: page });
         } catch (error) {
           logError(error);
+        }
+      },
+  switchChange:
+    (status,phone) =>
+      async ({ setState }) => {
+        try {
+          console.log(status,"status")
+          expertData.child("+91"+phone).update({status:status});
+        } catch (error) {
+         
         }
       },
       

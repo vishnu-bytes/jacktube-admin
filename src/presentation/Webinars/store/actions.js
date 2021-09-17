@@ -33,7 +33,7 @@ const actions = {
   setVisiblePrice:
     (params) =>
     ({ setState }) => {
-      setState({ visiblePrice: params }, () => {});
+      setState({ visiblePrice: params },);
     },
   setViewVisible:
     (params) =>
@@ -49,6 +49,11 @@ const actions = {
     (values, date, time, price) =>
     async ({ setState, dispatch }) => {
       console.log(values, date, time, price, "values check");
+
+      values.time=time;
+      values.startDate=date;
+      values.price=price;
+      console.log(values, "values");
       // const key = webinarData.push().key;
       // var data = {
       //   id: key,

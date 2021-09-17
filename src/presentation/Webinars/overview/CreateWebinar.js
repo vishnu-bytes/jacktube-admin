@@ -21,6 +21,7 @@ function CreateStudent(props) {
   const [image, setimage] = useState({});
   const [Date, setDate] = useState("");
 
+
   return (
     <Modal
       type={"primary"}
@@ -56,7 +57,7 @@ function CreateStudent(props) {
             form={form}
             id="createWebinar"
             name="createWebinar"
-            onFinish={(values) => onfinish(values, Date, Time,price)}
+            onFinish={(values) => onfinish(values, Date, Time, price)}
           >
             <Form.Item
               name="title"
@@ -76,34 +77,47 @@ function CreateStudent(props) {
               <Col md={12}>
                 <Form.Item
                   name="category"
-                  initialValue=""
-                  placeholder="Category"
-                >
-                  <Select style={{ width: "100%" }}>
-                    <Option value="">Category</Option>
+>
+                  <Select
+                  mode="multiple"
+                    rules={[
+                      { required: true, message: "Please input your description!" },
+                    ]}
+                  
+                    style={{ width: "100%" }}
+                    onChange={(value) => console.log(value, "valuue")}
+                    placeholder="Category">
                     {props.category &&
                       props?.category.map((res) => (
                         <Option value={res.id}>{res.category}</Option>
                       ))}
                   </Select>
+                  
+
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item name="presentor" initialValue="">
-                  <Select style={{ width: "100%" }}>
-                    <Option value="">Presentor</Option>
+                <Form.Item name="presentor" rules={[
+                  { required: true, message: "Please input your description!" },
+                ]} >
+                  <Select
+                    style={{ width: "100%" }}
+                    placeholder="Presentor">
                     {props?.experts &&
                       props.experts.map((res) => (
-                        <Option value={res.id}>{res.name}</Option>
+                        <Option value={"+91" + res.phone}>{res.name}</Option>
                       ))}
                   </Select>
                 </Form.Item>
               </Col>
             </Row>
+
             <Form.Item>
               <Row gutter={15}>
                 <Col md={12}>
-                  <Form.Item name="startDate">
+                  <Form.Item name="startDate" rules={[
+                    { required: true, message: "Please input your description!" },
+                  ]}>
                     <DatePicker
                       placeholder="Date"
                       format={dateFormat}
@@ -114,10 +128,14 @@ function CreateStudent(props) {
                 </Col>
                 <Col md={12}>
                   <Form.Item
+                    rules={[
+                      { required: true, message: "Please input your description!" },
+                    ]}
                     name="time"
-                    initialValue={moment("00:00", "HH:mm")}
+
                   >
                     <TimePicker
+
                       onChange={(time, timeString) => setTime(timeString)}
                       style={{ width: "100%" }}
                       format={"HH:mm"}
@@ -126,17 +144,21 @@ function CreateStudent(props) {
                 </Col>
               </Row>
             </Form.Item>
-            <Form.Item name="presentor" initialValue="">
-              <Row gutter={15} className="switch-webinar">
-                <Col md={12}>
-                  <span>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
+            <span>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
+
+            <Form.Item name="premium">
+              
                   <Switch
-                    checked={visiblePrice}
-                    onChange={() => setVisiblePrice(true)}
+                    onChange={(value) => value&&setVisiblePrice(true)}
                     style={{ height: "unset!important" }}
                   />
-                </Col>
-              </Row>
+           
+            </Form.Item>
+            <Form.Item
+              name="commonPrice"
+              rules={[{ required: true, message: "Please input your title!" }]}
+            >
+              <Input placeholder="Price" />
             </Form.Item>
           </Form>
         </BasicFormWrapper>
