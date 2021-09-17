@@ -76,7 +76,6 @@ const EditCategory = () => {
               {item}
             </span>
           ))}</span>
-
         </RowContainer>
         <RowContainer>
           <span className="label">Services </span>

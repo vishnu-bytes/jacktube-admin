@@ -8,13 +8,30 @@ import { useStudentStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
 import ViewCards from "../../common/ViewCards"
+import { RowContainer } from "../../common/ViewCards/style"
+
 
 const { Option } = Select;
 
 const ViewWebinar = () => {
   const [form] = Form.useForm();
-  const [{ viewVisible, singleRow }, { onEdit, setViewVisible }] =
+  const [{ viewVisible, singleRow,categoryList,expertList }, { onEdit, setViewVisible }] =
     useStudentStore();
+    const getCategoryText=(id)=>{
+      for(let i=0;i<categoryList.length;i++){
+        if(id===categoryList[i].id){
+          return categoryList[i].category;
+        }
+      }
+    }
+    const getPresentorText=(id)=>{
+      console.log("id",id)
+      for(let i=0;i<expertList?.length;i++){
+        if(id==="+91"+expertList[i].phone){
+          return expertList[i].name;
+        }
+      }
+    }
   return (
     <Modal
       type="primary"
@@ -48,13 +65,20 @@ const ViewWebinar = () => {
       <div className="project-modal display">
         <ViewCards label="Title" value={singleRow?.title} />
         <ViewCards label="Desccription" value={singleRow?.description} />
-        <ViewCards label="Category" value={singleRow?.category} />
-        <ViewCards label="Presentor" value={singleRow?.presentor} />
+        <RowContainer>
+          <span className="label">Category </span>
+          <span className="value">{singleRow?.category?.map((item, index) => (
+            <span key={index}>{index ? ', ' : ""}
+              {getCategoryText(item)}
+            </span>
+          ))}</span>
+        </RowContainer>
+        <ViewCards label="Presentor" value={getPresentorText(singleRow?.presentor)} />
         <ViewCards label="Date" value={singleRow?.startDate} />
         <ViewCards label="Time" value={singleRow?.time} />
         <ViewCards label="Month" value={"Month "+singleRow?.month} />
         <ViewCards label="Premium webinar" value={singleRow?.premium === 1 ? "Yes" : "No"} />
-        <ViewCards label="Image" value={<img src={singleRow?.imageUrl} />} />
+        <ViewCards label="Image" value={<img src={singleRow?.imageUrl} alt="" />} />
         <ViewCards label="Price" value={singleRow?.commonPrice} />
       </div>
     </Modal>

@@ -56,24 +56,31 @@ const actions = {
       const imageUrl=await getDownloadURL(uploadedData.ref)
       console.log(values, date, time, price, "values check");
 
-      // values.time=time;
-      // values.startDate=date;
-      // values.price=price;
-      // console.log(values, "values");
-      // const key = webinarData.push().key;
-      // var data = {
-      //   ...values,
-      //   id: key,
-      //   imageUrl:imageUrl
-      // };
-      // try {
-      //   const res= webinarData.child(key).update(data);
-      //   console.log("reponse",res);
-      //   dispatch(actions.setVisible(false));
-      //   dispatch(actions.getStudent());
-      // } catch (error) {
-      //   logError(error);
-      // }
+
+      values.time=time;
+      values.startDate=date;
+      values.price=price;
+      console.log(values, "values");
+      const key = webinarData.push().key;
+      var data = {
+        ...values,
+        id: key,
+        imageUrl:imageUrl
+      };
+      try {
+        // const res= webinarData.child(key).update(data);
+       
+        //   const key = expertData.child("+91"+values.presentor).child("/webinarList").push().key;
+        //   console.log(key,"key of webinar in expert")
+        //   expertData.child("+91"+values.presentor).child("webinarList").child(key).update({'webinarId':"+91"+values.phone});
+        //   console.log(serviceData,"serviceData");
+        
+        // console.log("reponse",res);
+        dispatch(actions.setVisible(false));
+        dispatch(actions.getStudent());
+      } catch (error) {
+        logError(error);
+      }
     },
   onAddPrice:
     (params) =>
