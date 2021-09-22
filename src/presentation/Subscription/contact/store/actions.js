@@ -91,11 +91,11 @@ const actions = {
   onEdit:
     (values, web, one, options, id) =>
     async ({ setState, dispatch }) => {
-      console.log(id, "id of this shit");
+      console.log(options, "id of this shit");
       var data = {
         values: values,
-        webinar: web,
-        oneonone: one,
+        webinar: !options.includes("Webinar")?0:web,
+        oneonone: !options.includes("One-on-one")?0:one,
         options: options,
       };
       try {

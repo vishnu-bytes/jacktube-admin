@@ -51,20 +51,16 @@ const EditSubscribe = () => {
   const [Onevalue, setOnevalue] = useState();
   const [Webvalue, setWebvalue] = useState();
   const [options, setOptions] = useState([]);
-
+ 
   useEffect(() => {
-    setWebvalue(singleRow?.webinar ? singleRow?.webinar : 0);
+    setWebvalue(singleRow?.webinar ? singleRow?.webinar : 1);
     setOnevalue(singleRow?.oneonone ? singleRow?.oneonone : 1);
     setOptions(singleRow?.options);
   }, [singleRow]);
 
   const onChange = (checkedValues) => {
+    console.log(checkedValues, "checked values");
     setOptions(checkedValues);
-    if (!checkedValues.includes("Webinar")) {
-      setOnevalue("");
-    } else if (!checkedValues.includes("One-on-one")) {
-      setWebvalue("");
-    }
   };
 
   const onCancel = () => {
@@ -79,7 +75,6 @@ const EditSubscribe = () => {
 
   return (
     <>
-      <Row gutter={25}></Row>
       <Modal
         type={state.modalType}
         title={null}
