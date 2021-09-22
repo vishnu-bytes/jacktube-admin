@@ -23,7 +23,7 @@ const actions = {
       setState({ searchData: params });
     },
   onfinish:
-    (values) =>
+    (values,form) =>
     async ({ setState, dispatch }) => {
       const key = categoryData.push().key;
       var data = {
@@ -32,6 +32,7 @@ const actions = {
       };
       try {
         categoryData.child(key).update(data);
+        form.resetFields();
         dispatch(actions.setVisible(false));
         dispatch(actions.getStudent());
       } catch (error) {
@@ -43,9 +44,14 @@ const actions = {
     async ({ setState, dispatch }) => {
       try {
         categoryData.on("value", (snapshot) => {
-          let responselist = Object.values(snapshot.val());
+          if(snapshot.val()===null){
+            setState({ studentList: [] });
+          dispatch(actions.setSearchData([]));
+          }else{
+            let responselist = Object.values(snapshot.val());
           setState({ studentList: responselist });
           dispatch(actions.setSearchData(responselist));
+          }
         });
       } catch (error) {
         logError(error);

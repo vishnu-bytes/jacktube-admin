@@ -51,6 +51,7 @@ const UserList = () => {
           </figcaption>
         </div>
       ),
+      imageUrl:<a href={student?.image}>{student?.image.substring(0,50)}</a>,
       action: (
         <div className="table-actions">
           <>

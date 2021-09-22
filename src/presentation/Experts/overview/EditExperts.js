@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Select, Upload, message, Radio } from "antd";
-
+import { Form, Input, Select, Upload, message } from "antd";
 import { Col, Row } from "antd";
 import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
-import FeatherIcon from "feather-icons-react";
 import { useStudentStore } from "../store";
-import moment from "moment";
 import {
-  UploadOutlined,
   LoadingOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { increment, decrement } from "../../common/Assets/Icons"
+
 
 const { Option } = Select;
 
@@ -55,6 +51,7 @@ function EditExpert() {
   const [panImage, setpanImage] = useState(singleRow?.panIamgeUrl);
   const [profImageUrl, setProfileImageUrl] = useState(singleRow?.profileImage);
   const [panImageUrl, setPanImageUrl] = useState(singleRow?.panIamgeUrl);
+  const [serviceArray,setServicesArray]=useState([])
 
 
   const [form] = Form.useForm()
@@ -63,7 +60,9 @@ function EditExpert() {
     setPanImageUrl(singleRow?.panIamgeUrl);
     setimage(singleRow?.profileImage);
     setpanImage(singleRow?.panIamgeUrl);
-    form.setFieldsValue(singleRow)
+    form.setFieldsValue(singleRow);
+    setServicesArray(singleRow?.services);
+    console.log("services",serviceArray);
   }, [singleRow])
 
 
@@ -73,10 +72,8 @@ function EditExpert() {
 
   const onHandleChange = (info) => {
     setState({ ...state, panImageUrl: info.fileoriginFileObj });
-
     setpanImage(info.file.originFileObj);
     setPanImageUrl(URL.createObjectURL(info.file.originFileObj))
-
   };
 
   const uploadButton = (loading) => {
@@ -131,7 +128,7 @@ function EditExpert() {
             form={form}
             id="editExpert"
             name="editExpert"
-            onFinish={(values) => onEdit(values, image, studentList, panImage, singleRow.phone) || console.log(singleRow.id, "iddddddd")}
+            onFinish={(values) => onEdit(values, image, studentList, panImage, singleRow.phone,serviceArray) || console.log(singleRow.id, "iddddddd")}
             initialValues={{}}
           >
 

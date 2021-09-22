@@ -49,9 +49,9 @@ function CreateStudent() {
             id="createCategory"
             form={form}
             name="createCategory"
-            onFinish={(values) => onfinish(values)}
+            onFinish={(values) => onfinish(values,form)}
           >
-            <Form.Item name="category">
+            <Form.Item name="category" rules={[{ required: true, message: 'This field is required!' }]}>
               <Input placeholder="Category name" />
             </Form.Item>
           </Form>

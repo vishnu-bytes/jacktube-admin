@@ -50,7 +50,7 @@ const actions = {
       setState({ searchData: params });
     },
   onfinish:
-    (values, image) =>
+    (values, image,form,setImageUrl,setimage) =>
     async ({ setState, dispatch }) => {
       const storageRef = ref(storage, image.name);
       const UploadedData = await uploadBytes(storageRef, image);
@@ -67,6 +67,9 @@ const actions = {
         await serviceData.child(key).update(data);
         dispatch(actions.setVisibleCreate(false));
         dispatch(actions.getStudent());
+        form.resetFields();
+        setImageUrl("");
+        setimage({});
       } catch (error) {
         logError(error);
       }
@@ -76,10 +79,16 @@ const actions = {
     async ({ setState, dispatch }) => {
       try {
         serviceData.on("value", (snapshot) => {
-          let responselist = Object.values(snapshot.val());
+          if(snapshot.val() !== null){
+            let responselist = Object.values(snapshot.val());
           console.log(responselist, "data checfk");
           setState({ studentList: responselist });
           dispatch(actions.setSearchData(responselist));
+           }
+          else if(snapshot.val() === null){ 
+            setState({ studentList: [] });
+          dispatch(actions.setSearchData([]));
+          }
         });
       } catch (error) {
         logError(error);
@@ -92,19 +101,48 @@ const actions = {
       setState({ singleRow: params.data });
     },
   onEdit:
-    (params) =>
-    ({ dispatch }) => {
-      logError(params, "Edit value");
+    (values,image,id) =>
+    async ({ dispatch }) => {
+      let url;
+      if (typeof image === "string") {
+        url = image;
+      } else {
+        const storageRef = ref(storage, image.name);
+        const UploadedData = await uploadBytes(storageRef, image);
+        url = await getDownloadURL(UploadedData.ref);
+      }
+     
+
+      // const key = serviceData.push().key;
+      var data = {
+        ...values,
+        image: url,
+        id: id,
+      };
+      console.log(values, id);
+      try {
+        await serviceData.child(id).update(data);
+        dispatch(actions.setEditVisible(false));
+        dispatch(actions.getStudent());
+      } catch (error) {
+        logError(error);
+      }
+
+      
+      // logError(params, "Edit value");
       dispatch(actions.getStudent());
     },
   onDelete:
     (params) =>
-    async ({ dispatch }) => {
+    async ({ dispatch,setState }) => {
       try {
         serviceData.child(params).remove();
+        dispatch(actions.getStudent());
+        setState({ viewVisible:false});
+        // setState({ singleRow: params.data });
+
       } catch {
         logError(params, "Edit value");
-        dispatch(actions.getStudent());
       }
     },
   getCourse:
