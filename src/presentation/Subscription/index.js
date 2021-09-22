@@ -51,7 +51,7 @@ const Subscription = () => {
       <Main>
         <Row gutter={25}>
           {studentList &&
-            studentList.map((user) => (
+            studentList?.map((user) => (
               <Col key={user.id} xxl={6} md={12} sm={12} xs={24}>
                 <Cards headless>
                   <ContactCard user={user} />

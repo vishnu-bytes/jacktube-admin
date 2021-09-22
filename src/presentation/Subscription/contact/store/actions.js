@@ -72,10 +72,16 @@ const actions = {
       try {
         let responselist;
         subscriptionData.on("value", (snapshot) => {
-          responselist = Object.values(snapshot.val());
-          console.log(responselist, "userlist");
-          setState({ studentList: responselist });
-          dispatch(actions.setSearchData(responselist));
+          if(snapshot.val()===null){
+            setState({ studentList: [] });
+            dispatch(actions.setSearchData([]));
+          }else{
+            responselist = Object.values(snapshot.val());
+            console.log(responselist, "userlist");
+            setState({ studentList: responselist });
+            dispatch(actions.setSearchData(responselist));
+          }
+          
         });
       } catch (error) {
         logError(error);

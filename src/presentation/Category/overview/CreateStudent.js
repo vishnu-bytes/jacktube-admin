@@ -17,7 +17,7 @@ function CreateStudent() {
   return (
     <Modal
       type={"primary"}
-      title="Create category"
+      title="Create Tag"
       visible={visible}
       footer={[
         <div key="1" className="project-modal-footer">
@@ -52,7 +52,7 @@ function CreateStudent() {
             onFinish={(values) => onfinish(values,form)}
           >
             <Form.Item name="category" rules={[{ required: true, message: 'This field is required!' }]}>
-              <Input placeholder="Category name" />
+              <Input placeholder="Tag name" />
             </Form.Item>
           </Form>
         </BasicFormWrapper>
