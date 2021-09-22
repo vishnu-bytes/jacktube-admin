@@ -1,44 +1,94 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Select } from "antd";
+import {
+  Form,
+  Input,
+  Upload,
+  message,
+} from "antd";
+import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
-import moment from "moment";
 import { useStudentStore } from "../store";
-import { logError } from "../../common/Utils";
-import { onEdit } from "../../../infrastructure/faculty";
-import { Col, Row, DatePicker, TimePicker, Switch } from "antd";
+import {
+  LoadingOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 
-const { Option } = Select;
-const dateFormat = "DD/MM/YYYY";
 
-const EditCategory = () => {
+const beforeUpload = (file) => {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+  return isJpgOrPng && isLt2M;
+};
+
+function EditService() {
+
   const [form] = Form.useForm();
-  const [{ editVisible, singleCourse }, { onEdit, onfinish, setEditVisible }] =
-    useStudentStore();
+  const [{ editVisible, singleRow }, { onEdit, setEditVisible }] = useStudentStore();
+  const [image, setimage] = useState();
+  const [imageUrl, setImageUrl] = useState("")
+  const [state, setState] = useState({
+    fileList: [
+      {
+        uid: "-1",
+        name: "xxx.png",
+        status: "done",
+        url: "http://www.baidu.com/xxx.png",
+      },
+    ],
+    loading: false,
+    
+  });
+
+
+  useEffect(() => {
+    form.setFieldsValue(singleRow);
+    setImageUrl(singleRow?.image);
+    setimage(singleRow?.image);
+
+  }, [singleRow])
+
+  const { profImageUrl } = state;
+
+
+  const uploadButton = (loading) => {
+    return (
+      <div>
+        {loading ? <LoadingOutlined /> : <PlusOutlined />}
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    );
+  };
 
   return (
     <Modal
-      type="primary"
+      type={"primary"}
       title="Edit Service"
       visible={editVisible}
       footer={[
         <div key="1" className="project-modal-footer">
           <Button
-            form="editProject"
             size="default"
-            htmlType="submit"
             type="primary"
             key="submit"
+            htmlType="submit"
+            form="createProject"
           >
-            Confirm
+            Submit
           </Button>
           <Button
             size="default"
             type="white"
             key="back"
             outlined
-            onClick={() => setEditVisible(false)}
+            onClick={() => setEditVisible({ value: false })}
           >
             Cancel
           </Button>
@@ -52,23 +102,45 @@ const EditCategory = () => {
             form={form}
             id="createProject"
             name="createProject"
-            onFinish={(values) => onfinish(values)}
+            onFinish={(values) => onEdit(values, image,singleRow.id)}
           >
             <Form.Item name="title">
               <Input placeholder="Title" />
             </Form.Item>
-            <Form.Item name="description">
-              <Input placeholder="Description" />
-            </Form.Item>
-
-            <Form.Item name="description" label="Description">
-              <Input.TextArea rows={4} placeholder="Add description" />
-            </Form.Item>
+            <Upload
+              name="avatar"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              beforeUpload={beforeUpload}
+              onChange={(info) => {
+                info.file.status = "done";
+                setimage(info.file.originFileObj);
+                console.log(info.file.originFileObj, "image");
+                setImageUrl(URL.createObjectURL(info.file.originFileObj));
+                
+              }}
+            >
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt="avatar"
+                  style={{ width: "100%" }}
+                />
+              ) : (
+                  uploadButton(state.image)
+                )}
+            </Upload>
           </Form>
         </BasicFormWrapper>
       </div>
     </Modal>
   );
+}
+EditService.propTypes = {
+  visible: propTypes.bool.isRequired,
+  onCancel: propTypes.func.isRequired,
 };
 
-export default EditCategory;
+export default EditService;

@@ -92,7 +92,7 @@ const UserList = () => {
             >
               <FeatherIcon icon="edit" size={16} />
             </Button> */}
-            <Popconfirm
+            {/* <Popconfirm
               title="Are you sure to delete this user?"
               onConfirm={() => {
                 onDelete({ id: student?._id });
@@ -103,7 +103,7 @@ const UserList = () => {
               <Button className="btn-icon" type="danger" to="#" shape="circle">
                 <FeatherIcon icon="trash-2" size={16} />
               </Button>
-            </Popconfirm>
+            </Popconfirm> */}
           </>
         </div>
       ),

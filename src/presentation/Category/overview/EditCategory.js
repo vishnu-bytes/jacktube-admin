@@ -14,7 +14,9 @@ const EditCategory = () => {
   const [form] = Form.useForm();
   const [{ editVisible, singleRow }, { onEdit, setEditVisible }] =
     useStudentStore();
-
+useEffect(()=>{
+  form.setFieldsValue(singleRow);
+},[singleRow])
   return (
     <Modal
       type="primary"
@@ -52,7 +54,7 @@ const EditCategory = () => {
             name="editProject"
             onFinish={(values) => onEdit({ values, initial: singleRow })}
           >
-            <Form.Item name="category" label="Category">
+            <Form.Item name="category" label="Category" rules={[{ required: true, message: 'This field is required!' }]}>
               <Input
                 placeholder="Category"
                 defaultValue={singleRow?.category}

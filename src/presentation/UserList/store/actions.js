@@ -60,12 +60,16 @@ const actions = {
     async ({ setState, dispatch }) => {
       try {
         firebase.database().ref(`/users`).on('value', snapshot => {
-          let responselist = Object.values(snapshot.val())
-          console.log(responselist,"firabse")
-          setState({ studentList: responselist });
-          dispatch(actions.setSearchData(responselist));
+          if(snapshot.val()===null){
+            setState({studentList:[]});
+            dispatch(actions.setSearchData([]))
+          }else{
+            let responselist = Object.values(snapshot.val())
+            console.log(responselist,"firabse")
+            setState({ studentList: responselist });
+            dispatch(actions.setSearchData(responselist));
+          }   
         });
-       
       } catch (error) {
         logError(error);
       }

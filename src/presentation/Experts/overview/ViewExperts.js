@@ -17,7 +17,7 @@ const { Option } = Select;
 
 const EditCategory = () => {
   const [form] = Form.useForm();
-  const [{ viewVisible, singleRow ,serviceList}, { onEdit, setViewVisible }] =
+  const [{ viewVisible, singleRow ,serviceList}, { onDelete, setViewVisible }] =
     useStudentStore();
   // console.log(singleRow.qualifications, "single course");
 
@@ -52,6 +52,7 @@ const EditCategory = () => {
             type="primary"
             key="submit"
             danger
+            onClick={() => onDelete(singleRow?.phone,singleRow?.services)}
           >
             Delete
           </Button>

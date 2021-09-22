@@ -38,8 +38,6 @@ function CreateStudent(props) {
   const [image, setimage] = useState({});
   const [Date, setDate] = useState("");
  
-
-
   const [state, setState] = useState({
     fileList: [
       {
@@ -101,7 +99,7 @@ const months=[1,2,3,4,5,6,7,8,9];
           >
             <Form.Item
               name="title"
-              rules={[{ required: true, message: "Please input your title!" }]}
+              rules={[{ required: true, message: "This field is required!" }]}
             >
               <Input placeholder="Title" />
             </Form.Item>
@@ -109,7 +107,7 @@ const months=[1,2,3,4,5,6,7,8,9];
             <Form.Item
               name="description"
               rules={[
-                { required: true, message: "Please input your description!" },
+                { required: true, message: "This field is required!" },
               ]}
             >
               <Input placeholder="Description" />
@@ -118,13 +116,11 @@ const months=[1,2,3,4,5,6,7,8,9];
               <Col md={12}>
                 <Form.Item
                   name="category"
->
+                  rules={[
+                    { required: true, message: "This field is required!" },
+                  ]}>
                   <Select
                   mode="multiple"
-                    rules={[
-                      { required: true, message: "Please input your description!" },
-                    ]}
-                  
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
                     placeholder="Category">
@@ -133,13 +129,11 @@ const months=[1,2,3,4,5,6,7,8,9];
                         <Option value={res.id}>{res.category}</Option>
                       ))}
                   </Select>
-                  
-
                 </Form.Item>
               </Col>
               <Col md={12}>
                 <Form.Item name="presentor" rules={[
-                  { required: true, message: "Please input your description!" },
+                  { required: true, message: "This field is required!" },
                 ]} >
                   <Select
                     style={{ width: "100%" }}
@@ -152,12 +146,11 @@ const months=[1,2,3,4,5,6,7,8,9];
                 </Form.Item>
               </Col>
             </Row>
-            
             <Form.Item>
               <Row gutter={15}>
                 <Col md={12}>
                   <Form.Item name="startDate" rules={[
-                    { required: true, message: "Please input your description!" },
+                    { required: true, message: "This field is required!" },
                   ]}>
                     <DatePicker
                       placeholder="Date"
@@ -170,13 +163,11 @@ const months=[1,2,3,4,5,6,7,8,9];
                 <Col md={12}>
                   <Form.Item
                     rules={[
-                      { required: true, message: "Please input your description!" },
+                      { required: true, message: "This field is required!" },
                     ]}
                     name="time"
-
                   >
                     <TimePicker
-
                       onChange={(time, timeString) => setTime(timeString)}
                       style={{ width: "100%" }}
                       format={"HH:mm"}
@@ -189,13 +180,10 @@ const months=[1,2,3,4,5,6,7,8,9];
               <Col md={12}>
                 <Form.Item
                   name="month"
->
+                  rules={[
+                    { required: true, message: "This field is required!" },
+                  ]}>
                   <Select
-                 
-                    rules={[
-                      { required: true, message: "Please select month!" },
-                    ]}
-                  
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
                     placeholder="Month">
@@ -212,7 +200,9 @@ const months=[1,2,3,4,5,6,7,8,9];
             <Form.Item name="premium">
               
                   <Switch
-                    onChange={(value) => value&&setVisiblePrice(true)}
+                  name="premium"
+             
+                    onChange={(value) => value && setVisiblePrice(true)}
                     style={{ height: "unset!important" }}
                   />
            

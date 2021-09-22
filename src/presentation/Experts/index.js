@@ -102,7 +102,7 @@ const UserList = () => {
             <Popconfirm
               title="Are you sure to delete this expert?"
               onConfirm={() => {
-                onDelete(student?.phone);
+                onDelete(student?.phone,student?.services);
               }}
               okText="Yes"
               cancelText="No"

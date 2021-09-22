@@ -12,11 +12,18 @@ const UserTable = ({usersTableData}) => {
       key: "user",
     },
     {
+      title:"Image",
+      dataIndex:"imageUrl",
+      key:"imageUrl"
+
+    },
+    {
       title: "Actions",
       dataIndex: "action",
       key: "action",
       width: "90px",
     },
+   
   ];
 
   const rowSelection = {
