@@ -93,7 +93,8 @@ const UserList = () => {
               type="primary"
               size="default"
             >
-              <CSVLink {...csvReport}>Export to CSV</CSVLink>
+              Download Report
+              {/* <CSVLink {...csvReport}>Export to CSV</CSVLink> */}
             </Button>,
           ]}
         />
