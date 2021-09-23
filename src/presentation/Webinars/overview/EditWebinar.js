@@ -1,37 +1,99 @@
+
 import React, { useState, useEffect } from "react";
-import { Form, Input, Select } from "antd";
+import { Form, Input, Select, Switch, Upload, InputNumber, Radio, message } from "antd";
+import { Col, Row, DatePicker, TimePicker } from "antd";
+import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
+import FeatherIcon from "feather-icons-react";
+import { useWebinarStore } from "../store";
 import moment from "moment";
-import { useStudentStore } from "../store";
-import { logError } from "../../common/Utils";
-import { onEdit } from "../../../infrastructure/faculty";
-import { Col, Row, DatePicker, TimePicker,Switch } from "antd";
+import AddPrice from "./AddPrice";
+import {
+  LoadingOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
+import TextArea from "antd/lib/input/TextArea";
 
 const { Option } = Select;
-const dateFormat = "DD/MM/YYYY";
+const dateFormat = "DD MMM YYYY";
 
-const EditCategory = () => {
+
+const beforeUpload = (file) => {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+  return isJpgOrPng && isLt2M;
+};
+
+function EditWebinar(props) {
+  const [{ visiblePrice }, { setVisiblePrice }] = useWebinarStore();
   const [form] = Form.useForm();
-  const [{ editVisible, singleCourse }, { onEdit,onfinish, setEditVisible }] =
-    useStudentStore();
+  const [{ editVisible, price, singleRow }, { onEdit, setEditVisible }] = useWebinarStore();
+  const [Time, setTime] = useState(singleRow?.time);
+  const [image, setimage] = useState(singleRow?.imageUrl);
+  const [Date, setDate] = useState(singleRow?.startDate);
+const [imageUrl,setImageUrl]=useState(singleRow?.imageUrl)
 
+  useEffect(() => {
+    if (singleRow?.startDate ) {
+      let newSingleRow = { ...singleRow }
+      console.log(singleRow, "new singlerow");
+      let convertedDate=moment(singleRow.startDate,"DD MMM YYYY").format("DD/MM/YYYY")
+      newSingleRow = { ...newSingleRow, startDate: moment(convertedDate, "DD/MM/YYYY") };
+      newSingleRow = { ...newSingleRow, time: moment(singleRow.time, "HH:mm") };
+      console.log("new single row", newSingleRow)
+      form.setFieldsValue(newSingleRow);
+      setimage(singleRow?.imageUrl);
+      setDate(singleRow?.startDate)
+      setTime(singleRow?.time)
+      setImageUrl(singleRow.imageUrl)
+    }
+  }, [singleRow,editVisible])
+  const [state, setState] = useState({
+    fileList: [
+      {
+        uid: "-1",
+        name: "xxx.png",
+        status: "done",
+        url: "http://www.baidu.com/xxx.png",
+      },
+      
+    ],
+    loading: false,
+    image: null,
+  });
+ 
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const uploadButton = (loading) => {
+    return (
+      <div>
+        {loading ? <LoadingOutlined /> : <PlusOutlined />}
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    );
+  };
   return (
     <Modal
-      type="primary"
+      type={"primary"}
       title="Edit Webinar"
       visible={editVisible}
       footer={[
         <div key="1" className="project-modal-footer">
           <Button
-            form="editProject"
             size="default"
-            htmlType="submit"
             type="primary"
             key="submit"
+            htmlType="submit"
+            form="editWebinar"
           >
-            Confirm
+            Create
           </Button>
           <Button
             size="default"
@@ -50,70 +112,160 @@ const EditCategory = () => {
         <BasicFormWrapper>
           <Form
             form={form}
-            id="createProject"
-            name="createProject"
-            onFinish={(values) => onfinish(values)}
+            id="editWebinar"
+            name="editWebinar"
+            onFinish={(values) => onEdit(values, Date, Time, price, image,singleRow.id,singleRow.presentor)}
           >
-            <Form.Item name="title">
+            <Form.Item
+              name="title"
+              rules={[{ required: true, message: "This field is required!" }]}
+            >
               <Input placeholder="Title" />
             </Form.Item>
-            <Form.Item name="description">
-              <Input placeholder="Description" />
-            </Form.Item>
 
+            <Form.Item
+              name="description"
+              rules={[
+                { required: true, message: "This field is required!" },
+              ]}
+            >
+              <TextArea placeholder="Description" />
+            </Form.Item>
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item name="category" initialValue="">
-                  <Select style={{ width: "100%" }}>
-                    <Option value="">Category</Option>
-                    <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>D
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col md={12}>
-                <Form.Item name="presentor" initialValue="">
-                  <Select style={{ width: "100%" }}>
-                    <Option value="">Presentor</Option>
-                    <Option value="1">Grade One</Option>
-                    <Option value="2">Grade Two</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={15}>
-              <Col md={12}>
-                <Form.Item name="startDate">
-                  <DatePicker
-                    placeholder="Date"
-                    format={dateFormat}
+                <Form.Item
+                  name="category"
+                  rules={[
+                    { required: true, message: "This field is required!" },
+                  ]}>
+                  <Select
+                    mode="multiple"
                     style={{ width: "100%" }}
-                  />
+                    onChange={(value) => console.log(value, "valuue")}
+                    placeholder="Tag">
+                    {props.category &&
+                      props?.category.map((res) => (
+                        <Option value={res.id}>{res.category}</Option>
+                      ))}
+                  </Select>
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item name="time" initialValue={moment("00:00", "HH:mm")}>
-                  <TimePicker style={{ width: "100%" }} />
+                <Form.Item name="presentor" rules={[
+                  { required: true, message: "This field is required!" },
+                ]} >
+                  <Select
+                    style={{ width: "100%" }}
+                    placeholder="Presentor">
+                    {props?.experts &&
+                      props.experts.map((res) => (
+                        <Option value={"+91" + res.phone}>{res.name}</Option>
+                      ))}
+                  </Select>
                 </Form.Item>
               </Col>
             </Row>
-            <Form.Item name="presentor" initialValue="">
-              <Row gutter={15} className="switch-webinar">
+            <Form.Item>
+              <Row gutter={15}>
                 <Col md={12}>
-                  <span>Premium Webinar &nbsp; &nbsp;</span>
-                  <Switch style={{ height: "unset!important" }} />
+                  <Form.Item name="startDate" rules={[
+                    { required: true, message: "This field is required!" },
+                  ]}>
+                    <DatePicker
+                      placeholder="Date"
+                      style={{ width: "100%" }}
+                      onChange={(date, dateString) => setDate(dateString)}
+                      format={"DD/MM/YYYY"}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col md={12}>
+                  <Form.Item
+                    rules={[
+                      { required: true, message: "This field is required!" },
+                    ]}
+                    name="time"
+
+                  >
+                    <TimePicker
+                      onChange={(time, timeString) => setTime(timeString)}
+                      style={{ width: "100%" }}
+                      format={"HH:mm"}
+                    />
+                  </Form.Item>
                 </Col>
               </Row>
             </Form.Item>
+            <Row gutter={15}>
+              <Col md={12}>
+                <Form.Item
+                  name="month"
+                  rules={[
+                    { required: true, message: "This field is required!" },
+                  ]}>
+                  <Select
+                    style={{ width: "100%" }}
+                    onChange={(value) => console.log(value, "valuue")}
+                    placeholder="Month">
+                    {
+                      months.map((res) => (
+                        <Option value={res}>{"Month " + res}</Option>
+                      ))}
+                  </Select>
+                </Form.Item>
+              </Col>
+            </Row>
+            <span className="label" style={{ marginTop: "15px", display: "block" }}>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
 
-            <Form.Item name="description" label="Description">
-              <Input.TextArea rows={4} placeholder="Add description" />
+            <Form.Item name="premium">
+
+              <Switch
+                name="premium"
+                onChange={(value) => value && setVisiblePrice(true)}
+                style={{ height: "unset!important" }}
+              />
+
+            </Form.Item>
+            <span className="label">Image</span>
+            <Upload
+              name="profImage"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+
+              beforeUpload={beforeUpload}
+              onChange={(info) => {
+                setimage(info.file.originFileObj);
+                setImageUrl(URL.createObjectURL(info.file.originFileObj))
+               
+              }}
+            >
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt="avatar"
+                  style={{ width: "100%" }}
+                />
+              ) : (
+                  uploadButton(state.image)
+                )}
+            </Upload>
+            <Form.Item
+              name="commonPrice"
+              rules={[{ required: true, message: "Please input your title!" }]}
+            >
+              <Input placeholder="Price" />
             </Form.Item>
           </Form>
         </BasicFormWrapper>
+        <AddPrice />
       </div>
     </Modal>
   );
+}
+EditWebinar.propTypes = {
+  visible: propTypes.bool.isRequired,
+  onCancel: propTypes.func.isRequired,
 };
 
-export default EditCategory;
+export default EditWebinar;

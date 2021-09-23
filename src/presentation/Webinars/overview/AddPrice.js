@@ -6,16 +6,16 @@ import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import FeatherIcon from "feather-icons-react";
-import { useStudentStore } from "../store";
+import { useWebinarStore } from "../store";
 import moment from "moment";
 
 const { Option } = Select;
 const dateFormat = "DD/MM/YYYY";
 
 function AddPrice() {
-  const [{ visiblePrice }, { setVisiblePrice }] = useStudentStore();
+  const [{ visiblePrice }, { setVisiblePrice }] = useWebinarStore();
   const [form] = Form.useForm();
-  const [{ visible }, { onAddPrice, setVisible }] = useStudentStore();
+  const [{ visible }, { onAddPrice, setVisible }] = useWebinarStore();
   const [value, setValue] = useState(1);
   const [image, setimage] = useState({});
 
