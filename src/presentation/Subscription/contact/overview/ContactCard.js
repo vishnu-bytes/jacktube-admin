@@ -14,6 +14,7 @@ import { useStudentStore } from "../store";
 import { Button } from "../../../../components/buttons/buttons";
 
 const ContactCard = ({ user, showEditModal }) => {
+  console.log(user, "data check");
   const [
     { studentList, searchData },
     {
@@ -44,7 +45,8 @@ const ContactCard = ({ user, showEditModal }) => {
           {user.oneonone > 0 && (
             <li>
               <img src={done} />
-              &nbsp;&nbsp;{user.oneonone} free consultation
+              &nbsp;&nbsp;{user.oneonone}
+              free consultation
             </li>
           )}
         </ul>
@@ -59,9 +61,11 @@ const ContactCard = ({ user, showEditModal }) => {
             >
               <span>Edit</span>
             </Link>
-            <Link onClick={() => onDelete(user.id)} to="#">
-              <span>Delete</span>
-            </Link>
+            {!user.entry_pass && (
+              <Link onClick={() => onDelete(user.id)} to="#">
+                <span>Delete</span>
+              </Link>
+            )}
           </>
         }
         action={["click"]}

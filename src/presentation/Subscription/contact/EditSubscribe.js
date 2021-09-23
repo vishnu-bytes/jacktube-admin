@@ -51,7 +51,7 @@ const EditSubscribe = () => {
   const [Onevalue, setOnevalue] = useState();
   const [Webvalue, setWebvalue] = useState();
   const [options, setOptions] = useState([]);
- 
+
   useEffect(() => {
     setWebvalue(singleRow?.webinar ? singleRow?.webinar : 1);
     setOnevalue(singleRow?.oneonone ? singleRow?.oneonone : 1);
@@ -91,7 +91,14 @@ const EditSubscribe = () => {
                 form={form}
                 name="contact"
                 onFinish={(values) =>
-                  onEdit(values, Webvalue, Onevalue, options, singleRow.id)
+                  onEdit(
+                    values,
+                    Webvalue,
+                    Onevalue,
+                    options,
+                    singleRow.id,
+                    singleRow.entry_pass
+                  )
                 }
                 name="editSub"
                 id="editSub"
@@ -99,13 +106,16 @@ const EditSubscribe = () => {
                 <Form.Item initialValue={singleRow?.values?.price} name="price">
                   <Input placeholder="Price" />
                 </Form.Item>
-                <div className="checkboxContainer">
-                  <Checkbox.Group
-                    options={plainOptions}
-                    defaultValue={singleRow?.options}
-                    onChange={onChange}
-                  />
-                </div>
+                {!singleRow?.entry_pass && (
+                  <div className="checkboxContainer">
+                    <Checkbox.Group
+                      options={plainOptions}
+                      defaultValue={singleRow?.options}
+                      onChange={onChange}
+                    />
+                  </div>
+                )}
+
                 <div
                   className="rowContainer space"
                   style={{

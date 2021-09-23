@@ -57,6 +57,7 @@ const actions = {
         oneonone: one,
         options: options,
         id: key,
+        entry_pass: false,
       };
       try {
         subscriptionData.child(key).update(data);
@@ -89,15 +90,20 @@ const actions = {
       setState({ singleRow: params.data });
     },
   onEdit:
-    (values, web, one, options, id) =>
+    (values, web, one, options, id, pass) =>
     async ({ setState, dispatch }) => {
-      console.log(options, "id of this shit");
-      var data = {
-        values: values,
-        webinar: !options.includes("Webinar")?0:web,
-        oneonone: !options.includes("One-on-one")?0:one,
-        options: options,
-      };
+      if (!pass) {
+        var data = {
+          values: values,
+          webinar: !options.includes("Webinar") ? 0 : web,
+          oneonone: !options.includes("One-on-one") ? 0 : one,
+          options: options,
+        };
+      } else {
+        var data = {
+          values: values,
+        };
+      }
       try {
         subscriptionData.child(id).update(data);
         dispatch(actions.setEditVisible(false));
