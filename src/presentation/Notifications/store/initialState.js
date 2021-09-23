@@ -6,6 +6,7 @@ const initialState = {
   searchData:null,
   singleRow: {},
   VisibleCreate: false,
+  webinarData:null
 };
 
 export default initialState;

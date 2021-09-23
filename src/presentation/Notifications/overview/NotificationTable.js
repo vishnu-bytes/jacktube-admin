@@ -4,22 +4,17 @@ import { UserTableStyleWrapper } from "../style";
 import { TableWrapper } from "../../common/Style/styled";
 import { Cards } from "../../common/UI/cards/frame/cards-frame";
 
-const NotificationTable = ({usersTableData}) => {
+const NotificationTable = ({ usersTableData }) => {
   const usersTableColumns = [
     {
-      title: "Webinars",
+      title: "Notifications",
       dataIndex: "user",
       key: "user",
     },
     {
-      title: "Date",
-      dataIndex: "joinDate",
-      key: "joinDate",
-    },
-    {
-      title: "Time",
-      dataIndex: "time",
-      key: "time",
+      title: "Image",
+      dataIndex: "imageurl",
+      key: "imageurl",
     },
     {
       title: "Actions",
