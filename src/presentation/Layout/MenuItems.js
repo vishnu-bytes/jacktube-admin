@@ -103,7 +103,7 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
           </NavLink>
         }
       >
-        <Link to={routes.CATEGORY}>Category</Link>
+        <Link to={routes.CATEGORY}>Tag</Link>
       </Menu.Item>
       <Menu.Item
         key="course"

@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { Form, Input, Select, Switch, Upload, InputNumber, Radio ,message} from "antd";
+import { Form, Input, Select, Switch, Upload, InputNumber, Radio, message } from "antd";
 import { Col, Row, DatePicker, TimePicker } from "antd";
 import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import FeatherIcon from "feather-icons-react";
-import { useStudentStore } from "../store";
+import { useWebinarStore } from "../store";
 import moment from "moment";
 import AddPrice from "./AddPrice";
 import {
   LoadingOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
+import TextArea from "antd/lib/input/TextArea";
 
 const { Option } = Select;
-const dateFormat = "DD MMM YYYY";
+const dateFormat = "DD/MM/YYYY";
 
 
 const beforeUpload = (file) => {
@@ -31,13 +32,13 @@ const beforeUpload = (file) => {
 };
 
 function CreateStudent(props) {
-  const [{ visiblePrice }, { setVisiblePrice }] = useStudentStore();
+  const [{ visiblePrice }, { setVisiblePrice }] = useWebinarStore();
   const [form] = Form.useForm();
-  const [{ visible, price }, { onfinish, setVisible }] = useStudentStore();
+  const [{ visible, price }, { onfinish, setVisible }] = useWebinarStore();
   const [Time, setTime] = useState("");
   const [image, setimage] = useState({});
-  const [Date, setDate] = useState("");
- 
+  const [Date, setDate] = useState();
+
   const [state, setState] = useState({
     fileList: [
       {
@@ -50,8 +51,8 @@ function CreateStudent(props) {
     loading: false,
     image: null,
   });
-  const { imageUrl,  } = state;
-const months=[1,2,3,4,5,6,7,8,9];
+  const { imageUrl, } = state;
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const uploadButton = (loading) => {
     return (
       <div>
@@ -95,7 +96,7 @@ const months=[1,2,3,4,5,6,7,8,9];
             form={form}
             id="createWebinar"
             name="createWebinar"
-            onFinish={(values) => onfinish(values, Date, Time, price,image)}
+            onFinish={(values) => onfinish(values, Date, Time, price, image)}
           >
             <Form.Item
               name="title"
@@ -103,14 +104,14 @@ const months=[1,2,3,4,5,6,7,8,9];
             >
               <Input placeholder="Title" />
             </Form.Item>
-           
+
             <Form.Item
               name="description"
               rules={[
                 { required: true, message: "This field is required!" },
               ]}
             >
-              <Input placeholder="Description" />
+              <TextArea placeholder="Description" />
             </Form.Item>
             <Row gutter={15}>
               <Col md={12}>
@@ -120,10 +121,10 @@ const months=[1,2,3,4,5,6,7,8,9];
                     { required: true, message: "This field is required!" },
                   ]}>
                   <Select
-                  mode="multiple"
+                    mode="multiple"
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
-                    placeholder="Category">
+                    placeholder="Tag">
                     {props.category &&
                       props?.category.map((res) => (
                         <Option value={res.id}>{res.category}</Option>
@@ -189,23 +190,23 @@ const months=[1,2,3,4,5,6,7,8,9];
                     placeholder="Month">
                     {
                       months.map((res) => (
-                        <Option value={res}>{"Month "+res}</Option>
+                        <Option value={res}>{"Month " + res}</Option>
                       ))}
                   </Select>
                 </Form.Item>
               </Col>
             </Row>
-            <span className="label" style={{marginTop:"15px",display:"block"}}>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
+            <span className="label" style={{ marginTop: "15px", display: "block" }}>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
 
             <Form.Item name="premium">
-              
-                  <Switch
-                  name="premium"
-             
-                    onChange={(value) => value && setVisiblePrice(true)}
-                    style={{ height: "unset!important" }}
-                  />
-           
+
+              <Switch
+                name="premium"
+
+                onChange={(value) => value && setVisiblePrice(true)}
+                style={{ height: "unset!important" }}
+              />
+
             </Form.Item>
             <span className="label">Image</span>
             <Upload
@@ -213,7 +214,7 @@ const months=[1,2,3,4,5,6,7,8,9];
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}
-        
+
               beforeUpload={beforeUpload}
               onChange={(info) => {
                 setimage(info.file.originFileObj);

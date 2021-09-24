@@ -2,12 +2,12 @@ import { createStore, createHook } from "react-sweet-state";
 import initialState from "./initialState";
 import actions from "./actions";
 
-const StudentStore = createStore({
-  name: "StudentStore",
+const WebinarStore = createStore({
+  name: "WebinarStore",
   initialState,
   actions,
 });
 
-export const useStudentStore = createHook(StudentStore, {
+export const useWebinarStore = createHook(WebinarStore, {
   selector: (state) => state,
 });

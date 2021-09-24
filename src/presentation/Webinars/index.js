@@ -7,9 +7,9 @@ import { AutoComplete } from "../common/UI/autoComplete/autoComplete";
 import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
 import CreateStudent from "./overview/CreateWebinar";
-import { useStudentStore } from "./store";
+import { useWebinarStore } from "./store";
 import Heading from "../common/UI/heading/heading";
-import EditCategory from "./overview/EditWebinar";
+import EditWebinar from "./overview/EditWebinar";
 import ViewWebinar from "./overview/ViewWebinar";
 
 const UserList = () => {
@@ -27,7 +27,7 @@ const UserList = () => {
       onDelete,
       setViewVisible,
     },
-  ] = useStudentStore();
+  ] = useWebinarStore();
   const [currentPage] = useState(1);
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const UserList = () => {
             <Popconfirm
               title="Are you sure to delete this webinar?"
               onConfirm={() => {
-                onDelete({ id: student?._id });
+                onDelete({ id: student?.id ,presentor:student?.presentor});
               }}
               okText="Yes"
               cancelText="No"
@@ -151,7 +151,7 @@ const UserList = () => {
           </Col>
         </Row>
         <CreateStudent category={categoryList} experts={expertList} />
-        <EditCategory category={categoryList} />
+        <EditWebinar category={categoryList} experts={expertList} />
         <ViewWebinar />
       </Main>
     </>

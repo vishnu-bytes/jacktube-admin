@@ -20,7 +20,7 @@ useEffect(()=>{
   return (
     <Modal
       type="primary"
-      title="Edit Category"
+      title="Edit Tag"
       visible={editVisible}
       footer={[
         <div key="1" className="project-modal-footer">
@@ -54,9 +54,9 @@ useEffect(()=>{
             name="editProject"
             onFinish={(values) => onEdit({ values, initial: singleRow })}
           >
-            <Form.Item name="category" label="Category" rules={[{ required: true, message: 'This field is required!' }]}>
+            <Form.Item name="category" label="Tag" rules={[{ required: true, message: 'This field is required!' }]}>
               <Input
-                placeholder="Category"
+                placeholder="Tag"
                 defaultValue={singleRow?.category}
               />
             </Form.Item>

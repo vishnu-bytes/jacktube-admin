@@ -62,7 +62,7 @@ const UserList = () => {
               <FeatherIcon icon="edit" size={16} />
             </Button>
             <Popconfirm
-              title="Are you sure to delete this category?"
+              title="Are you sure to delete this tag?"
               onConfirm={() => {
                 console.log("clicked", student);
                 onDelete(student.id);
@@ -85,11 +85,11 @@ const UserList = () => {
       <CardToolbox>
         <PageHeader
           ghost
-          title="Category Manage"
+          title="Tag Manage"
           subTitle={
             <>
               <span className="title-counter">
-                {studentList?.length} Categories{" "}
+                {studentList?.length} Tags{" "}
               </span>
               <AutoComplete
                 onSearch={handleSearch}
@@ -106,7 +106,7 @@ const UserList = () => {
               type="primary"
               size="default"
             >
-              <FeatherIcon icon="plus" size={16} /> New Category
+              <FeatherIcon icon="plus" size={16} /> New Tag
             </Button>,
           ]}
         />

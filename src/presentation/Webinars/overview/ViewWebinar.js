@@ -4,7 +4,7 @@ import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import moment from "moment";
-import { useStudentStore } from "../store";
+import { useWebinarStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
 import ViewCards from "../../common/ViewCards"
@@ -16,7 +16,7 @@ const { Option } = Select;
 const ViewWebinar = () => {
   const [form] = Form.useForm();
   const [{ viewVisible, singleRow,categoryList,expertList }, { onEdit, setViewVisible }] =
-    useStudentStore();
+  useWebinarStore();
     const getCategoryText=(id)=>{
       for(let i=0;i<categoryList.length;i++){
         if(id===categoryList[i].id){
@@ -66,7 +66,7 @@ const ViewWebinar = () => {
         <ViewCards label="Title" value={singleRow?.title} />
         <ViewCards label="Desccription" value={singleRow?.description} />
         <RowContainer>
-          <span className="label">Category </span>
+          <span className="label">Tag </span>
           <span className="value">{singleRow?.category?.map((item, index) => (
             <span key={index}>{index ? ', ' : ""}
               {getCategoryText(item)}
@@ -77,7 +77,7 @@ const ViewWebinar = () => {
         <ViewCards label="Date" value={singleRow?.startDate} />
         <ViewCards label="Time" value={singleRow?.time} />
         <ViewCards label="Month" value={"Month "+singleRow?.month} />
-        <ViewCards label="Premium webinar" value={singleRow?.premium === 1 ? "Yes" : "No"} />
+        <ViewCards label="Premium webinar" value={singleRow?.premium? "Yes" : "No"} />
         <ViewCards label="Image" value={<img src={singleRow?.imageUrl} alt="" />} />
         <ViewCards label="Price" value={singleRow?.commonPrice} />
       </div>
