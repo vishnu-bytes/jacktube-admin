@@ -1,8 +1,25 @@
 import React from 'react';
 import { Avatar, Dropdown, Button, Menu, Divider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import firebase from "../../config/api/firebase";
+import { setStorageItem ,getStorageItem,removeStorageItem} from "../../infrastructure/common/local";
+import { routes } from "../common/Routes/routes";
+
+
+
+const auth=firebase.auth();
+
 
 const Profile = () => {
+    const signOut=()=>{
+      const signOutData=  auth.signOut();
+      console.log("signout",signOutData)
+      console.log("signout",auth.currentUser)
+      removeStorageItem("token");
+      window.location.replace(routes.LOGIN);
+
+    
+    }
     const menu = (
         <div className="profileBody">
             <div className="top">
@@ -28,7 +45,7 @@ const Profile = () => {
             <Divider />
 
             <div className="bottom">
-                <Button type="primary">Sign Out</Button>
+                <Button type="primary" onClick={signOut}>Sign Out</Button>
             </div>
 
         </div>

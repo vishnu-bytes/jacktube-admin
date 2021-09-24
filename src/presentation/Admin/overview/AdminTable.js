@@ -6,21 +6,21 @@ import { Cards } from "../../common/UI/cards/frame/cards-frame";
 
 const AdminTable = ({usersTableData}) => {
   const usersTableColumns = [
+    // {
+    //   title: "User",
+    //   dataIndex: "user",
+    //   key: "user",
+    // },
     {
       title: "User",
-      dataIndex: "user",
-      key: "user",
-    },
-    {
-      title: "Email",
       dataIndex: "email",
       key: "email",
     },
-  {
-    title:'Phone Number',
-    dataIndex:"phone",
-    key:"phone"
-  },
+  // {
+  //   title:'Phone Number',
+  //   dataIndex:"phone",
+  //   key:"phone"
+  // },
     {
       title: "Actions",
       dataIndex: "action",
