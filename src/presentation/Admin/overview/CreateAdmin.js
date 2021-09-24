@@ -24,7 +24,7 @@ function CreateAdmin() {
             type="primary"
             key="submit"
             htmlType="submit"
-            form="createStudent"
+            form="createAdmin"
           >
             Create
           </Button>
@@ -45,33 +45,19 @@ function CreateAdmin() {
         <BasicFormWrapper>
           <Form
             form={form}
-            id="createProject"
-            name="createProject"
+            id="createAdmin"
+            name="createAdmin"
             onFinish={(values) => onfinish(values)}
           >
-            <Form.Item name="name">
-              <Input placeholder="Name" />
-            </Form.Item>
-            <Form.Item name="email">
+           
+            <Form.Item name="email" rules={[{ required: true, message: 'Please input your name!' }]}>
               <Input placeholder="Email" />
             </Form.Item>
-            <Row gutter={15}>
-              <Col md={12}>
-                <Form.Item name="address" initialValue="1">
-                  <Select style={{ width: "100%" }}>
-                    <Option value="1">Mother</Option>
-                    <Option value="2">Pregnant</Option>
-                    <Option value="3">Admin</Option>
-
-                  </Select>
+          
+                <Form.Item name="password" rules={[{ required: true, message: 'Please input your name!' }]}>
+                  <Input placeholder="Password" />
                 </Form.Item>
-              </Col>
-              <Col md={12}>
-                <Form.Item name="phone">
-                  <Input placeholder="Phone" />
-                </Form.Item>
-              </Col>
-            </Row>
+            
             {/* <Form.Item name="address" initialValue="">
               <Select style={{ width: "50%" }}>
                 <Option value="">Admin</Option>

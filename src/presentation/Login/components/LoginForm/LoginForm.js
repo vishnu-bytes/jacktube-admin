@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Heading from "../../../common/UI/heading/heading";
 import { Checkbox } from "../../../common/UI/checkbox/checkbox";
 import { Form, Input, Button } from "antd";
@@ -7,6 +7,9 @@ import { useUserStore } from "../../store";
 import { useHistory } from "react-router";
 
 function LoginForm() {
+
+
+
   let history = useHistory();
   const [form] = Form.useForm();
   const [, { onSubmit }] = useUserStore();
@@ -24,7 +27,6 @@ function LoginForm() {
           >
             <Form.Item
               name="email"
-              initialValue="amigos@amigos.com"
               rules={[
                 {
                   message: "Please input your email",
@@ -32,13 +34,13 @@ function LoginForm() {
               ]}
               label="Username or Email Address"
             >
-              <Input />
+              <Input  placeholder="Email" />
             </Form.Item>
-            <Form.Item name="password" initialValue="password" label="Password">
+            <Form.Item name="password"  label="Password">
               <Input.Password placeholder="Password" />
             </Form.Item>
             <div className="auth-form-action">
-              <Checkbox>Keep me logged in</Checkbox>
+              {/* <Checkbox>Keep me logged in</Checkbox> */}
             </div>
             <Form.Item>
               <Button

@@ -55,11 +55,11 @@ const AdminList = () => {
       action: (
         <div className="table-actions">
           <>
-            <Switch
+            {/* <Switch
               defaultChecked={student.status === 1 ? true : false}
               style={{ height: "unset!important" }}
-            />
-
+            /> */}
+{/* 
             <Button
               onClick={() => setVisible({ value: true, data: student })}
               className="btn-icon"
@@ -68,7 +68,7 @@ const AdminList = () => {
               shape="circle"
             >
               <FeatherIcon icon="eye" size={16} />
-            </Button>
+            </Button> */}
             {/* <Button
               onClick={() => setVisibleEdit({ value: true, data: student })}
               className="btn-icon"
@@ -78,7 +78,7 @@ const AdminList = () => {
             >
               <FeatherIcon icon="edit" size={16} />
             </Button> */}
-            <Popconfirm
+            {/* <Popconfirm
               title="Are you sure to delete this user?"
               onConfirm={() => {
                 onDelete({ id: student?._id });
@@ -89,7 +89,7 @@ const AdminList = () => {
               <Button className="btn-icon" type="danger" to="#" shape="circle">
                 <FeatherIcon icon="trash-2" size={16} />
               </Button>
-            </Popconfirm>
+            </Popconfirm> */}
           </>
         </div>
       ),
@@ -115,16 +115,16 @@ const AdminList = () => {
               />
             </>
           }
-          // buttons={[
-          //   <Button
-          //     onClick={() => setVisibleCreate({ value: true })}
-          //     key="1"
-          //     type="primary"
-          //     size="default"
-          //   >
-          //     <FeatherIcon icon="plus" size={16} /> Add New User
-          //   </Button>,
-          // ]}
+          buttons={[
+            <Button
+              onClick={() => setVisibleCreate({ value: true })}
+              key="1"
+              type="primary"
+              size="default"
+            >
+              <FeatherIcon icon="plus" size={16} /> Add New User
+            </Button>,
+          ]}
         />
       </CardToolbox>
 

@@ -7,6 +7,7 @@ import { PrimaryLoadingIndicator } from "./presentation/common/UI/LoadingIndicat
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
+
 //import static css to override antd
 import "./presentation/common/Style/style.css";
 import LayoutProvider from "./presentation/Layout";
@@ -34,6 +35,9 @@ const Subscription =React.lazy(()=>import("./presentation/Subscription"))
 const admin =React.lazy(()=>import("./presentation/Admin"))
 
 function App() {
+ 
+
+
   return (
     <Provider store={store}>
       <ThemeProvider
@@ -49,8 +53,10 @@ function App() {
             }
           >
             <Switch>
-              <Route exact path={routes.LOGIN} component={Login} />
-              <Route exact path={routes.SIGNUP} component={Signup} />
+{/* {token===null? */}
+
+<Route exact path={routes.LOGIN} component={Login} />
+             {/* : */}
 
               <LayoutProvider>
                 <Route exact path={routes.DASHBOARD} component={Dashboard} />
