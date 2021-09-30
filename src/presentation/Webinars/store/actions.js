@@ -191,7 +191,7 @@ const actions = {
             console.log("list", list)
           }
         })
-        for (let i = 0; i < list.length; i++) {
+        for (let i = 0; i < list?.length; i++) {
           console.log("in exist")
           list[i].webinarId === id && expertData.child(prevPresentor).child("webinarList").child(list[i].id).remove();
           console.log("removed");

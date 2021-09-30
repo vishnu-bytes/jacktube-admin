@@ -177,7 +177,7 @@ const EditSubscribe = () => {
                     key="submit"
                     form="editSub"
                   >
-                    Create
+                    Submit
                   </Button>
                 </div>
               </Form>

@@ -112,10 +112,10 @@ function CreateNotification() {
 
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item name="webinar" label="Webinar">
+                <Form.Item name="webinar" >
                   <Select
                     name="services"
-                    placeholder="Please select"
+                    placeholder="Webinar"
                     style={{ width: "100%" }}
                   >
                     {webinarData?.map((option) => (
@@ -128,6 +128,7 @@ function CreateNotification() {
               </Col>
             </Row>
             <Row gutter={15}>
+              <span className="label" style={{paddingTop:"15px",paddingBottom:"12px"}}>Image</span>
               <Upload
                 name="avatar"
                 listType="picture-card"

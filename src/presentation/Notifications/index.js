@@ -14,7 +14,7 @@ import ViewNotifications from "./overview/ViewNotification";
 
 const UserList = () => {
   const [
-    { studentList, searchData },
+    { studentList, searchData ,webinarData},
     {
       setVisibleCreate,
       setVisible,
@@ -24,6 +24,8 @@ const UserList = () => {
       setSearchData,
       onEdit,
       onDelete,
+      getWebinar
+
     },
   ] = useNotificationStore();
   const [currentPage] = useState(1);
@@ -31,6 +33,8 @@ const UserList = () => {
   useEffect(() => {
     window.scroll(0, 0);
     getStudent();
+    getWebinar();
+
   }, [currentPage]);
   const handleSearch = (searchText) => {
     const data = studentList?.filter((value) =>
@@ -114,7 +118,7 @@ const UserList = () => {
         </Row>
         <CreateStudent />
         <EditCategory />
-        <ViewNotifications />
+        <ViewNotifications webinar={webinarData} />
       </Main>
     </>
   );

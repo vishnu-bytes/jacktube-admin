@@ -9,7 +9,7 @@ import Heading from '../../common/UI/heading/heading';
 import { ChartjsAreaChart } from '../../common/UI/charts/chartjs';
 import { chartLinearGradient, customTooltips } from '../../common/UI/utilities/utilities';
 import { performanceFilterData, performanceGetData, setIsLoading } from '../../../redux/chartContent/actionCreator';
-
+import {useDashboardStore} from '../store';
 const moreContent = (
   <>
     <NavLink to="#">
@@ -36,6 +36,11 @@ const moreContent = (
 );
 
 const WebsitePerformance = () => {
+
+  const [
+    { totalExperts ,totalUsers,totalRevenue},
+    
+  ] = useDashboardStore();
   const dispatch = useDispatch();
   const { performanceState, preIsLoading } = useSelector(state => {
     return {

@@ -10,7 +10,10 @@ const base = (options, headerOptions) => {
     baseURL,
     headers: {
       Accept: "application/json",
-      Authorization: `Bearer ${token}`,
+      auth:{
+        username:"rzp_test_Tjcrk8qFuhRupU",
+        password:"hOMkRg2WacfhUQqZKL663nAG"
+      },
       ...headerOptions,
     },
     ...options,

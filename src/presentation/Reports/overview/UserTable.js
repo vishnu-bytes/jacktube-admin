@@ -12,22 +12,23 @@ const UserTable = ({ usersTableData }) => {
       key: "key",
     },
     {
+      title: "Transcation ID",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
       title: "Date",
       dataIndex: "date",
       key: "date",
     },
     {
-      title: "Webinar",
-      dataIndex: "data",
-      key: "data",
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
     },
+    
     {
-      title: "One-on-one",
-      dataIndex: "one",
-      key: "one",
-    },
-    {
-      title: "Revenue",
+      title: "Amount",
       dataIndex: "revenue",
       key: "revenue",
     },

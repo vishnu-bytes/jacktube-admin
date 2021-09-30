@@ -3,13 +3,13 @@ import { Form, Input, Select } from "antd";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
-import { useStudentStore } from "../store";
+import { useAdminStore } from "../store";
 import { Col, Row } from "antd";
 
 const EditAdmin = () => {
   const [form] = Form.useForm();
   const [{ viewVisibleEdit, singleRow }, { onEdit, onfinish, setVisibleEdit }] =
-    useStudentStore();
+  useAdminStore();
   const { Option } = Select;
 
   return (

@@ -6,7 +6,7 @@ import { PageHeader } from "../common/UI/page-headers/page-headers";
 import { AutoComplete } from "../common/UI/autoComplete/autoComplete";
 import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
-import { useStudentStore } from "./store";
+import { useAdminStore } from "./store";
 import Heading from "../common/UI/heading/heading";
 import ViewStudent from "./overview/ViewAdmin";
 import CreateUser from "./overview/CreateAdmin";
@@ -24,7 +24,7 @@ const AdminList = () => {
       setVisibleEdit,
       setVisibleCreate,
     },
-  ] = useStudentStore();
+  ] = useAdminStore();
   useEffect(() => {
     window.scroll(0, 0);
     getStudent();
@@ -38,7 +38,7 @@ const AdminList = () => {
   const studentData = searchData?.map((student, index) => {
     console.log(student);
     return {
-      key: index,
+      key: index+1,
       user: (
         <div className="user-info">
           <figcaption>
