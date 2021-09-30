@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Dropdown, Button, Menu, Divider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import firebase from "../../config/api/firebase";
-import { setStorageItem ,getStorageItem,removeStorageItem} from "../../infrastructure/common/local";
+import { setStorageItem, getStorageItem, removeStorageItem } from "../../infrastructure/common/local";
 import { routes } from "../common/Routes/routes";
 
 
 
-const auth=firebase.auth();
+const auth = firebase.auth();
 
 
 const Profile = () => {
-    const signOut=()=>{
-      const signOutData=  auth.signOut();
-      console.log("signout",signOutData)
-      console.log("signout",auth.currentUser)
-      removeStorageItem("token");
-      window.location.replace(routes.LOGIN);
+    const [email, setEmail] = useState("")
 
-    
+    useEffect(() => {
+        console.log("email", getStorageItem("email"))
+        getStorageItem("email").then((res) => {
+            console.log(res, "res");
+            setEmail(res)
+        });
+    }, []);
+
+    console.log("email in profile", email)
+    const signOut = () => {
+        const signOutData = auth.signOut();
+        console.log("signout", signOutData)
+        console.log("signout", auth.currentUser)
+        removeStorageItem("token");
+        removeStorageItem("email");
+        window.location.replace(routes.LOGIN);
+
+
     }
     const menu = (
         <div className="profileBody">
@@ -30,15 +42,14 @@ const Profile = () => {
                             backgroundColor: '#fde3cf',
                         }}
                     >
-                        U
-    </Avatar>
+                        {email.substring(0, 1).toUpperCase()}
+                    </Avatar>
                 </div>
                 <div className="right">
-                    <p className="name">
-                        John Doe
-                    </p>
+
                     <span className="email">
-                        johndoe@example.com
+
+                        {email}
                     </span>
                 </div>
             </div>
@@ -59,7 +70,7 @@ const Profile = () => {
                         color: '#f56a00',
                         backgroundColor: '#fde3cf',
                     }}>
-                    U
+                    {email.substring(0, 1).toUpperCase()}
                 </Avatar>
             </Dropdown>
         </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Popconfirm } from "antd";
+import { Row, Col, Popconfirm ,DatePicker} from "antd";
 import FeatherIcon from "feather-icons-react";
 import UserListTable from "./overview/UserTable";
 import { PageHeader } from "../common/UI/page-headers/page-headers";
@@ -9,10 +9,16 @@ import { Button } from "../common/UI/buttons/buttons";
 import CreateStudent from "./overview/CreateService";
 import { useStudentStore } from "./store";
 import { CSVLink } from "react-csv";
+import moment from "moment"
+
+
+const { RangePicker } = DatePicker;
+const dateFormat = 'YYYY/MM/DD';
 
 const UserList = () => {
+  
   const [
-    { studentList, searchData },
+    { studentList, searchData ,isDisabled},
     {
       setVisible,
       setEditVisible,
@@ -21,6 +27,7 @@ const UserList = () => {
       setSearchData,
       onEdit,
       onDelete,
+      getAllPayents
     },
   ] = useStudentStore();
   const [currentPage] = useState(1);
@@ -36,9 +43,11 @@ const UserList = () => {
     setSearchData(data);
   };
   const headers = [
-    { label: "First Name", key: "name" },
-    { label: "Phone", key: "phone" },
-    { label: "School", key: "school" },
+    { label: "Transaction ID", key: "id" },
+    { label: "Date", key: "created_at" },
+    { label: "Status", key: "status" },
+    { label: "Amount", key: "amount" },
+
   ];
 
   const csvReport = {
@@ -48,22 +57,28 @@ const UserList = () => {
   };
   console.log(csvReport, "studentlsit");
 
+const onDateRangeChange=(dateRange,dateString)=>{
+  if(dateRange===null){
+    getStudent();
+  }else{
+    getAllPayents(dateString[0],dateString[1]);
+    console.log(studentData,"disable");
+
+  }
+}
+
   const studentData = searchData?.map((student, index) => {
-    console.log(student);
+    console.log(moment.unix(student.created_at),"date");
     return {
       key: index,
-      date: "test!@gmail.com",
+      id:student.id,
+      date: student.created_at,
       data: student.name,
       one: student.school,
-      revenue: "1200",
-      status:
-        student.status === "1" ? (
-          <span className={`status-text active`}>{"active"}</span>
-        ) : student.status === "0" ? (
-          <span className={`status-text blocked`}>{"blocked"}</span>
-        ) : (
-          <span className={`status-text deactivate`}>{"deactive"}</span>
-        ),
+      revenue: student?.amount/100,
+      status:student.status,
+      email:student.email
+       
     };
   });
 
@@ -87,14 +102,19 @@ const UserList = () => {
             </>
           }
           buttons={[
-            <Button
-              onClick={() => setVisible(true)}
-              key="1"
-              type="primary"
-              size="default"
-            >
-              Download Report
-              {/* <CSVLink {...csvReport}>Export to CSV</CSVLink> */}
+            <RangePicker
+           
+            format={dateFormat}
+            onChange={(dateRange,dateString)=>{
+              onDateRangeChange(dateRange,dateString);
+            }}
+
+
+          />,
+            <Button  type="primary"
+         disabled={isDisabled?true:false}
+            size="default">
+              {studentData &&<CSVLink {...csvReport}>Export to CSV</CSVLink>}
             </Button>,
           ]}
         />

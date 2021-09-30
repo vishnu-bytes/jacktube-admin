@@ -53,16 +53,17 @@ const actions = {
   onfinish:
     (values) =>
       async ({ setState, dispatch }) => {
-        const formdata = { ...values };
+       try{
         const res = await auth.createUserWithEmailAndPassword(values.email, values.password);
-        console.log("userId",res.user)
+        console.log("userId",res)
         const user = res.user.uid
-        adminData.child(user).update({email:values.email,id:users})
-        // var form_data = new FormData();
-        // for (var key in formdata) {
-        //   form_data.append(key, formdata[key]);
-        // }
-        // dispatch(actions.onSubmit(form_data));
+        adminData.child(user).update({email:values.email,id:user,superAdmin:false})
+       setState({ VisibleCreate:false });
+       }catch(error){
+         console.log(error)
+
+         error.code==="auth/email-already-in-use"&& message.warning("User already exists");
+       }
       },
   getStudent:
     () =>
@@ -80,20 +81,6 @@ const actions = {
               dispatch(actions.setSearchData([]));
             }
           });
-          // console.log("admin in",adminData)
-          // const snapshot =  adminData.on("value");
-          // console.log("admin snapshot",snapshot)
-          // if (snapshot.val() === null) {
-          //   setState({ studentList: [] });
-          //   dispatch(actions.setSearchData([]));
-          // }else{
-          //  let adminList= Object.values(snapshot.val());
-          // console.log("admin",adminList)
-          
-          //  setState({ studentList: adminList });
-          
-          //  dispatch(actions.setSearchData(adminList));
-          // }
          
         } catch (error) {
           logError(error);
@@ -109,6 +96,7 @@ const actions = {
     (id) =>
       async ({ dispatch }) => {
         try {
+          adminData.child(id).remove()
           // await onDelete(params);
         // const user=auth.currentUser.providerData);
         // console.log("user",user)

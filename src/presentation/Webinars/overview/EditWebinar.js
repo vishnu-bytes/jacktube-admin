@@ -39,13 +39,13 @@ function EditWebinar(props) {
   const [Time, setTime] = useState(singleRow?.time);
   const [image, setimage] = useState(singleRow?.imageUrl);
   const [Date, setDate] = useState(singleRow?.startDate);
-const [imageUrl,setImageUrl]=useState(singleRow?.imageUrl)
+  const [imageUrl, setImageUrl] = useState(singleRow?.imageUrl)
 
   useEffect(() => {
-    if (singleRow?.startDate ) {
+    if (singleRow?.startDate) {
       let newSingleRow = { ...singleRow }
       console.log(singleRow, "new singlerow");
-      let convertedDate=moment(singleRow.startDate,"DD MMM YYYY").format("DD/MM/YYYY")
+      let convertedDate = moment(singleRow.startDate, "DD MMM YYYY").format("DD/MM/YYYY")
       newSingleRow = { ...newSingleRow, startDate: moment(convertedDate, "DD/MM/YYYY") };
       newSingleRow = { ...newSingleRow, time: moment(singleRow.time, "HH:mm") };
       console.log("new single row", newSingleRow)
@@ -55,7 +55,7 @@ const [imageUrl,setImageUrl]=useState(singleRow?.imageUrl)
       setTime(singleRow?.time)
       setImageUrl(singleRow.imageUrl)
     }
-  }, [singleRow,editVisible])
+  }, [singleRow, editVisible])
   const [state, setState] = useState({
     fileList: [
       {
@@ -64,12 +64,12 @@ const [imageUrl,setImageUrl]=useState(singleRow?.imageUrl)
         status: "done",
         url: "http://www.baidu.com/xxx.png",
       },
-      
+
     ],
     loading: false,
     image: null,
   });
- 
+
   const months = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const uploadButton = (loading) => {
     return (
@@ -93,7 +93,7 @@ const [imageUrl,setImageUrl]=useState(singleRow?.imageUrl)
             htmlType="submit"
             form="editWebinar"
           >
-            Create
+            Submit
           </Button>
           <Button
             size="default"
@@ -114,7 +114,7 @@ const [imageUrl,setImageUrl]=useState(singleRow?.imageUrl)
             form={form}
             id="editWebinar"
             name="editWebinar"
-            onFinish={(values) => onEdit(values, Date, Time, price, image,singleRow.id,singleRow.presentor)}
+            onFinish={(values) => onEdit(values, Date, Time, price, image, singleRow.id, singleRow.presentor)}
           >
             <Form.Item
               name="title"
@@ -217,9 +217,10 @@ const [imageUrl,setImageUrl]=useState(singleRow?.imageUrl)
             </Row>
             <span className="label" style={{ marginTop: "15px", display: "block" }}>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
 
-            <Form.Item name="premium">
+            <Form.Item valuePropName={true ? "checked" : null} name="premium">
 
               <Switch
+
                 name="premium"
                 onChange={(value) => value && setVisiblePrice(true)}
                 style={{ height: "unset!important" }}
@@ -237,7 +238,7 @@ const [imageUrl,setImageUrl]=useState(singleRow?.imageUrl)
               onChange={(info) => {
                 setimage(info.file.originFileObj);
                 setImageUrl(URL.createObjectURL(info.file.originFileObj))
-               
+
               }}
             >
               {imageUrl ? (

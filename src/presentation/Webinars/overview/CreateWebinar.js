@@ -188,6 +188,9 @@ function CreateStudent(props) {
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
                     placeholder="Month">
+                    <Option value={10} >First Trimester</Option>
+                    <Option value={11} >Second Trimester</Option>
+                    <Option value={12} >Third Trimester</Option>
                     {
                       months.map((res) => (
                         <Option value={res}>{"Month " + res}</Option>

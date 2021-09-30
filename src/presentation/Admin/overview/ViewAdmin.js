@@ -4,7 +4,7 @@ import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { ModalContent } from "../style";
 import moment from "moment";
-import { useStudentStore } from "../store";
+import { useAdminStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
 import ViewCards from "../../common/ViewCards"
@@ -14,7 +14,7 @@ const { Option } = Select;
 const ViewAdmin = () => {
   const [form] = Form.useForm();
   const [{ viewVisible, singleRow }, { onEdit, setVisible }] =
-    useStudentStore();
+  useAdminStore();
   console.log(singleRow, "single course");
   return (
     <Modal

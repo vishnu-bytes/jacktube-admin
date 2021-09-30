@@ -85,7 +85,8 @@ const actions = {
     () =>
     async ({ setState, dispatch }) => {
       try {
-        notificationData.on("value", (snapshot) => {
+        dispatch(actions.getWebinar())
+            notificationData.on("value", (snapshot) => {
           if (snapshot.val() !== null) {
             let responselist = Object.values(snapshot.val());
             console.log(responselist, "data checfk");

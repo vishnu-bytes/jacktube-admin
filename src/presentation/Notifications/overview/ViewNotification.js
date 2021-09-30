@@ -7,14 +7,27 @@ import moment from "moment";
 import { useNotificationStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
+import ViewCards from "../../common/ViewCards"
+
 
 const { Option } = Select;
 
-const ViewNotification = () => {
+const ViewNotification = (props) => {
   const [form] = Form.useForm();
-  const [{ viewVisible, singleRow }, { onEdit, setVisible }] =
+  const [{ viewVisible, singleRow, webinarData }, { onEdit, setVisible }] =
     useNotificationStore();
-  console.log(singleRow, "single course");
+  console.log( props.webinar, "single course1");
+
+
+  // const getWebinarText = (id) => {
+  //   for (let i = 0; i < props.webinar.length; i++) {
+  //     if (props.webinar[i].id === id) {
+  //       return props.webinar.title;
+
+  //     }
+  //   }
+
+  // }
   return (
     <Modal
       type="primary"
@@ -46,8 +59,15 @@ const ViewNotification = () => {
       onCancel={() => setVisible(false)}
     >
       <div className="project-modal display">
-       
-        <ul>
+        <ViewCards label="Title" value={singleRow?.title} />
+        <ViewCards label="Description" value={singleRow?.description} />
+        <ViewCards
+          label="Image"
+          value={<img src={singleRow?.image}></img>}
+        />
+        {/* <ViewCards label="Webinar" value={getWebinarText(singleRow?.webinar)} /> */}
+
+        {/* <ul>
           <li>Title</li>
           <li>Description</li>
           <li>Time</li>
@@ -56,11 +76,11 @@ const ViewNotification = () => {
 
         </ul>
         <ul>
-          <li>{singleRow?.name}</li>
+          <li>{singleRow?.title}</li>
           <li>{singleRow?.phoneNumber}</li>
           <li>{singleRow?.name}</li>
           <li>{singleRow?.phoneNumber}</li>
-        </ul>
+        </ul> */}
       </div>
     </Modal>
   );

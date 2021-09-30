@@ -5,11 +5,11 @@ import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
-import { useStudentStore } from "../store";
+import { useAdminStore } from "../store";
 
 function CreateAdmin() {
   const [form] = Form.useForm();
-  const [{ VisibleCreate }, { onfinish, setVisibleCreate }] = useStudentStore();
+  const [{ VisibleCreate }, { onfinish, setVisibleCreate }] = useAdminStore();
   const { Option } = Select;
 
   return (
