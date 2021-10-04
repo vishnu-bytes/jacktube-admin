@@ -93,12 +93,12 @@ const onDateRangeChange=(dateRange,dateString)=>{
               <span className="title-counter">
                 {studentList?.length} Reports{" "}
               </span>
-              <AutoComplete
+              {/* <AutoComplete
                 onSearch={handleSearch}
                 placeholder="Search by Name"
                 width="100%"
                 patterns
-              />
+              /> */}
             </>
           }
           buttons={[

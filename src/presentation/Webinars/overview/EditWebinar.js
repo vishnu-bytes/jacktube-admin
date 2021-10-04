@@ -51,9 +51,9 @@ function EditWebinar(props) {
       console.log("new single row", newSingleRow)
       form.setFieldsValue(newSingleRow);
       setimage(singleRow?.imageUrl);
-      setDate(singleRow?.startDate)
-      setTime(singleRow?.time)
-      setImageUrl(singleRow.imageUrl)
+      setDate(singleRow?.startDate);
+      setTime(singleRow?.time);
+      setImageUrl(singleRow.imageUrl);
     }
   }, [singleRow, editVisible])
   const [state, setState] = useState({
@@ -70,7 +70,7 @@ function EditWebinar(props) {
     image: null,
   });
 
-  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12];
   const uploadButton = (loading) => {
     return (
       <div>
@@ -206,7 +206,10 @@ function EditWebinar(props) {
                   <Select
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
-                    placeholder="Month">
+                    placeholder="Month/Trimester">
+                      <Option value={10} >First Trimester</Option>
+                    <Option value={11} >Second Trimester</Option>
+                    <Option value={12} >Third Trimester</Option>
                     {
                       months.map((res) => (
                         <Option value={res}>{"Month " + res}</Option>

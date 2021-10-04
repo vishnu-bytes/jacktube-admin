@@ -1558,6 +1558,7 @@ const TableWrapper = Styled.div`
             }
         }
         .table-actions{
+            justify-content:end;
             text-align: ${({ theme }) => (theme.rtl ? "left" : "right")};
             min-width:  150px !important;
             display:flex;

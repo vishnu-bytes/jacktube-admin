@@ -9,17 +9,27 @@ const UserTable = ({usersTableData}) => {
     {
       title: "Review",
       dataIndex: "review",
-      key: "user",
+      key: "review",
+    },
+    {
+      title:'Expert',
+      dataIndex:"expert",
+      key:"expert"
     },
     {
       title: "User",
-      dataIndex: "userName",
-      key: "userName",
+      dataIndex: "user",
+      key: "user",
+    },
+    {
+      title: "Webinar/Session",
+      dataIndex: "webinar",
+      key: "webinar",
     },
     {
       title: "Rating",
       dataIndex: "rating",
-      key: "user",
+      key: "rating",
     },
     {
       title: "Actions",

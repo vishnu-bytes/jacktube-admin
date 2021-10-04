@@ -97,7 +97,7 @@ const actions = {
             console.log("object", snapshot.val())
             if (snapshot.val() !== null) {
               let responselist = Object.values(snapshot.val());
-              console.log(responselist, "data list");
+              console.log(responselist, "data list in dashboard");
               setState({ totalExperts: responselist.length });
               // dispatch(actions.setSearchData(responselist));
             } else if (snapshot.val() === null) {
