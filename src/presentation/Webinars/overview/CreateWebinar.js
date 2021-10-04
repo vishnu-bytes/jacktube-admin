@@ -52,7 +52,7 @@ function CreateStudent(props) {
     image: null,
   });
   const { imageUrl, } = state;
-  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12];
   const uploadButton = (loading) => {
     return (
       <div>
@@ -187,7 +187,7 @@ function CreateStudent(props) {
                   <Select
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
-                    placeholder="Month">
+                    placeholder="Month/Trimester">
                     <Option value={10} >First Trimester</Option>
                     <Option value={11} >Second Trimester</Option>
                     <Option value={12} >Third Trimester</Option>
@@ -200,7 +200,6 @@ function CreateStudent(props) {
               </Col>
             </Row>
             <span className="label" style={{ marginTop: "15px", display: "block" }}>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
-
             <Form.Item name="premium">
 
               <Switch
@@ -217,7 +216,6 @@ function CreateStudent(props) {
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}
-
               beforeUpload={beforeUpload}
               onChange={(info) => {
                 setimage(info.file.originFileObj);

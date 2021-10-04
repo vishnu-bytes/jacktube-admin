@@ -14,7 +14,6 @@ import moment from "moment";
 const expertData = firebase.database().ref("/expert");
 const serviceData = firebase.database().ref("/service");
 
-
 const storage = getStorage();
 const actions = {
   onSubmit:
@@ -72,6 +71,7 @@ const actions = {
           if (checked === false) {
             const currentDate = new Date();
             var CreatedDate = moment(currentDate).format("DD/MM/YYYY")
+            const expertkey = expertData.push().key;
 
             var data = {
               ...values,
@@ -79,22 +79,23 @@ const actions = {
               profileImage: url,
               panIamgeUrl: panIamgeUrl,
               status: 1,
-              CreatedDate
+              CreatedDate,
+              id:expertkey,
+              isVerified:false
             };
             console.log(data, "data")
             try {
-              expertData.child("+91" + values.phone).update(data);
+              expertData.child(expertkey).update(data);
               console.log(values.services.length, "length");
               for (let i = 0; i < values.services.length; i++) {
                 console.log("services in finish", values.services);
                 const key = serviceData.child(values.services[i]).child("/expertsList").push().key;
                 console.log(key, "key of expert");
-                await serviceData.child(values.services[i]).child("expertsList").child(key).update({ 'expertId': "+91" + values.phone, "id": key });
+                await serviceData.child(values.services[i]).child("expertsList").child(key).update({ 'expertId': expertkey, "id": key });
                 console.log(serviceData, "serviceData");
               }
               form.resetFields();
               dispatch(actions.setVisible(false));
-
               dispatch(actions.getStudent());
             } catch (error) {
               logError(error);
@@ -111,7 +112,7 @@ const actions = {
             console.log("object", snapshot.val())
             if (snapshot.val() !== null) {
               let responselist = Object.values(snapshot.val());
-              console.log(responselist, "data list");
+              console.log(responselist, "data list in epxetrs");
               setState({ studentList: responselist });
               dispatch(actions.setSearchData(responselist));
             } else if (snapshot.val() === null) {

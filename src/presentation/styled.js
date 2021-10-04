@@ -1482,6 +1482,7 @@ const TableWrapper = Styled.div`
             }
         }
         .table-actions{
+           
             text-align: ${({ theme }) => (theme.rtl ? 'left' : 'right')};
             min-width: 60px !important;
             button{

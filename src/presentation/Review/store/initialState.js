@@ -5,6 +5,7 @@ const initialState = {
   visible:false,
   searchData:null,
   singleRow: {},
+  expertData:null
 };
 
 export default initialState;

@@ -13,11 +13,13 @@ import report from "./reports.svg"
 import user from "./user.svg";
 import expert from "./expert.svg";
 import dollar from "./dollar.svg";
-import done from "./doneIcon.svg"
+import done from "./doneIcon.svg";
 import increment from "./increment.svg";
 import decrement from "./decrement.svg";
 import subscription from "./subscription.svg"
-import admin from "./admin.svg"
+import admin from "./admin.svg";
+import accept from "./done.svg";
+import reject from "./reject.svg";
 
 
 export {
@@ -39,5 +41,7 @@ export {
   increment,
   decrement,
   subscription,
-  admin
+  admin,
+  accept,
+  reject
 };

@@ -9,13 +9,14 @@ import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
 import Default from "../../common/Assets/Images/default.png"
 import { Rate } from 'antd';
+import ViewCards from "../../common/ViewCards";
 
 
 const { Option } = Select;
 
 const ViewReview = () => {
   const [form] = Form.useForm();
-  const [{ viewVisible, singleRow }, { onEdit, setVisible }] =
+  const [{ viewVisible, singleRow,expertData }, { onEdit, setVisible }] =
   useReviewStore();
   console.log(singleRow, "single course");
   return (
@@ -34,7 +35,7 @@ const ViewReview = () => {
           >
             Cancel
           </Button>
-          <Button
+          {/* <Button
             form="editProject"
             size="default"
             htmlType="submit"
@@ -43,23 +44,17 @@ const ViewReview = () => {
             danger
           >
             Delete
-          </Button>
+          </Button> */}
         </div>,
       ]}
       onCancel={() => setVisible(false)}
     >
       <div className="project-modal">
-       
-        <ul>
-          <li>User Name</li>
-          <li>Rating</li>
-          <li>Review</li>
-        </ul>
-        <ul>
-          <li>{singleRow?.name}</li>
-          <li><Rate allowHalf defaultValue={2.5} /></li>
-          <li>Vitae felis velit nisi nibh lacus dui nisi. Arcu tempor maecenas mi, ut. Sed arcu quis fermentum sit ac sit. Sed ut neque, gravida fringilla ullamcorper nisi. Aliquet faucibus vel posuere aliquam eget. Mauris, dui ipsum purus, neque, posuere et sed. Et ac volutpat sapien eu hac neque, pellentesque. At est, tristique arcu consequat tristique est ut penatibus erat. Lacus a proin quam elit.</li>
-        </ul>
+      <ViewCards label="Review" value={singleRow?.review} />
+      <ViewCards label="Expert" value={expertData && expertData?.map((item) => singleRow?.expert === "+91" + item.phone && item.name)} />
+      <ViewCards label="User" value={singleRow?.user} />
+      <ViewCards label="Webinar/Session" value={singleRow?.webinar?"Webinar":"Session"} />
+      <ViewCards label="Rating" value={<Rate allowHalf disabled defaultValue={singleRow?.rating} />}/>
       </div>
     </Modal>
   );

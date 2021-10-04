@@ -11,10 +11,11 @@ import { useReviewStore } from "./store";
 import Heading from "../common/UI/heading/heading";
 import { Rate } from 'antd';
 import ViewReview from "./overview/ViewReview"
+import { accept, reject } from "../common/Assets/Icons"
 
 const UserList = () => {
   const [
-    { studentList, searchData },
+    { studentList, searchData, expertData },
     {
       setVisible,
       setEditVisible,
@@ -23,6 +24,8 @@ const UserList = () => {
       setSearchData,
       onEdit,
       onDelete,
+      getExpertData,
+      onStatusChange
     },
   ] = useReviewStore();
   const [currentPage] = useState(1);
@@ -30,6 +33,7 @@ const UserList = () => {
   useEffect(() => {
     window.scroll(0, 0);
     getStudent();
+    getExpertData()
   }, [currentPage]);
   const handleSearch = (searchText) => {
     const data = studentList?.filter((value) =>
@@ -37,30 +41,41 @@ const UserList = () => {
     );
     setSearchData(data);
   };
+
+  const getExperText = (id) => {
+    for (let i = 0; i < expertData?.length; i++) {
+      if (id === "91" + expertData[i].phone) {
+        return expertData[i].name;
+      }
+    }
+  }
+  console.log("expertDatavzd", expertData)
   const studentData = searchData?.map((student, index) => {
     console.log(student);
     return {
       key: index,
       user: (
-        <div className="user-info">
-          
-          <figcaption>
-            <Heading className="user-name" as="h6">
-              {student.name}
-            </Heading>
-            <span className="user-designation">{student.school}</span>
-          </figcaption>
-        </div>
+        // <div className="user-info">
+
+        //   <figcaption>
+        //     <Heading className="user-name" as="h6">
+        //       {student.name}
+        //     </Heading>
+        <span className="user-designation">{student.user}</span>
+        //   </figcaption>
+        // </div>
       ),
-      userName:  <div className="user-info">
-      <figcaption>
-        <Heading className="user-name" as="h6">
-          {student.name}
-        </Heading>
-      </figcaption>
-    </div>,
-    review:"Lorem ipsum dolor sit ...",
-    rating:<Rate allowHalf defaultValue={2.5} />,
+      expert: expertData && expertData?.map((item) => student.expert === "+91" + item.phone && item.name),
+      webinar: student.webinar ? "Webinar" : "Session",
+      userName: <div className="user-info">
+        <figcaption>
+          <Heading className="user-name" as="h6">
+            {student.name}
+          </Heading>
+        </figcaption>
+      </div>,
+      review: student.review?.slice(0,30),
+      rating: <Rate allowHalf disabled defaultValue={student.rating} />,
       email: "test!@gmail.com",
       grade: student.grade,
       school: student.school,
@@ -71,12 +86,36 @@ const UserList = () => {
         ) : student.status === "0" ? (
           <span className={`status-text blocked`}>{"blocked"}</span>
         ) : (
-          <span className={`status-text deactivate`}>{"deactive"}</span>
-        ),
+              <span className={`status-text deactivate`}>{"deactive"}</span>
+            ),
       action: (
         <div className="table-actions">
           <>
-          <Button
+            {student.statusChanged ? student.status : <> <Popconfirm
+              title="Are you sure to accept this review?"
+              onConfirm={() => {
+                onStatusChange(student.id,"Accepted",student.expert,student?.review,student?.rating);
+              }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button className="btn-icon" type="danger" to="#" shape="circle">
+                <img src={accept} alt="" />
+              </Button>
+            </Popconfirm>
+              <Popconfirm
+                title="Are you sure to reject this review?"
+                onConfirm={() => {
+                  onStatusChange(student.id,"Rejected");
+                }}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button className="btn-icon" type="danger" to="#" shape="circle">
+                  <img src={reject} alt="" />
+                </Button>
+              </Popconfirm></>}
+            <Button
               onClick={() => setVisible({ value: true, data: student })}
               className="btn-icon"
               type="info"
@@ -85,7 +124,7 @@ const UserList = () => {
             >
               <FeatherIcon icon="eye" size={16} />
             </Button>
-            <Popconfirm
+            {/* <Popconfirm
               title="Are you sure to delete this review?"
               onConfirm={() => {
                 onDelete({ id: student?._id });
@@ -96,7 +135,7 @@ const UserList = () => {
               <Button className="btn-icon" type="danger" to="#" shape="circle">
                 <FeatherIcon icon="trash-2" size={16} />
               </Button>
-            </Popconfirm>
+            </Popconfirm> */}
           </>
         </div>
       ),
@@ -122,16 +161,16 @@ const UserList = () => {
               />
             </>
           }
-          // buttons={[
-          //   <Button
-          //     onClick={() => setVisible(true)}
-          //     key="1"
-          //     type="primary"
-          //     size="default"
-          //   >
-          //     <FeatherIcon icon="plus" size={16} /> New Category
-          //   </Button>,
-          // ]}
+        // buttons={[
+        //   <Button
+        //     onClick={() => setVisible(true)}
+        //     key="1"
+        //     type="primary"
+        //     size="default"
+        //   >
+        //     <FeatherIcon icon="plus" size={16} /> New Category
+        //   </Button>,
+        // ]}
         />
       </CardToolbox>
 
