@@ -34,7 +34,7 @@ const UserList = () => {
   }, [currentPage]);
   const handleSearch = (searchText) => {
     const data = studentList?.filter((value) =>
-      value.name.toUpperCase().startsWith(searchText.toUpperCase())
+      value.title.toUpperCase().startsWith(searchText.toUpperCase())
     );
     setSearchData(data);
   };

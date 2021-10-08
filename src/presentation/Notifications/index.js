@@ -91,7 +91,7 @@ const UserList = () => {
               </span>
               <AutoComplete
                 onSearch={handleSearch}
-                placeholder="Search by Name"
+                placeholder="Search by Title"
                 width="100%"
                 patterns
               />

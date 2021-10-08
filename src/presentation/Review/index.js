@@ -37,7 +37,7 @@ const UserList = () => {
   }, [currentPage]);
   const handleSearch = (searchText) => {
     const data = studentList?.filter((value) =>
-      value.name.toUpperCase().startsWith(searchText.toUpperCase())
+      value.user.toUpperCase().startsWith(searchText.toUpperCase())
     );
     setSearchData(data);
   };
@@ -153,12 +153,12 @@ const UserList = () => {
               <span className="title-counter">
                 {studentList?.length} Reviews{" "}
               </span>
-              <AutoComplete
+              {/* <AutoComplete
                 onSearch={handleSearch}
                 placeholder="Search by Name"
                 width="100%"
                 patterns
-              />
+              /> */}
             </>
           }
         // buttons={[

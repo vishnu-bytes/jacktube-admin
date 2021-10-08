@@ -31,7 +31,7 @@ const AdminList = () => {
   }, []);
   const handleSearch = (searchText) => {
     const data = studentList?.filter((value) =>
-      value.name.toUpperCase().startsWith(searchText.toUpperCase())
+      value.email.toUpperCase().startsWith(searchText.toUpperCase())
     );
     setSearchData(data);
   };
@@ -109,7 +109,7 @@ const AdminList = () => {
               </span>
               <AutoComplete
                 onSearch={handleSearch}
-                placeholder="Search by Name"
+                placeholder="Search by email"
                 width="100%"
                 patterns
               />

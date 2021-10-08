@@ -72,7 +72,7 @@ const actions = {
             const currentDate = new Date();
             var CreatedDate = moment(currentDate).format("DD/MM/YYYY")
             const expertkey = expertData.push().key;
-
+            values.phone="+91"+values.phone;
             var data = {
               ...values,
               // id: "+91" + values.phone,
@@ -85,13 +85,13 @@ const actions = {
             };
             console.log(data, "data")
             try {
-              expertData.child(expertkey).update(data);
+              expertData.child(values.phone).update(data);
               console.log(values.services.length, "length");
               for (let i = 0; i < values.services.length; i++) {
                 console.log("services in finish", values.services);
                 const key = serviceData.child(values.services[i]).child("/expertsList").push().key;
                 console.log(key, "key of expert");
-                await serviceData.child(values.services[i]).child("expertsList").child(key).update({ 'expertId': expertkey, "id": key });
+                await serviceData.child(values.services[i]).child("expertsList").child(key).update({ 'expertId':"+91"+ values.phone, "id": key });
                 console.log(serviceData, "serviceData");
               }
               form.resetFields();
@@ -146,7 +146,7 @@ const actions = {
         setState({ singleRow: params.data });
       },
   onEdit:
-    (values, image, studentList, panImage, phone, serviceArray) =>
+    (values, image, studentList, panImage, id, serviceArray) =>
       async ({ setState, dispatch }) => {
         console.log("filter edit is working")
         console.log("image", image);
@@ -204,19 +204,18 @@ const actions = {
             for (let j = 0; j < responselist.length; j++) {
               console.log(responselist[j], "experts" + j);
 
-              if (responselist[j].expertId === "+91" + phone) {
+              if (responselist[j].expertId === id) {
                 console.log(" filter exixts")
                 console.log(responselist[j].id, 'filter id of removing expert')
                 const filteringArray = await serviceData.child(serviceArray[i]).child("expertsList").child(responselist[j].id).remove();
                 console.log(filteringArray, "filter removedd");
               }
-
             }
 
             //  const expertList= serviceData.child(serviceArray[i]).child("/expertsList");
             //   console.log("expertsList",expertList);
           }
-          expertData.child("+91" + phone).update(data);
+          expertData.child(id).update(data);
           for (let i = 0; i < values.services.length; i++) {
             const key = serviceData.child(values.services[i]).child("/expertsList").push().key;
             console.log(key, "key of expert")
@@ -283,11 +282,11 @@ const actions = {
         }
       },
   switchChange:
-    (status, phone) =>
+    (status, id) =>
       async ({ setState }) => {
         try {
           console.log(status, "status")
-          expertData.child("+91" + phone).update({ status: status });
+          expertData.child(id).update({ status: status });
         } catch (error) {
 
         }
