@@ -94,7 +94,7 @@ const UserList = () => {
             {student.statusChanged ? student.status : <> <Popconfirm
               title="Are you sure to accept this review?"
               onConfirm={() => {
-                onStatusChange(student.id,"Accepted",student.expert,student?.review,student?.rating);
+                onStatusChange(student.id,"Accepted",student.expert,student?.review,student?.rating,student.user);
               }}
               okText="Yes"
               cancelText="No"

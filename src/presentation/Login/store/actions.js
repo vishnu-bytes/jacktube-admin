@@ -26,6 +26,7 @@ const actions = {
         try {
           //  const snapshot= await adminData.on("value");
           let adminList;
+          
 
           adminData.on("value", (snapshot) => {
             console.log("valuessss", snapshot.val())

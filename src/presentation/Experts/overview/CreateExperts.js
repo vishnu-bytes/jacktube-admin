@@ -169,7 +169,7 @@ function CreateStudent() {
                   <Select
                     name="services"
                     mode="multiple"
-                    placeholder="Please select"
+                    placeholder="Services"
                     style={{ width: '100%' }}
                   >
                     {serviceList?.map((option) => <Option key={option.id} value={option.id} >{option.title}</Option>)}
@@ -181,7 +181,7 @@ function CreateStudent() {
                   <Select
                     mode="tags"
                     name="qualifications"
-                    placeholder="Please select"
+                    placeholder="Qualifications"
                     style={{ width: '100%' }}
                   >
                     {children}

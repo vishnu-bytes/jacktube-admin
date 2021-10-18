@@ -45,27 +45,32 @@ const actions = {
   onfinish:
     (values, image, form, setImageUrl, setimage) =>
     async ({ setState, dispatch }) => {
-      const storageRef = ref(storage, image.name);
-      const UploadedData = await uploadBytes(storageRef, image);
-      const url = await getDownloadURL(UploadedData.ref);
-
-      const key = notificationData.push().key;
-      var data = {
-        ...values,
-        image: url,
-        id: key,
-      };
-      console.log(values, key);
-      try {
-        await notificationData.child(key).update(data);
-        dispatch(actions.setVisibleCreate(false));
-        dispatch(actions.getStudent());
-        form.resetFields();
-        setImageUrl("");
-        setimage({});
-      } catch (error) {
-        logError(error);
+      if (Object.keys(image).length === 0) {
+        message.warning("Please  ulpoad the image");
+      }else{
+        const storageRef = ref(storage, image.name);
+        const UploadedData = await uploadBytes(storageRef, image);
+        const url = await getDownloadURL(UploadedData.ref);
+  
+        const key = notificationData.push().key;
+        var data = {
+          ...values,
+          image: url,
+          id: key,
+        };
+        console.log(values, key);
+        try {
+          await notificationData.child(key).update(data);
+          dispatch(actions.setVisibleCreate(false));
+          dispatch(actions.getStudent());
+          form.resetFields();
+          setImageUrl("");
+          setimage({});
+        } catch (error) {
+          logError(error);
+        }
       }
+     
     },
   getWebinar:
     () =>

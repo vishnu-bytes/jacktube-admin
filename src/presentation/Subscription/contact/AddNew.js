@@ -92,7 +92,7 @@ const AddNew = () => {
                   onfinish(values, Webvalue, Onevalue, options);
                 }}
               >
-                <Form.Item name="price">
+                <Form.Item name="price" rules={[{ required: true, message: 'This field is required!' }]}>
                   <Input placeholder="Price" />
                 </Form.Item>
                 <div className="checkboxContainer">

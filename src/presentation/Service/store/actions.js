@@ -15,147 +15,151 @@ const storage = getStorage();
 const actions = {
   onSubmit:
     (values) =>
-    async ({ setState, dispatch }) => {
-      try {
-        await onSubmit(values);
-        dispatch(actions.setVisible(false));
-        dispatch(actions.getStudent());
-      } catch (error) {
-        logError(error);
-      }
-    },
+      async ({ setState, dispatch }) => {
+        try {
+          await onSubmit(values);
+          dispatch(actions.setVisible(false));
+          dispatch(actions.getStudent());
+        } catch (error) {
+          logError(error);
+        }
+      },
   setVisibleCreate:
     (params) =>
-    ({ setState }) => {
-      console.log("done", params);
-      setState({ VisibleCreate: params.value });
-    },
+      ({ setState }) => {
+        console.log("done", params);
+        setState({ VisibleCreate: params.value });
+      },
   setVisible:
     (params) =>
-    ({ setState }) => {
-      setState({ viewVisible: params.value });
-      setState({ singleRow: params.data });
-    },
+      ({ setState }) => {
+        setState({ viewVisible: params.value });
+        setState({ singleRow: params.data });
+      },
   setVisiblePrice:
     (params) =>
-    ({ setState }) => {
-      console.log("object");
-      setState({ visiblePrice: params }, () => {
-        console.log("checking", params);
-      });
-    },
+      ({ setState }) => {
+        console.log("object");
+        setState({ visiblePrice: params }, () => {
+          console.log("checking", params);
+        });
+      },
   setSearchData:
     (params) =>
-    ({ setState }) => {
-      setState({ searchData: params });
-    },
+      ({ setState }) => {
+        setState({ searchData: params });
+      },
   onfinish:
-    (values, image,form,setImageUrl,setimage) =>
-    async ({ setState, dispatch }) => {
-      const storageRef = ref(storage, image.name);
-      const UploadedData = await uploadBytes(storageRef, image);
-      const url = await getDownloadURL(UploadedData.ref);
+    (values, image, form, setImageUrl, setimage) =>
+      async ({ setState, dispatch }) => {
+        if (Object.keys(image).length === 0) {
+          message.warning("Please upload image");
+        } else {
+          const storageRef = ref(storage, image.name);
+          const UploadedData = await uploadBytes(storageRef, image);
+          const url = await getDownloadURL(UploadedData.ref);
 
-      const key = serviceData.push().key;
-      var data = {
-        ...values,
-        image: url,
-        id: key,
-      };
-      console.log(values, key);
-      try {
-        await serviceData.child(key).update(data);
-        dispatch(actions.setVisibleCreate(false));
-        dispatch(actions.getStudent());
-        form.resetFields();
-        setImageUrl("");
-        setimage({});
-      } catch (error) {
-        logError(error);
-      }
-    },
+          const key = serviceData.push().key;
+          var data = {
+            ...values,
+            image: url,
+            id: key,
+          };
+          console.log(values, key);
+          try {
+            await serviceData.child(key).update(data);
+            dispatch(actions.setVisibleCreate(false));
+            dispatch(actions.getStudent());
+            form.resetFields();
+            setImageUrl("");
+            setimage({});
+          } catch (error) {
+            logError(error);
+          }
+        }
+      },
   getStudent:
     () =>
-    async ({ setState, dispatch }) => {
-      try {
-        serviceData.on("value", (snapshot) => {
-          if(snapshot.val() !== null){
-            let responselist = Object.values(snapshot.val());
-          console.log(responselist, "data checfk");
-          setState({ studentList: responselist });
-          dispatch(actions.setSearchData(responselist));
-           }
-          else if(snapshot.val() === null){ 
-            setState({ studentList: [] });
-          dispatch(actions.setSearchData([]));
-          }
-        });
-      } catch (error) {
-        logError(error);
-      }
-    },
+      async ({ setState, dispatch }) => {
+        try {
+          serviceData.on("value", (snapshot) => {
+            if (snapshot.val() !== null) {
+              let responselist = Object.values(snapshot.val());
+              console.log(responselist, "data checfk");
+              setState({ studentList: responselist });
+              dispatch(actions.setSearchData(responselist));
+            }
+            else if (snapshot.val() === null) {
+              setState({ studentList: [] });
+              dispatch(actions.setSearchData([]));
+            }
+          });
+        } catch (error) {
+          logError(error);
+        }
+      },
   setEditVisible:
     (params) =>
-    ({ setState }) => {
-      setState({ editVisible: params.value });
-      setState({ singleRow: params.data });
-    },
+      ({ setState }) => {
+        setState({ editVisible: params.value });
+        setState({ singleRow: params.data });
+      },
   onEdit:
-    (values,image,id) =>
-    async ({ dispatch }) => {
-      let url;
-      if (typeof image === "string") {
-        url = image;
-      } else {
-        const storageRef = ref(storage, image.name);
-        const UploadedData = await uploadBytes(storageRef, image);
-        url = await getDownloadURL(UploadedData.ref);
-      }
-     
+    (values, image, id) =>
+      async ({ dispatch }) => {
+        let url;
+        if (typeof image === "string") {
+          url = image;
+        } else {
+          const storageRef = ref(storage, image.name);
+          const UploadedData = await uploadBytes(storageRef, image);
+          url = await getDownloadURL(UploadedData.ref);
+        }
 
-      // const key = serviceData.push().key;
-      var data = {
-        ...values,
-        image: url,
-        id: id,
-      };
-      console.log(values, id);
-      try {
-        await serviceData.child(id).update(data);
-        dispatch(actions.setEditVisible(false));
+
+        // const key = serviceData.push().key;
+        var data = {
+          ...values,
+          image: url,
+          id: id,
+        };
+        console.log(values, id);
+        try {
+          await serviceData.child(id).update(data);
+          dispatch(actions.setEditVisible(false));
+          dispatch(actions.getStudent());
+        } catch (error) {
+          logError(error);
+        }
+
+
+        // logError(params, "Edit value");
         dispatch(actions.getStudent());
-      } catch (error) {
-        logError(error);
-      }
-
-      
-      // logError(params, "Edit value");
-      dispatch(actions.getStudent());
-    },
+      },
   onDelete:
     (params) =>
-    async ({ dispatch,setState }) => {
-      try {
-        serviceData.child(params).remove();
-        dispatch(actions.getStudent());
-        setState({ viewVisible:false});
-        // setState({ singleRow: params.data });
+      async ({ dispatch, setState }) => {
+        try {
+          serviceData.child(params).remove();
+          dispatch(actions.getStudent());
+          setState({ viewVisible: false });
+          // setState({ singleRow: params.data });
 
-      } catch {
-        logError(params, "Edit value");
-      }
-    },
+        } catch {
+          logError(params, "Edit value");
+        }
+      },
   getCourse:
     (page) =>
-    async ({ setState }) => {
-      try {
-        const res = await getStudentList(page);
-        setState({ course: res });
-        setState({ pageNumber: page });
-      } catch (error) {
-        logError(error);
-      }
-    },
+      async ({ setState }) => {
+        try {
+          const res = await getStudentList(page);
+          setState({ course: res });
+          setState({ pageNumber: page });
+        } catch (error) {
+          logError(error);
+        }
+      },
 };
 
 export default actions;

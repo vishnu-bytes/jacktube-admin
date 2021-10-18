@@ -123,8 +123,15 @@ const actions = {
       async ({ setState, dispatch }) => {
         try {
           categoryData.on("value", (snapshot) => {
-            let responselist = Object.values(snapshot.val());
+            if (snapshot.val() === null) {
+              setState({ categoryList: [] });
+
+            }else{
+              let responselist = Object.values(snapshot.val());
             setState({ categoryList: responselist });
+
+            }
+            
           });
         } catch (error) {
           logError(error);
@@ -135,9 +142,16 @@ const actions = {
       async ({ setState, dispatch }) => {
         try {
           expertData.on("value", (snapshot) => {
-            let responselist = Object.values(snapshot.val());
-            setState({ expertList: responselist });
-            console.log(responselist, "expert data2");
+            if (snapshot.val() === null) {
+            setState({ expertList: [] });
+            }else{
+              let responselist = Object.values(snapshot.val());
+              const result = responselist.filter(item => item.isVerified ===true);
+              // let filteredList=responselist.forEach((item)=>item.isVerified===true);
+              setState({ expertList: result });
+              console.log(result, "expert data2");
+            }
+       
           });
         } catch (error) {
           logError(error);
@@ -175,13 +189,6 @@ const actions = {
           imageUrl: imageUrl
         };
         const res = webinarData.child(id).update(data);
-
-
-
-
-
-
-
         const webinarList = expertData.child(prevPresentor).child("webinarList");
         console.log("webinarlist", webinarList);
         let list;

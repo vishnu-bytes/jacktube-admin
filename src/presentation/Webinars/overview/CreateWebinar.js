@@ -141,7 +141,7 @@ function CreateStudent(props) {
                     placeholder="Presentor">
                     {props?.experts &&
                       props.experts.map((res) => (
-                        <Option value={"+91" + res.phone}>{res.name}</Option>
+                        <Option value={ res.id}>{res.name}</Option>
                       ))}
                   </Select>
                 </Form.Item>
@@ -188,9 +188,9 @@ function CreateStudent(props) {
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
                     placeholder="Month/Trimester">
-                    <Option value={10} >First Trimester</Option>
-                    <Option value={11} >Second Trimester</Option>
-                    <Option value={12} >Third Trimester</Option>
+                    <Option value={13} >First Trimester</Option>
+                    <Option value={14} >Second Trimester</Option>
+                    <Option value={15} >Third Trimester</Option>
                     {
                       months.map((res) => (
                         <Option value={res}>{"Month " + res}</Option>

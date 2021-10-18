@@ -139,10 +139,12 @@ function EditWebinar(props) {
                     { required: true, message: "This field is required!" },
                   ]}>
                   <Select
+                
                     mode="multiple"
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
                     placeholder="Tag">
+                      
                     {props.category &&
                       props?.category.map((res) => (
                         <Option value={res.id}>{res.category}</Option>
@@ -159,7 +161,7 @@ function EditWebinar(props) {
                     placeholder="Presentor">
                     {props?.experts &&
                       props.experts.map((res) => (
-                        <Option value={"+91" + res.phone}>{res.name}</Option>
+                        <Option value={res.id}>{res.name}</Option>
                       ))}
                   </Select>
                 </Form.Item>

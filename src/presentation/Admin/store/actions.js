@@ -61,7 +61,6 @@ const actions = {
        setState({ VisibleCreate:false });
        }catch(error){
          console.log(error)
-
          error.code==="auth/email-already-in-use"&& message.warning("User already exists");
        }
       },

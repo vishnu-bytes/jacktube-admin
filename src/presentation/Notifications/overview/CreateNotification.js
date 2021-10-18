@@ -103,16 +103,16 @@ function CreateNotification() {
               onfinish(values, image, form, setImageUrl, setimage)
             }
           >
-            <Form.Item name="title">
+            <Form.Item name="title" rules={[{ required: true, message: 'This field is required' }]}>
               <Input placeholder="Title" />
             </Form.Item>
-            <Form.Item name="description">
+            <Form.Item name="description" rules={[{ required: true, message: 'This field is required' }]}>
               <Input placeholder="Description" />
             </Form.Item>
 
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item name="webinar" >
+                <Form.Item name="webinar" rules={[{ required: true, message: 'This field is required' }]}>
                   <Select
                     name="services"
                     placeholder="Webinar"
