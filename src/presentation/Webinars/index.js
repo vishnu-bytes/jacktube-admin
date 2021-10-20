@@ -14,7 +14,7 @@ import ViewWebinar from "./overview/ViewWebinar";
 
 const UserList = () => {
   const [
-    { studentList, searchData, categoryList ,expertList},
+    { studentList, searchData, categoryList, expertList },
     {
       setVisible,
       setEditVisible,
@@ -35,10 +35,9 @@ const UserList = () => {
     getStudent();
     getCategory();
     getExperts();
-   
   }, [currentPage]);
   console.log(studentList, "studentList data");
-  console.log("serachData",searchData)
+  console.log("serachData", searchData);
 
   const handleSearch = (searchText) => {
     const data = studentList?.filter((value) =>
@@ -97,7 +96,11 @@ const UserList = () => {
             <Popconfirm
               title="Are you sure to delete this webinar?"
               onConfirm={() => {
-                onDelete({ id: student?.id ,presentor:student?.presentor});
+                onDelete({
+                  id: student?.id,
+                  presentor: student?.presentor,
+                  zoom: student?.zoom_id,
+                });
               }}
               okText="Yes"
               cancelText="No"
