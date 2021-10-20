@@ -191,7 +191,7 @@ const WebsitePerformance = () => {
                 </sub>
               </Heading>
             </div>
-            <div
+            {/* <div
               onClick={() => onPerformanceTab('duration')}
               className={`growth-upward ${performanceTab === 'duration' && 'active'}`}
               role="button"
@@ -207,7 +207,7 @@ const WebsitePerformance = () => {
                   </span>
                 </sub>
               </Heading>
-            </div>
+            </div> */}
           </Pstates>
           {preIsLoading ? (
             <div className="sd-spin">

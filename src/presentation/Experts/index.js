@@ -78,7 +78,7 @@ const UserList = () => {
             
               defaultChecked={student.status === 1 ? true : false}
               style={{ height: "unset!important" }}
-              onChange={(value)=>switchChange(value ===true?1:0,student.phone)}
+              onChange={(value)=>switchChange(value ===true?1:0,student.id)}
             />
 
             <Button
@@ -99,7 +99,7 @@ const UserList = () => {
             >
               <FeatherIcon icon="edit" size={16} />
             </Button>
-            <Popconfirm
+            {/* <Popconfirm
               title="Are you sure to delete this expert?"
               onConfirm={() => {
                 onDelete(student?.phone,student?.services);
@@ -110,7 +110,7 @@ const UserList = () => {
               <Button className="btn-icon" type="danger" to="#" shape="circle">
                 <FeatherIcon icon="trash-2" size={16} />
               </Button>
-            </Popconfirm>
+            </Popconfirm> */}
           </>
         </div>
       ),

@@ -28,7 +28,8 @@ const Business = () => {
     <>
       <PageHeader />
       <Main>
-        <Suspense
+       <h2 style={{fontSize:"40px"}}>Dashboard</h2> 
+        {/* <Suspense
           fallback={
             <Cards headless>
               <Skeleton active />
@@ -60,7 +61,7 @@ const Business = () => {
               <Subscription />
             </Suspense>
           </Col>
-        </Row>
+        </Row> */}
       </Main>
     </>
   );

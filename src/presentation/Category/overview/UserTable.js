@@ -33,7 +33,7 @@ const UserTable = ({usersTableData}) => {
         <TableWrapper className="table-responsive">
           <Table
             className="span-flex"
-            rowSelection={rowSelection}
+            // rowSelection={rowSelection}
             dataSource={usersTableData}
             columns={usersTableColumns}
             pagination={{

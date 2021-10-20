@@ -91,6 +91,16 @@ const actions = {
         logError(error);
       }
     },
+    switchChange:
+    (status, id) =>
+      async ({ setState }) => {
+        try {
+          console.log(status, "status")
+          firebase.database().ref(`/users`).child(id).update({ status: status });
+        } catch (error) {
+
+        }
+      },
 };
 
 export default actions;

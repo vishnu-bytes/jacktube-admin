@@ -51,6 +51,8 @@ const actions = {
     (values, web, one, options) =>
     async ({ setState, dispatch }) => {
       const key = subscriptionData.push().key;
+     console.log(web,one,"details");
+     if(web!==0 || one !==0){
       var data = {
         values: values,
         webinar: web,
@@ -66,6 +68,10 @@ const actions = {
       } catch (error) {
         logError(error);
       }
+     }else{
+       message.warning("Please add webinars or sessions")
+     }
+     
     },
   getStudent:
     () =>

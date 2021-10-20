@@ -50,11 +50,11 @@ function CreateAdmin() {
             onFinish={(values) => onfinish(values)}
           >
            
-            <Form.Item name="email" rules={[{ required: true, message: 'Please input your name!' }]}>
+            <Form.Item name="email" rules={[{ required: true, message: 'This field is required!' }]}>
               <Input placeholder="Email" />
             </Form.Item>
           
-                <Form.Item name="password" rules={[{ required: true, message: 'Please input your name!' }]}>
+                <Form.Item name="password" rules={[{ required: true, message: 'This field is required!' }]}>
                   <Input placeholder="Password" />
                 </Form.Item>
             

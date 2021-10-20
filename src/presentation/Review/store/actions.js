@@ -63,20 +63,21 @@ const actions = {
           });
           //   let data={
           //     "review":"Lorem ipsum dolor sit",
-          //     "user":"Nisaf",
-          //     "expert":"+918301976739",
-          //     "webinar":true,
+          //     "user":"Vishnu",
+          //     "expert":"-MlUK3e9Gd12DOHCbDm5",
+          //     "webinar":false,
           //     "rating":3.5,
-          //     "statusChanged":true,
-          //     "status":"Accepted"
+          //     "statusChanged":false,
+          //     "status":""
           //   }
           // const key = reviewData.push().key;
+          // data.id=key;
           // await reviewData.child(key).update(data);
           // console.log("created")
 
-          // const res = await getStudentList();
-          // setState({ studentList: res.results });
-          // dispatch(actions.setSearchData(res.results));
+          const res = await getStudentList();
+          setState({ studentList: res.results });
+          dispatch(actions.setSearchData(res.results));
         } catch (error) {
           logError(error);
         }
@@ -130,12 +131,12 @@ const actions = {
         });
       },
       onStatusChange:
-      (id,status,expertId,review,rating)=>
+      (id,status,expertId,review,rating,user)=>
       async()=>{
         await reviewData.child(id).update({statusChanged:true,status:status});
         if(status === "Accepted"){
           const key = expertData.child(expertId).child("/reviewList").push().key;
-          await expertData.child(expertId).child("reviewList").child(key).update({ 'reviewIdId': key, "review": review,"rating":rating });
+          await expertData.child(expertId).child("reviewList").child(key).update({ 'reviewIdId': key, "review": review,"rating":rating,user:user });
         }
       }
 };

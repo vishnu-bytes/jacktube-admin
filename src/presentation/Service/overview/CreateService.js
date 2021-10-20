@@ -125,14 +125,16 @@ function CreateStudent() {
       <div className="project-modal">
         <BasicFormWrapper>
           <Form
+            
             form={form}
             id="createProject"
             name="createProject"
             onFinish={(values) => {onfinish(values, image,form,setImageUrl,setimage) 
+            
                 
              } }
           >
-            <Form.Item name="title">
+            <Form.Item name="title" rules={[{ required: true, message: 'This field is required' }]}>
               <Input placeholder="Title" />
             </Form.Item>
             {/* <Form.Item name="description">

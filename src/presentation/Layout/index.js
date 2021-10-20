@@ -121,13 +121,11 @@ export default class LayoutProvider extends Component {
                   <img className="logo_main" src={logo} alt="" />
                 </Link>
               </Col>
-
               <Col md={0} sm={18} xs={12}>
                 <>
                   <div className="mobile-action">
                     <Link className="btn-auth" onClick={onShowHide} to="#">
                       <FeatherIcon icon="more-vertical" />
-             
                     </Link>
                   </div>
                 </>
@@ -135,7 +133,6 @@ export default class LayoutProvider extends Component {
               <Col style={{ position: "fixed", right: "20px" }}>
                 {/* </Row> */}
               </Col>
-             
             </Row>
             <Profile/>
           </Header>
