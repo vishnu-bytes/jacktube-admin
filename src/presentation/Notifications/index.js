@@ -57,7 +57,7 @@ const UserList = () => {
       ),
       imageurl: (
         <a target="_blank" href={student.image}>
-          {student?.image?.slice(0, 40)}...
+          {student?.image?.(0, 40)}...
         </a>
       ),
       action: (

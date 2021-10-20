@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Form, Input, Select, Switch, Upload, InputNumber, Radio, message } from "antd";
+import {
+  Form,
+  Input,
+  Select,
+  Switch,
+  Upload,
+  InputNumber,
+  Radio,
+  message,
+} from "antd";
 import { Col, Row, DatePicker, TimePicker } from "antd";
 import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
@@ -9,15 +18,11 @@ import FeatherIcon from "feather-icons-react";
 import { useWebinarStore } from "../store";
 import moment from "moment";
 import AddPrice from "./AddPrice";
-import {
-  LoadingOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import TextArea from "antd/lib/input/TextArea";
 
 const { Option } = Select;
 const dateFormat = "DD/MM/YYYY";
-
 
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
@@ -51,8 +56,8 @@ function CreateStudent(props) {
     loading: false,
     image: null,
   });
-  const { imageUrl, } = state;
-  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12];
+  const { imageUrl } = state;
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const uploadButton = (loading) => {
     return (
       <div>
@@ -107,9 +112,7 @@ function CreateStudent(props) {
 
             <Form.Item
               name="description"
-              rules={[
-                { required: true, message: "This field is required!" },
-              ]}
+              rules={[{ required: true, message: "This field is required!" }]}
             >
               <TextArea placeholder="Description" />
             </Form.Item>
@@ -119,12 +122,14 @@ function CreateStudent(props) {
                   name="category"
                   rules={[
                     { required: true, message: "This field is required!" },
-                  ]}>
+                  ]}
+                >
                   <Select
                     mode="multiple"
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
-                    placeholder="Tag">
+                    placeholder="Tag"
+                  >
                     {props.category &&
                       props?.category.map((res) => (
                         <Option value={res.id}>{res.category}</Option>
@@ -133,12 +138,13 @@ function CreateStudent(props) {
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item name="presentor" rules={[
-                  { required: true, message: "This field is required!" },
-                ]} >
-                  <Select
-                    style={{ width: "100%" }}
-                    placeholder="Presentor">
+                <Form.Item
+                  name="presentor"
+                  rules={[
+                    { required: true, message: "This field is required!" },
+                  ]}
+                >
+                  <Select style={{ width: "100%" }} placeholder="Presentor">
                     {props?.experts &&
                       props.experts.map((res) => (
                         <Option value={ res.id}>{res.name}</Option>
@@ -150,9 +156,12 @@ function CreateStudent(props) {
             <Form.Item>
               <Row gutter={15}>
                 <Col md={12}>
-                  <Form.Item name="startDate" rules={[
-                    { required: true, message: "This field is required!" },
-                  ]}>
+                  <Form.Item
+                    name="startDate"
+                    rules={[
+                      { required: true, message: "This field is required!" },
+                    ]}
+                  >
                     <DatePicker
                       placeholder="Date"
                       format={dateFormat}
@@ -183,7 +192,8 @@ function CreateStudent(props) {
                   name="month"
                   rules={[
                     { required: true, message: "This field is required!" },
-                  ]}>
+                  ]}
+                >
                   <Select
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
@@ -198,17 +208,29 @@ function CreateStudent(props) {
                   </Select>
                 </Form.Item>
               </Col>
+              <Col md={12}>
+                <Form.Item
+                  rules={[
+                    { required: true, message: "This field is required!" },
+                  ]}
+                  name="password"
+                >
+                  <Input.Password placeholder="Zoom meeting password" />
+                </Form.Item>
+              </Col>
             </Row>
-            <span className="label" style={{ marginTop: "15px", display: "block" }}>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
+            <span
+              className="label"
+              style={{ marginTop: "15px", display: "block" }}
+            >
+              Premium Webinar{visiblePrice} &nbsp; &nbsp;
+            </span>
             <Form.Item name="premium">
-
               <Switch
                 name="premium"
-
                 onChange={(value) => value && setVisiblePrice(true)}
                 style={{ height: "unset!important" }}
               />
-
             </Form.Item>
             <span className="label">Image</span>
             <Upload
@@ -219,24 +241,23 @@ function CreateStudent(props) {
               beforeUpload={beforeUpload}
               onChange={(info) => {
                 setimage(info.file.originFileObj);
-                setState({ ...state, imageUrl: URL.createObjectURL(info.file.originFileObj) });
+                setState({
+                  ...state,
+                  imageUrl: URL.createObjectURL(info.file.originFileObj),
+                });
               }}
             >
               {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt="avatar"
-                  style={{ width: "100%" }}
-                />
+                <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
-                  uploadButton(state.image)
-                )}
+                uploadButton(state.image)
+              )}
             </Upload>
             <Form.Item
               name="commonPrice"
               rules={[{ required: true, message: "Please input your title!" }]}
             >
-              <Input placeholder="Price" />
+              <Input disabled={visiblePrice} placeholder="Price" />
             </Form.Item>
           </Form>
         </BasicFormWrapper>
