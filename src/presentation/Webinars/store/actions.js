@@ -4,6 +4,7 @@ import {
   onDelete,
   onCreateWebinar,
   deleteZoom,
+  editZoom
 } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
@@ -75,13 +76,15 @@ const actions = {
         values.time = time;
         values.startDate = date;
         values.price = price;
+        values.premium === undefined ? values.premium=false:console.log("hgjgf");
         const key = webinarData.push().key;
         var data = {
           ...values,
           id: key,
           imageUrl: imageUrl,
-          zoom_url: zoom.start_url,
+          start_url: zoom.start_url,
           zoom_id: zoom.id,
+          join_url:zoom.join_url
         };
         try {
           const res = webinarData.child(key).update(data);
@@ -179,6 +182,16 @@ const actions = {
       values.startDate = date;
       values.price = price;
       console.log(values, "values");
+      const value = moment(date).format("yyyy/MM/DD");
+        const result = value + "T" + time + ":00Z";
+      const dataVideo = {
+        topic: values.title,
+        start_time: result,
+        duration: 60,
+        password: values.password,
+        agenda: values.description,
+      };
+      const zoom = await editZoom(dataVideo);
 
       var data = {
         ...values,

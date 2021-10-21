@@ -32,7 +32,7 @@ function LoginForm() {
                   message: "Please input your email",
                 },
               ]}
-              label="Username or Email Address"
+              label="Email Address"
             >
               <Input  placeholder="Email" />
             </Form.Item>

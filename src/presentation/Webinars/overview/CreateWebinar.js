@@ -228,7 +228,7 @@ function CreateStudent(props) {
             <Form.Item name="premium">
               <Switch
                 name="premium"
-                onChange={(value) => value && setVisiblePrice(true)}
+                onChange={(value) => value}
                 style={{ height: "unset!important" }}
               />
             </Form.Item>
