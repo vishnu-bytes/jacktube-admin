@@ -51,7 +51,7 @@ const UserList = () => {
   }
   console.log("expertDatavzd", expertData)
   const studentData = searchData?.map((student, index) => {
-    console.log(student);
+    console.log(student,"review data",expertData);
     return {
       key: index,
       user: (
@@ -65,7 +65,7 @@ const UserList = () => {
         //   </figcaption>
         // </div>
       ),
-      expert: expertData && expertData?.map((item) => student.expert === "+91" + item.phone && item.name),
+      expert: expertData && expertData?.map((item) => student.expert ===  item.id && item.name),
       webinar: student.webinar ? "Webinar" : "Session",
       userName: <div className="user-info">
         <figcaption>

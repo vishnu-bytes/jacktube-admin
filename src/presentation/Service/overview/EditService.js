@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Form,
-  Input,
-  Upload,
-  message,
-} from "antd";
+import { Form, Input, Upload, message } from "antd";
 import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import { useStudentStore } from "../store";
-import {
-  LoadingOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
@@ -29,11 +20,11 @@ const beforeUpload = (file) => {
 };
 
 function EditService() {
-
   const [form] = Form.useForm();
-  const [{ editVisible, singleRow }, { onEdit, setEditVisible }] = useStudentStore();
+  const [{ editVisible, singleRow, loader }, { onEdit, setEditVisible }] =
+    useStudentStore();
   const [image, setimage] = useState();
-  const [imageUrl, setImageUrl] = useState("")
+  const [imageUrl, setImageUrl] = useState("");
   const [state, setState] = useState({
     fileList: [
       {
@@ -44,19 +35,15 @@ function EditService() {
       },
     ],
     loading: false,
-    
   });
-
 
   useEffect(() => {
     form.setFieldsValue(singleRow);
     setImageUrl(singleRow?.image);
     setimage(singleRow?.image);
-
-  }, [singleRow])
+  }, [singleRow]);
 
   const { profImageUrl } = state;
-
 
   const uploadButton = (loading) => {
     return (
@@ -80,6 +67,7 @@ function EditService() {
             key="submit"
             htmlType="submit"
             form="createProject"
+            loading={loader}
           >
             Submit
           </Button>
@@ -102,7 +90,7 @@ function EditService() {
             form={form}
             id="createProject"
             name="createProject"
-            onFinish={(values) => onEdit(values, image,singleRow.id)}
+            onFinish={(values) => onEdit(values, image, singleRow.id)}
           >
             <Form.Item name="title">
               <Input placeholder="Title" />
@@ -119,18 +107,13 @@ function EditService() {
                 setimage(info.file.originFileObj);
                 console.log(info.file.originFileObj, "image");
                 setImageUrl(URL.createObjectURL(info.file.originFileObj));
-                
               }}
             >
               {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt="avatar"
-                  style={{ width: "100%" }}
-                />
+                <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
-                  uploadButton(state.image)
-                )}
+                uploadButton(state.image)
+              )}
             </Upload>
           </Form>
         </BasicFormWrapper>

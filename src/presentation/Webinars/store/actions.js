@@ -4,7 +4,7 @@ import {
   onDelete,
   onCreateWebinar,
   deleteZoom,
-  editZoom
+  editZoom,
 } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
@@ -59,6 +59,7 @@ const actions = {
       if (Object.keys(image).length === 0) {
         message.warning("Please upload your profile photo");
       } else {
+        setState({ loader: true });
         const storageRef = await ref(storage, image.name);
         const uploadedData = await uploadBytes(storageRef, image);
         const imageUrl = await getDownloadURL(uploadedData.ref);
@@ -76,7 +77,9 @@ const actions = {
         values.time = time;
         values.startDate = date;
         values.price = price;
-        values.premium === undefined ? values.premium=false:console.log("hgjgf");
+        values.premium === undefined
+          ? (values.premium = false)
+          : console.log("hgjgf");
         const key = webinarData.push().key;
         var data = {
           ...values,
@@ -84,7 +87,7 @@ const actions = {
           imageUrl: imageUrl,
           start_url: zoom.start_url,
           zoom_id: zoom.id,
-          join_url:zoom.join_url
+          join_url: zoom.join_url,
         };
         try {
           const res = webinarData.child(key).update(data);
@@ -98,11 +101,13 @@ const actions = {
             .child("webinarList")
             .child(expertkey)
             .update({ webinarId: key, id: expertkey });
+          setState({ loader: false });
 
           console.log("reponse", res);
           dispatch(actions.setVisible(false));
           dispatch(actions.getStudent());
         } catch (error) {
+          setState({ loader: false });
           logError(error);
         }
       }
@@ -165,8 +170,9 @@ const actions = {
       setState({ singleRow: params.data });
     },
   onEdit:
-    (values, date, time, price, image, id, prevPresentor) =>
-    async ({ dispatch }) => {
+    (values, date, time, price, image, id, prevPresentor, zoom_id) =>
+    async ({ setState, dispatch }) => {
+      setState({ loader: true });
       let imageUrl;
       if (typeof image === "string") {
         imageUrl = image;
@@ -183,13 +189,14 @@ const actions = {
       values.price = price;
       console.log(values, "values");
       const value = moment(date).format("yyyy/MM/DD");
-        const result = value + "T" + time + ":00Z";
+      const result = value + "T" + time + ":00Z";
       const dataVideo = {
         topic: values.title,
         start_time: result,
         duration: 60,
         password: values.password,
         agenda: values.description,
+        id: zoom_id,
       };
       const zoom = await editZoom(dataVideo);
 
@@ -231,6 +238,8 @@ const actions = {
         .child(expertkey)
         .update({ webinarId: id, id: expertkey });
       // logError(params, "Edit value");
+      setState({ loader: false });
+
       dispatch(actions.setEditVisible(false));
 
       dispatch(actions.getStudent());

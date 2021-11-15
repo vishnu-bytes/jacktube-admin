@@ -39,7 +39,8 @@ const beforeUpload = (file) => {
 function CreateStudent(props) {
   const [{ visiblePrice }, { setVisiblePrice }] = useWebinarStore();
   const [form] = Form.useForm();
-  const [{ visible, price }, { onfinish, setVisible }] = useWebinarStore();
+  const [{ visible, price, loader }, { onfinish, setVisible }] =
+    useWebinarStore();
   const [Time, setTime] = useState("");
   const [image, setimage] = useState({});
   const [Date, setDate] = useState();
@@ -79,6 +80,7 @@ function CreateStudent(props) {
             key="submit"
             htmlType="submit"
             form="createWebinar"
+            loading={loader}
           >
             Create
           </Button>
@@ -147,7 +149,7 @@ function CreateStudent(props) {
                   <Select style={{ width: "100%" }} placeholder="Presentor">
                     {props?.experts &&
                       props.experts.map((res) => (
-                        <Option value={ res.id}>{res.name}</Option>
+                        <Option value={res.id}>{res.name}</Option>
                       ))}
                   </Select>
                 </Form.Item>
@@ -197,14 +199,14 @@ function CreateStudent(props) {
                   <Select
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
-                    placeholder="Month/Trimester">
-                    <Option value={13} >First Trimester</Option>
-                    <Option value={14} >Second Trimester</Option>
-                    <Option value={15} >Third Trimester</Option>
-                    {
-                      months.map((res) => (
-                        <Option value={res}>{"Month " + res}</Option>
-                      ))}
+                    placeholder="Month/Trimester"
+                  >
+                    <Option value={13}>First Trimester</Option>
+                    <Option value={14}>Second Trimester</Option>
+                    <Option value={15}>Third Trimester</Option>
+                    {months.map((res) => (
+                      <Option value={res}>{"Month " + res}</Option>
+                    ))}
                   </Select>
                 </Form.Item>
               </Col>

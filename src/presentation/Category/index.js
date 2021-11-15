@@ -85,7 +85,7 @@ const UserList = () => {
       <CardToolbox>
         <PageHeader
           ghost
-          title="Tag Manager"
+          title="Tag Management"
           subTitle={
             <>
               <span className="title-counter">

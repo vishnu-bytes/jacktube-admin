@@ -48,6 +48,7 @@ const actions = {
       if (Object.keys(image).length === 0) {
         message.warning("Please  ulpoad the image");
       }else{
+        setState({ loader: true });
         const storageRef = ref(storage, image.name);
         const UploadedData = await uploadBytes(storageRef, image);
         const url = await getDownloadURL(UploadedData.ref);
@@ -66,7 +67,11 @@ const actions = {
           form.resetFields();
           setImageUrl("");
           setimage({});
+          setState({ loader: false });
+
         } catch (error) {
+          setState({ loader: false });
+
           logError(error);
         }
       }

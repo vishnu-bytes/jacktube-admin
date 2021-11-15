@@ -31,7 +31,7 @@ const beforeUpload = (file) => {
 function CreateNotification() {
   const [form] = Form.useForm();
   const [
-    { VisibleCreate, webinarData },
+    { VisibleCreate, webinarData, loader },
     { onfinish, setVisibleCreate, getWebinar },
   ] = useNotificationStore();
   const [value, setValue] = useState(1);
@@ -77,6 +77,7 @@ function CreateNotification() {
             key="submit"
             htmlType="submit"
             form="createNotification"
+            loading={loader}
           >
             Create
           </Button>
@@ -103,16 +104,27 @@ function CreateNotification() {
               onfinish(values, image, form, setImageUrl, setimage)
             }
           >
-            <Form.Item name="title" rules={[{ required: true, message: 'This field is required' }]}>
+            <Form.Item
+              name="title"
+              rules={[{ required: true, message: "This field is required" }]}
+            >
               <Input placeholder="Title" />
             </Form.Item>
-            <Form.Item name="description" rules={[{ required: true, message: 'This field is required' }]}>
+            <Form.Item
+              name="description"
+              rules={[{ required: true, message: "This field is required" }]}
+            >
               <Input placeholder="Description" />
             </Form.Item>
 
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item name="webinar" rules={[{ required: true, message: 'This field is required' }]}>
+                <Form.Item
+                  name="webinar"
+                  rules={[
+                    { required: true, message: "This field is required" },
+                  ]}
+                >
                   <Select
                     name="services"
                     placeholder="Webinar"
@@ -128,7 +140,12 @@ function CreateNotification() {
               </Col>
             </Row>
             <Row gutter={15}>
-              <span className="label" style={{paddingTop:"15px",paddingBottom:"12px"}}>Image</span>
+              <span
+                className="label"
+                style={{ paddingTop: "15px", paddingBottom: "12px" }}
+              >
+                Image
+              </span>
               <Upload
                 name="avatar"
                 listType="picture-card"

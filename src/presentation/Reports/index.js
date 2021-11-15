@@ -114,7 +114,7 @@ const onDateRangeChange=(dateRange,dateString)=>{
             <Button  type="primary"
          disabled={isDisabled?true:false}
             size="default">
-              {studentData &&<CSVLink {...csvReport}>Export to CSV</CSVLink>}
+              {studentData &&<CSVLink {...csvReport}>Download Report</CSVLink>}
             </Button>,
           ]}
         />

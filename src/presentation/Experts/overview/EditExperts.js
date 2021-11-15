@@ -6,11 +6,7 @@ import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import { useStudentStore } from "../store";
-import {
-  LoadingOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
@@ -26,12 +22,11 @@ const beforeUpload = (file) => {
   return isJpgOrPng && isLt2M;
 };
 
-
-
-
-
 function EditExpert() {
-  const [{ editVisible, studentList, serviceList, singleRow }, { onEdit, setEditVisible }] = useStudentStore();
+  const [
+    { editVisible, studentList, serviceList, singleRow, loader },
+    { onEdit, setEditVisible },
+  ] = useStudentStore();
 
   const [state, setState] = useState({
     fileList: [
@@ -51,10 +46,9 @@ function EditExpert() {
   const [panImage, setpanImage] = useState(singleRow?.panIamgeUrl);
   const [profImageUrl, setProfileImageUrl] = useState(singleRow?.profileImage);
   const [panImageUrl, setPanImageUrl] = useState(singleRow?.panIamgeUrl);
-  const [serviceArray,setServicesArray]=useState([])
+  const [serviceArray, setServicesArray] = useState([]);
 
-
-  const [form] = Form.useForm()
+  const [form] = Form.useForm();
   useEffect(() => {
     setProfileImageUrl(singleRow?.profileImage);
     setPanImageUrl(singleRow?.panIamgeUrl);
@@ -62,9 +56,8 @@ function EditExpert() {
     setpanImage(singleRow?.panIamgeUrl);
     form.setFieldsValue(singleRow);
     setServicesArray(singleRow?.services);
-    console.log("services",serviceArray);
-  }, [singleRow])
-
+    console.log("services", serviceArray);
+  }, [singleRow]);
 
   const children = [];
 
@@ -73,7 +66,7 @@ function EditExpert() {
   const onHandleChange = (info) => {
     setState({ ...state, panImageUrl: info.fileoriginFileObj });
     setpanImage(info.file.originFileObj);
-    setPanImageUrl(URL.createObjectURL(info.file.originFileObj))
+    setPanImageUrl(URL.createObjectURL(info.file.originFileObj));
   };
 
   const uploadButton = (loading) => {
@@ -85,8 +78,7 @@ function EditExpert() {
     );
   };
 
-
-  console.log("serviceList", serviceList)
+  console.log("serviceList", serviceList);
   return (
     <Modal
       type={"primary"}
@@ -103,8 +95,9 @@ function EditExpert() {
             onClick={() => {
               console.log(state, "current state");
             }}
+            loading={loader}
           >
-           Submit
+            Submit
           </Button>
           <Button
             size="default"
@@ -128,21 +121,30 @@ function EditExpert() {
             form={form}
             id="editExpert"
             name="editExpert"
-            onFinish={(values) => onEdit(values, image, studentList, panImage, singleRow.id,serviceArray) || console.log(singleRow.id, "iddddddd")}
+            onFinish={(values) =>
+              onEdit(
+                values,
+                image,
+                studentList,
+                panImage,
+                singleRow.id,
+                serviceArray
+              ) || console.log(singleRow.id, "iddddddd")
+            }
             initialValues={{}}
           >
-
             <span className="label">Profile Image</span>
             <Upload
               name="profImage"
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}
-
               beforeUpload={beforeUpload}
               onChange={(info) => {
                 setimage(info.file.originFileObj);
-                setProfileImageUrl(URL.createObjectURL(info.file.originFileObj))
+                setProfileImageUrl(
+                  URL.createObjectURL(info.file.originFileObj)
+                );
               }}
             >
               {profImageUrl ? (
@@ -152,48 +154,91 @@ function EditExpert() {
                   style={{ width: "100%" }}
                 />
               ) : (
-                  uploadButton(state.image)
-                )}
+                uploadButton(state.image)
+              )}
             </Upload>
 
-            <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input your name!' }]} >
+            <Form.Item
+              label="Name"
+              name="name"
+              rules={[{ required: true, message: "Please input your name!" }]}
+            >
               <Input placeholder="Name" />
             </Form.Item>
-            <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]} >
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[{ required: true, message: "Please input your email!" }]}
+            >
               <Input placeholder="Email" />
             </Form.Item>
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item label="Job Title" name="title" rules={[{ required: true, message: 'Please input your job title!' }]}>
+                <Form.Item
+                  label="Job Title"
+                  name="title"
+                  rules={[
+                    { required: true, message: "Please input your job title!" },
+                  ]}
+                >
                   <Input placeholder="Job Title" />
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item label="Phone" disabled name="phone" rules={[{ required: true, message: 'Please input your phone number!' }]}>
+                <Form.Item
+                  label="Phone"
+                  disabled
+                  name="phone"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your phone number!",
+                    },
+                  ]}
+                >
                   <Input disabled placeholder="Phone" />
                 </Form.Item>
               </Col>
             </Row>
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item label="Services" name="services" rules={[{ required: true, message: 'Please select your services' }]} >
+                <Form.Item
+                  label="Services"
+                  name="services"
+                  rules={[
+                    { required: true, message: "Please select your services" },
+                  ]}
+                >
                   <Select
                     name="services"
                     mode="multiple"
                     placeholder="Services"
-                    style={{ width: '100%' }}
+                    style={{ width: "100%" }}
                   >
-                    {serviceList?.map((option) => <Option key={option.id} value={option.id} >{option.title}</Option>)}
+                    {serviceList?.map((option) => (
+                      <Option key={option.id} value={option.id}>
+                        {option.title}
+                      </Option>
+                    ))}
                   </Select>
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item label="Qualifications" name="qualifications" rules={[{ required: true, message: 'Please add your qaulifications!' }]} >
+                <Form.Item
+                  label="Qualifications"
+                  name="qualifications"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please add your qaulifications!",
+                    },
+                  ]}
+                >
                   <Select
                     mode="tags"
                     name="qualifications"
                     placeholder="Qualifications"
-                    style={{ width: '100%' }}
+                    style={{ width: "100%" }}
                   >
                     {children}
                   </Select>
@@ -218,10 +263,20 @@ function EditExpert() {
                 </Form.Item>
               </Col>
             </Row>
-            <Form.Item label="Experience" name="experience" rules={[{ required: true, message: 'Please input your experience!' }]}>
+            <Form.Item
+              label="Experience"
+              name="experience"
+              rules={[
+                { required: true, message: "Please input your experience!" },
+              ]}
+            >
               <Input placeholder="Experience (In years)" />
             </Form.Item>
-            <Form.Item label="Bio" name="bio" rules={[{ required: true, message: 'Please input your bio!' }]}>
+            <Form.Item
+              label="Bio"
+              name="bio"
+              rules={[{ required: true, message: "Please input your bio!" }]}
+            >
               <Input.TextArea rows={4} placeholder="Bio" />
             </Form.Item>
 
@@ -237,10 +292,9 @@ function EditExpert() {
               {panImageUrl ? (
                 <img src={panImageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
-                  uploadButton(state.loading)
-                )}
+                uploadButton(state.loading)
+              )}
             </Upload>
-
           </Form>
         </BasicFormWrapper>
       </div>

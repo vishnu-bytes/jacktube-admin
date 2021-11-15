@@ -14,7 +14,7 @@ import {
   LoadingOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { increment, decrement } from "../../common/Assets/Icons"
+import { increment, decrement } from "../../common/Assets/Icons";
 
 const { Option } = Select;
 
@@ -49,7 +49,7 @@ function CreateStudent() {
   const { profImageUrl, panImageUrl } = state;
 
   const children = [];
- 
+
   // function handleChange(value) {
   //   console.log(`Selected: ${value}`);
   // }
@@ -61,7 +61,10 @@ function CreateStudent() {
     setState({ ...state, panImageUrl: info.fileoriginFileObj });
 
     setpanImage(info.file.originFileObj);
-    setState({ ...state, panImageUrl: URL.createObjectURL(info.file.originFileObj) });
+    setState({
+      ...state,
+      panImageUrl: URL.createObjectURL(info.file.originFileObj),
+    });
   };
 
   const uploadButton = (loading) => {
@@ -73,10 +76,12 @@ function CreateStudent() {
     );
   };
 
-
   const [form] = Form.useForm();
-  const [{ visible, studentList, serviceList }, { onfinish, setVisible }] = useStudentStore();
-  console.log("serviceList", serviceList)
+  const [
+    { visible, studentList, serviceList, loader },
+    { onfinish, setVisible },
+  ] = useStudentStore();
+  console.log("serviceList", serviceList);
   return (
     <Modal
       type={"primary"}
@@ -93,6 +98,7 @@ function CreateStudent() {
             onClick={() => {
               console.log(state, "current state");
             }}
+            loading={loader}
           >
             Create
           </Button>
@@ -118,20 +124,23 @@ function CreateStudent() {
             form={form}
             id="createExpert"
             name="createExpert"
-            onFinish={(values) => onfinish(values, image, studentList, panImage,form)}
+            onFinish={(values) =>
+              onfinish(values, image, studentList, panImage, form)
+            }
           >
-
             <span className="label">Profile Image</span>
             <Upload
               name="profImage"
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}
-        
               beforeUpload={beforeUpload}
               onChange={(info) => {
                 setimage(info.file.originFileObj);
-                setState({ ...state, profImageUrl: URL.createObjectURL(info.file.originFileObj) });
+                setState({
+                  ...state,
+                  profImageUrl: URL.createObjectURL(info.file.originFileObj),
+                });
               }}
             >
               {profImageUrl ? (
@@ -141,48 +150,84 @@ function CreateStudent() {
                   style={{ width: "100%" }}
                 />
               ) : (
-                  uploadButton(state.image)
-                )}
+                uploadButton(state.image)
+              )}
             </Upload>
 
-            <Form.Item name="name" rules={[{ required: true, message: 'Please input your name!' }]} >
-              <Input  placeholder="Name" />
+            <Form.Item
+              name="name"
+              rules={[{ required: true, message: "Please input your name!" }]}
+            >
+              <Input placeholder="Name" />
             </Form.Item>
-            <Form.Item name="email" rules={[{ required: true, message: 'Please input your email!' }]} >
+            <Form.Item
+              name="email"
+              rules={[{ required: true, message: "Please input your email!" }]}
+            >
               <Input placeholder="Email" />
             </Form.Item>
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item name="title" rules={[{ required: true, message: 'Please input your job title!' }]}>
+                <Form.Item
+                  name="title"
+                  rules={[
+                    { required: true, message: "Please input your job title!" },
+                  ]}
+                >
                   <Input placeholder="Job Title" />
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item name="phone" rules={[{ required: true, message: 'Please input your phone number!' }]}>
+                <Form.Item
+                  name="phone"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your phone number!",
+                    },
+                  ]}
+                >
                   <Input placeholder="Phone" />
                 </Form.Item>
               </Col>
             </Row>
             <Row gutter={15}>
               <Col md={12}>
-                <Form.Item name="services" rules={[{ required: true, message: 'Please select your services' }]} >
+                <Form.Item
+                  name="services"
+                  rules={[
+                    { required: true, message: "Please select your services" },
+                  ]}
+                >
                   <Select
                     name="services"
                     mode="multiple"
                     placeholder="Services"
-                    style={{ width: '100%' }}
+                    style={{ width: "100%" }}
                   >
-                    {serviceList?.map((option) => <Option key={option.id} value={option.id} >{option.title}</Option>)}
+                    {serviceList?.map((option) => (
+                      <Option key={option.id} value={option.id}>
+                        {option.title}
+                      </Option>
+                    ))}
                   </Select>
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item name="qualifications" rules={[{ required: true, message: 'Please add your qaulifications!' }]} >
+                <Form.Item
+                  name="qualifications"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please add your qaulifications!",
+                    },
+                  ]}
+                >
                   <Select
                     mode="tags"
                     name="qualifications"
                     placeholder="Qualifications"
-                    style={{ width: '100%' }}
+                    style={{ width: "100%" }}
                   >
                     {children}
                   </Select>
@@ -207,10 +252,18 @@ function CreateStudent() {
                 </Form.Item>
               </Col>
             </Row>
-            <Form.Item name="experience" rules={[{ required: true, message: 'Please input your experience!' }]}>
+            <Form.Item
+              name="experience"
+              rules={[
+                { required: true, message: "Please input your experience!" },
+              ]}
+            >
               <Input placeholder="Experience (In years)" />
             </Form.Item>
-            <Form.Item name="bio" rules={[{ required: true, message: 'Please input your bio!' }]}>
+            <Form.Item
+              name="bio"
+              rules={[{ required: true, message: "Please input your bio!" }]}
+            >
               <Input.TextArea rows={4} placeholder="Bio" />
             </Form.Item>
 
@@ -220,17 +273,15 @@ function CreateStudent() {
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}
-             
               beforeUpload={beforeUpload}
               onChange={onHandleChange}
             >
               {panImageUrl ? (
                 <img src={panImageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
-                  uploadButton(state.loading)
-                )}
+                uploadButton(state.loading)
+              )}
             </Upload>
-
           </Form>
         </BasicFormWrapper>
       </div>
