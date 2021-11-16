@@ -157,7 +157,7 @@ const actions = {
   onEdit:
     (values, image, studentList, panImage, id, serviceArray, phone) =>
       async ({ setState, dispatch }) => {
-
+        setState({ loader: true });
         let url;
         let panIamgeUrl;
        //condition for checking image is updated or not 
@@ -252,10 +252,11 @@ const actions = {
           }
 
           
-         
+          setState({ loader: false });
           dispatch(actions.setEditVisible(false));
           dispatch(actions.getStudent());
         } catch (error) {
+          setState({ loader: false });
           logError(error);
        
       }
