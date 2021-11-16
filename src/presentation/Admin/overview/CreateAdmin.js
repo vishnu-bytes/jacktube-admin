@@ -15,7 +15,7 @@ function CreateAdmin() {
   return (
     <Modal
       type={"primary"}
-      title="Add New User"
+      title="Add New Admin"
       visible={VisibleCreate}
       footer={[
         <div key="1" className="project-modal-footer">

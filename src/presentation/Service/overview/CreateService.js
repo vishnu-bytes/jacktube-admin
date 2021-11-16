@@ -59,12 +59,12 @@ const beforeUpload = (file) => {
 };
 
 function CreateStudent() {
-  const [{ visiblePrice }, { setVisiblePrice }] = useStudentStore();
   const [form] = Form.useForm();
-  const [{ VisibleCreate }, { onfinish, setVisibleCreate }] = useStudentStore();
+  const [{ VisibleCreate, loader }, { onfinish, setVisibleCreate }] =
+    useStudentStore();
   const [value, setValue] = useState(1);
   const [image, setimage] = useState({});
-  const [imageUrl,setImageUrl]=useState("")
+  const [imageUrl, setImageUrl] = useState("");
 
   const [state, setState] = useState({
     fileList: [
@@ -76,13 +76,7 @@ function CreateStudent() {
       },
     ],
     loading: false,
-   
-    
   });
-
-
-
- 
 
   const uploadButton = (loading) => {
     return (
@@ -106,6 +100,7 @@ function CreateStudent() {
             key="submit"
             htmlType="submit"
             form="createProject"
+            loading={loader}
           >
             Create
           </Button>
@@ -125,16 +120,17 @@ function CreateStudent() {
       <div className="project-modal">
         <BasicFormWrapper>
           <Form
-            
             form={form}
             id="createProject"
             name="createProject"
-            onFinish={(values) => {onfinish(values, image,form,setImageUrl,setimage) 
-            
-                
-             } }
+            onFinish={(values) => {
+              onfinish(values, image, form, setImageUrl, setimage);
+            }}
           >
-            <Form.Item name="title" rules={[{ required: true, message: 'This field is required' }]}>
+            <Form.Item
+              name="title"
+              rules={[{ required: true, message: "This field is required" }]}
+            >
               <Input placeholder="Title" />
             </Form.Item>
             {/* <Form.Item name="description">
@@ -152,16 +148,11 @@ function CreateStudent() {
                 info.file.status = "done";
                 setimage(info.file.originFileObj);
                 console.log(info.file.originFileObj, "image");
-                setImageUrl( URL.createObjectURL(info.file.originFileObj));
-               
+                setImageUrl(URL.createObjectURL(info.file.originFileObj));
               }}
             >
               {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt="avatar"
-                  style={{ width: "100%" }}
-                />
+                <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
                 uploadButton(state.image)
               )}

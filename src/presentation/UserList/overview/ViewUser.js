@@ -32,7 +32,7 @@ const EditCategory = () => {
           >
             Cancel
           </Button>
-          <Button
+          {/* <Button
             form="editProject"
             size="default"
             htmlType="submit"
@@ -41,7 +41,7 @@ const EditCategory = () => {
             danger
           >
             Delete
-          </Button>
+          </Button> */}
         </div>,
       ]}
       onCancel={() => setVisible(false)}
@@ -50,7 +50,7 @@ const EditCategory = () => {
         <div className="project-modal display">
           {/* <ViewCards label="Image" value={<img className="avatar" src={singleRow?.cover} />} /> */}
           <ViewCards label="User Name" value={singleRow?.name} />
-          <ViewCards label="Phone Number" value={singleRow?.phone} />
+          <ViewCards label="Phone Number" value={singleRow?.phonenumber} />
           <ViewCards label="Email" value={singleRow?.email} />
           <ViewCards label="Pregnant/Mother" value={singleRow?.type === 1 ? "Pregnant" : "Mother"} />
           <ViewCards label="Due Date" value={singleRow?.Date} />

@@ -1,6 +1,14 @@
-
 import React, { useState, useEffect } from "react";
-import { Form, Input, Select, Switch, Upload, InputNumber, Radio, message } from "antd";
+import {
+  Form,
+  Input,
+  Select,
+  Switch,
+  Upload,
+  InputNumber,
+  Radio,
+  message,
+} from "antd";
 import { Col, Row, DatePicker, TimePicker } from "antd";
 import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
@@ -10,15 +18,11 @@ import FeatherIcon from "feather-icons-react";
 import { useWebinarStore } from "../store";
 import moment from "moment";
 import AddPrice from "./AddPrice";
-import {
-  LoadingOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import TextArea from "antd/lib/input/TextArea";
 
 const { Option } = Select;
 const dateFormat = "DD MMM YYYY";
-
 
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
@@ -35,27 +39,34 @@ const beforeUpload = (file) => {
 function EditWebinar(props) {
   const [{ visiblePrice }, { setVisiblePrice }] = useWebinarStore();
   const [form] = Form.useForm();
-  const [{ editVisible, price, singleRow }, { onEdit, setEditVisible }] = useWebinarStore();
+  const [
+    { editVisible, price, singleRow, loader },
+    { onEdit, setEditVisible },
+  ] = useWebinarStore();
   const [Time, setTime] = useState(singleRow?.time);
   const [image, setimage] = useState(singleRow?.imageUrl);
   const [Date, setDate] = useState(singleRow?.startDate);
-  const [imageUrl, setImageUrl] = useState(singleRow?.imageUrl)
+  const [imageUrl, setImageUrl] = useState(singleRow?.imageUrl);
 
   useEffect(() => {
     if (singleRow?.startDate) {
-      let newSingleRow = { ...singleRow }
-      console.log(singleRow, "new singlerow");
-      let convertedDate = moment(singleRow.startDate, "DD MMM YYYY").format("DD/MM/YYYY")
-      newSingleRow = { ...newSingleRow, startDate: moment(convertedDate, "DD/MM/YYYY") };
+      let newSingleRow = { ...singleRow };
+      let convertedDate = moment(singleRow.startDate, "DD MMM YYYY").format(
+        "DD/MM/YYYY"
+      );
+      newSingleRow = {
+        ...newSingleRow,
+        startDate: moment(convertedDate, "DD/MM/YYYY"),
+      };
       newSingleRow = { ...newSingleRow, time: moment(singleRow.time, "HH:mm") };
-      console.log("new single row", newSingleRow)
+      console.log(singleRow, "new single row", newSingleRow);
       form.setFieldsValue(newSingleRow);
       setimage(singleRow?.imageUrl);
       setDate(singleRow?.startDate);
       setTime(singleRow?.time);
       setImageUrl(singleRow.imageUrl);
     }
-  }, [singleRow, editVisible])
+  }, [singleRow, editVisible]);
   const [state, setState] = useState({
     fileList: [
       {
@@ -64,13 +75,12 @@ function EditWebinar(props) {
         status: "done",
         url: "http://www.baidu.com/xxx.png",
       },
-
     ],
     loading: false,
     image: null,
   });
 
-  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12];
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const uploadButton = (loading) => {
     return (
       <div>
@@ -92,6 +102,7 @@ function EditWebinar(props) {
             key="submit"
             htmlType="submit"
             form="editWebinar"
+            loading={loader}
           >
             Submit
           </Button>
@@ -114,7 +125,18 @@ function EditWebinar(props) {
             form={form}
             id="editWebinar"
             name="editWebinar"
-            onFinish={(values) => onEdit(values, Date, Time, price, image, singleRow.id, singleRow.presentor)}
+            onFinish={(values) =>
+              onEdit(
+                values,
+                Date,
+                Time,
+                price,
+                image,
+                singleRow.id,
+                singleRow.presentor,
+                singleRow.zoom_id
+              )
+            }
           >
             <Form.Item
               name="title"
@@ -125,9 +147,7 @@ function EditWebinar(props) {
 
             <Form.Item
               name="description"
-              rules={[
-                { required: true, message: "This field is required!" },
-              ]}
+              rules={[{ required: true, message: "This field is required!" }]}
             >
               <TextArea placeholder="Description" />
             </Form.Item>
@@ -137,14 +157,14 @@ function EditWebinar(props) {
                   name="category"
                   rules={[
                     { required: true, message: "This field is required!" },
-                  ]}>
+                  ]}
+                >
                   <Select
-                
                     mode="multiple"
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
-                    placeholder="Tag">
-                      
+                    placeholder="Tag"
+                  >
                     {props.category &&
                       props?.category.map((res) => (
                         <Option value={res.id}>{res.category}</Option>
@@ -153,12 +173,13 @@ function EditWebinar(props) {
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item name="presentor" rules={[
-                  { required: true, message: "This field is required!" },
-                ]} >
-                  <Select
-                    style={{ width: "100%" }}
-                    placeholder="Presentor">
+                <Form.Item
+                  name="presentor"
+                  rules={[
+                    { required: true, message: "This field is required!" },
+                  ]}
+                >
+                  <Select style={{ width: "100%" }} placeholder="Presentor">
                     {props?.experts &&
                       props.experts.map((res) => (
                         <Option value={res.id}>{res.name}</Option>
@@ -170,9 +191,12 @@ function EditWebinar(props) {
             <Form.Item>
               <Row gutter={15}>
                 <Col md={12}>
-                  <Form.Item name="startDate" rules={[
-                    { required: true, message: "This field is required!" },
-                  ]}>
+                  <Form.Item
+                    name="startDate"
+                    rules={[
+                      { required: true, message: "This field is required!" },
+                    ]}
+                  >
                     <DatePicker
                       placeholder="Date"
                       style={{ width: "100%" }}
@@ -187,7 +211,6 @@ function EditWebinar(props) {
                       { required: true, message: "This field is required!" },
                     ]}
                     name="time"
-
                   >
                     <TimePicker
                       onChange={(time, timeString) => setTime(timeString)}
@@ -204,33 +227,36 @@ function EditWebinar(props) {
                   name="month"
                   rules={[
                     { required: true, message: "This field is required!" },
-                  ]}>
+                  ]}
+                >
                   <Select
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
-                    placeholder="Month/Trimester">
-                      <Option value={10} >First Trimester</Option>
-                    <Option value={11} >Second Trimester</Option>
-                    <Option value={12} >Third Trimester</Option>
-                    {
-                      months.map((res) => (
-                        <Option value={res}>{"Month " + res}</Option>
-                      ))}
+                    placeholder="Month/Trimester"
+                  >
+                    <Option value={10}>First Trimester</Option>
+                    <Option value={11}>Second Trimester</Option>
+                    <Option value={12}>Third Trimester</Option>
+                    {months.map((res) => (
+                      <Option value={res}>{"Month " + res}</Option>
+                    ))}
                   </Select>
                 </Form.Item>
               </Col>
             </Row>
-            <span className="label" style={{ marginTop: "15px", display: "block" }}>Premium Webinar{visiblePrice} &nbsp; &nbsp;</span>
+            <span
+              className="label"
+              style={{ marginTop: "15px", display: "block" }}
+            >
+              Premium Webinar{visiblePrice} &nbsp; &nbsp;
+            </span>
 
             <Form.Item valuePropName={true ? "checked" : null} name="premium">
-
               <Switch
-
                 name="premium"
                 onChange={(value) => value && setVisiblePrice(true)}
                 style={{ height: "unset!important" }}
               />
-
             </Form.Item>
             <span className="label">Image</span>
             <Upload
@@ -238,23 +264,17 @@ function EditWebinar(props) {
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}
-
               beforeUpload={beforeUpload}
               onChange={(info) => {
                 setimage(info.file.originFileObj);
-                setImageUrl(URL.createObjectURL(info.file.originFileObj))
-
+                setImageUrl(URL.createObjectURL(info.file.originFileObj));
               }}
             >
               {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt="avatar"
-                  style={{ width: "100%" }}
-                />
+                <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
-                  uploadButton(state.image)
-                )}
+                uploadButton(state.image)
+              )}
             </Upload>
             <Form.Item
               name="commonPrice"

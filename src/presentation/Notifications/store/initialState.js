@@ -1,12 +1,13 @@
 const initialState = {
   studentList: null,
-  currentPage:1,
+  currentPage: 1,
   editVisible: false,
-  visible:false,
-  searchData:null,
+  visible: false,
+  searchData: null,
   singleRow: {},
   VisibleCreate: false,
-  webinarData:null
+  webinarData: null,
+  loader: false,
 };
 
 export default initialState;

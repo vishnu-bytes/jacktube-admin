@@ -36,7 +36,6 @@ const AdminList = () => {
     setSearchData(data);
   };
   const studentData = searchData?.map((student, index) => {
-    console.log(student);
     return {
       key: index+1,
       user: (

@@ -31,7 +31,7 @@ const ViewNotification = (props) => {
   return (
     <Modal
       type="primary"
-      title="View User"
+      title="View Notification"
       visible={viewVisible}
       footer={[
         <div key="1" className="project-modal-footer-delete">
@@ -44,7 +44,7 @@ const ViewNotification = (props) => {
           >
             Cancel
           </Button>
-          <Button
+          {/* <Button
             form="editProject"
             size="default"
             htmlType="submit"
@@ -53,7 +53,7 @@ const ViewNotification = (props) => {
             danger
           >
             Delete
-          </Button>
+          </Button> */}
         </div>,
       ]}
       onCancel={() => setVisible(false)}
