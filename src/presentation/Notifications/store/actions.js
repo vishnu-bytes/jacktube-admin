@@ -3,6 +3,7 @@ import {
   onSubmit,
   onDelete,
   onEdit,
+  createNotification
 } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
@@ -60,6 +61,8 @@ const actions = {
         };
         console.log(values, key);
         try {
+          const notifiRes=await createNotification({"title":values.title,"message":values.description,"topic":values.webinar,image});
+          console.log("notifiRes",notifiRes)
           await notificationData.child(key).update(data);
           dispatch(actions.setVisibleCreate(false));
           dispatch(actions.getStudent());

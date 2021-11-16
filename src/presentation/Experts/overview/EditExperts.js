@@ -85,7 +85,6 @@ function EditExpert() {
     );
   };
 
-
   console.log("serviceList", serviceList)
   return (
     <Modal
@@ -118,7 +117,7 @@ function EditExpert() {
           >
             Cancel
           </Button>
-        </div>,
+        </div>
       ]}
       onCancel={() => setEditVisible(false)}
     >
@@ -128,7 +127,7 @@ function EditExpert() {
             form={form}
             id="editExpert"
             name="editExpert"
-            onFinish={(values) => onEdit(values, image, studentList, panImage, singleRow.id,serviceArray) || console.log(singleRow.id, "iddddddd")}
+            onFinish={(values) => onEdit(values, image, studentList, panImage, singleRow.id,serviceArray,singleRow.phone) || console.log(singleRow.id, "iddddddd")}
             initialValues={{}}
           >
 
@@ -155,7 +154,6 @@ function EditExpert() {
                   uploadButton(state.image)
                 )}
             </Upload>
-
             <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input your name!' }]} >
               <Input placeholder="Name" />
             </Form.Item>
@@ -169,8 +167,8 @@ function EditExpert() {
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item label="Phone" disabled name="phone" rules={[{ required: true, message: 'Please input your phone number!' }]}>
-                  <Input disabled placeholder="Phone" />
+                <Form.Item label="Phone"  name="phone" rules={[{ required: true, message: 'Please input your phone number!' }]}>
+                  <Input placeholder="Phone" />
                 </Form.Item>
               </Col>
             </Row>
@@ -240,7 +238,6 @@ function EditExpert() {
                   uploadButton(state.loading)
                 )}
             </Upload>
-
           </Form>
         </BasicFormWrapper>
       </div>

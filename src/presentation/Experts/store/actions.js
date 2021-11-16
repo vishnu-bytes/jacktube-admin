@@ -68,6 +68,7 @@ const actions = {
               checked = false;
             }
           }
+
           if (checked === false) {
             const currentDate = new Date();
             var CreatedDate = moment(currentDate).format("DD/MM/YYYY")
@@ -91,7 +92,7 @@ const actions = {
                 console.log("services in finish", values.services);
                 const key = serviceData.child(values.services[i]).child("/expertsList").push().key;
                 console.log(key, "key of expert");
-                await serviceData.child(values.services[i]).child("expertsList").child(key).update({ 'expertId': "+91" + expertkey, "id": key });
+                await serviceData.child(values.services[i]).child("expertsList").child(key).update({ 'expertId': expertkey, "id": key });
                 console.log(serviceData, "serviceData");
               }
               form.resetFields();
@@ -107,7 +108,6 @@ const actions = {
     () =>
       async ({ setState, dispatch }) => {
         try {
-
           expertData.on("value", (snapshot) => {
             console.log("object", snapshot.val())
             if (snapshot.val() !== null) {
@@ -151,22 +151,24 @@ const actions = {
         setState({ singleRow: params.data });
       },
   onEdit:
-    (values, image, studentList, panImage, id, serviceArray) =>
+    (values, image, studentList, panImage, id, serviceArray, phone) =>
       async ({ setState, dispatch }) => {
-        console.log("filter edit is working")
-        console.log("image", image);
 
         let url;
         let panIamgeUrl;
-        console.log(typeof image === "string", "stringg")
+       //condition for checking image is updated or not 
         if (typeof image === "string") {
+          //if not updated set old image as image
           url = image;
         } else {
+          //code for store image in firebase
           const storageRef = ref(storage, image.name);
           const UploadedData = await uploadBytes(storageRef, image);
+          //download url of updated image
           url = await getDownloadURL(UploadedData.ref);
         }
-        console.log(typeof panImage === "string", "stringg")
+      
+        //condition for checking image is updated or not 
         if (typeof panImage === "string") {
           panIamgeUrl = panImage;
           console.log("valuessssss", values)
@@ -175,7 +177,8 @@ const actions = {
           const UploadedPanData = await uploadBytes(panStorageRef, panImage);
           panIamgeUrl = await getDownloadURL(UploadedPanData.ref);
         }
-        console.log("values", values)
+
+        console.log("values", values);
         // let checked = false;
         // for (let item = 0; item < studentList.length; item++) {
         //   if (studentList[item].phone === values.phone) {
@@ -187,15 +190,20 @@ const actions = {
         //     checked = false;
         // if (checked === false) {
 
+       //data to be stored under expert
         var data = {
           ...values,
           profileImage: url,
           panIamgeUrl: panIamgeUrl
         };
-        console.log(data, "data")
+
+       
+
+
         try {
           let responselist;
-          console.log("service array", serviceArray)
+          console.log("service array", serviceArray);
+          //fetching experList under each service
           for (let i = 0; i < serviceArray.length; i++) {
             const expertListData = serviceData.child(serviceArray[i]).child("expertsList");
             expertListData.on("value", (snapshot) => {
@@ -208,7 +216,6 @@ const actions = {
             console.log("filter edit is working before for")
             for (let j = 0; j < responselist.length; j++) {
               console.log(responselist[j], "experts" + j);
-
               if (responselist[j].expertId === id) {
                 console.log(" filter exixts")
                 console.log(responselist[j].id, 'filter id of removing expert')
@@ -216,17 +223,32 @@ const actions = {
                 console.log(filteringArray, "filter removedd");
               }
             }
-
             //  const expertList= serviceData.child(serviceArray[i]).child("/expertsList");
             //   console.log("expertsList",expertList);
           }
-          expertData.child(id).update(data);
+          if (!values.phone === phone) {
+            const expertkey = expertData.push().key;
+            expertData.child(expertkey).update(data);
+            for (let i = 0; i < values.services.length; i++) {
+              const key = serviceData.child(values.services[i]).child("/expertsList").push().key;
+              console.log(key, "key of expert")
+              serviceData.child(values.services[i]).child("expertsList").child(key).update({ 'expertId': expertkey, "id": key });
+              console.log(serviceData, "serviceData");
+              expertData.child(id).remove();
+            }
+          }else{
+            expertData.child(id).update(data);
           for (let i = 0; i < values.services.length; i++) {
             const key = serviceData.child(values.services[i]).child("/expertsList").push().key;
             console.log(key, "key of expert")
             serviceData.child(values.services[i]).child("expertsList").child(key).update({ 'expertId': id, "id": key });
             console.log(serviceData, "serviceData");
           }
+
+          }
+
+          
+         
           dispatch(actions.setEditVisible(false));
           dispatch(actions.getStudent());
         } catch (error) {

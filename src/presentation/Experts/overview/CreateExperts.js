@@ -73,7 +73,6 @@ function CreateStudent() {
     );
   };
 
-
   const [form] = Form.useForm();
   const [{ visible, studentList, serviceList }, { onfinish, setVisible }] = useStudentStore();
   console.log("serviceList", serviceList)
