@@ -68,6 +68,7 @@ function EditService() {
             htmlType="submit"
             form="createProject"
             loading={loader}
+disabled={loader}
           >
             Submit
           </Button>

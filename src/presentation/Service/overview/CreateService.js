@@ -101,6 +101,7 @@ function CreateStudent() {
             htmlType="submit"
             form="createProject"
             loading={loader}
+disabled={loader}
           >
             Create
           </Button>

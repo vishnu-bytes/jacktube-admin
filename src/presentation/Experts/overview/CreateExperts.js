@@ -99,6 +99,7 @@ function CreateStudent() {
               console.log(state, "current state");
             }}
             loading={loader}
+disabled={loader}
           >
             Create
           </Button>

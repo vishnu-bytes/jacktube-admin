@@ -96,6 +96,7 @@ function EditExpert() {
               console.log(state, "current state");
             }}
             loading={loader}
+disabled={loader}
           >
             Submit
           </Button>

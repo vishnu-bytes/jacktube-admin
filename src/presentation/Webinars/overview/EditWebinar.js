@@ -103,6 +103,7 @@ function EditWebinar(props) {
             htmlType="submit"
             form="editWebinar"
             loading={loader}
+disabled={loader}
           >
             Submit
           </Button>

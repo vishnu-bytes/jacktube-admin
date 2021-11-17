@@ -28,6 +28,7 @@ function CreateStudent() {
             htmlType="submit"
             form="createCategory"
             loading={loader}
+disabled={loader}
           >
             Create
           </Button>

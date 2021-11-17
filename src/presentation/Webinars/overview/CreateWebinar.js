@@ -81,6 +81,7 @@ function CreateStudent(props) {
             htmlType="submit"
             form="createWebinar"
             loading={loader}
+            disabled={loader}
           >
             Create
           </Button>
@@ -210,7 +211,7 @@ function CreateStudent(props) {
                   </Select>
                 </Form.Item>
               </Col>
-              <Col md={12}>
+              {/* <Col md={12}>
                 <Form.Item
                   rules={[
                     { required: true, message: "This field is required!" },
@@ -219,7 +220,7 @@ function CreateStudent(props) {
                 >
                   <Input.Password placeholder="Zoom meeting password" />
                 </Form.Item>
-              </Col>
+              </Col> */}
             </Row>
             <span
               className="label"
@@ -252,8 +253,8 @@ function CreateStudent(props) {
               {imageUrl ? (
                 <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
-                uploadButton(state.image)
-              )}
+                  uploadButton(state.image)
+                )}
             </Upload>
             <Form.Item
               name="commonPrice"

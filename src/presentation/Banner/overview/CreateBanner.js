@@ -5,7 +5,7 @@ import propTypes from "prop-types";
 import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
-import { useNotificationStore } from "../store";
+import { useBannerStore } from "../store";
 import moment from "moment";
 import {
   UploadOutlined,
@@ -28,12 +28,12 @@ const beforeUpload = (file) => {
   return isJpgOrPng && isLt2M;
 };
 
-function CreateNotification() {
+function CreateBanner() {
   const [form] = Form.useForm();
   const [
     { VisibleCreate, webinarData, loader },
     { onfinish, setVisibleCreate, getWebinar },
-  ] = useNotificationStore();
+  ] = useBannerStore();
   const [value, setValue] = useState(1);
   const [state, setState] = useState({
     fileList: [
@@ -78,7 +78,7 @@ function CreateNotification() {
             htmlType="submit"
             form="createNotification"
             loading={loader}
-disabled={loader}
+            disabled={loader}
           >
             Create
           </Button>
@@ -164,8 +164,8 @@ disabled={loader}
                 {imageUrl ? (
                   <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
                 ) : (
-                  uploadButton(state.image)
-                )}
+                    uploadButton(state.image)
+                  )}
               </Upload>
             </Row>
           </Form>
@@ -179,4 +179,4 @@ CreateNotification.propTypes = {
   onCancel: propTypes.func.isRequired,
 };
 
-export default CreateNotification;
+export default CreateBanner;
