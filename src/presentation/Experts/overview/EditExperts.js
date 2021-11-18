@@ -56,7 +56,7 @@ function EditExpert() {
     setpanImage(singleRow?.panIamgeUrl);
     form.setFieldsValue(singleRow);
     setServicesArray(singleRow?.services);
-    console.log("services", serviceArray);
+    console.log("services", singleRow);
   }, [singleRow]);
 
   const children = [];
@@ -122,7 +122,7 @@ disabled={loader}
             form={form}
             id="editExpert"
             name="editExpert"
-            onFinish={(values) => onEdit(values, image, studentList, panImage, singleRow.id,serviceArray,singleRow.phone) || console.log(singleRow.id, "iddddddd")}
+            onFinish={(values) => onEdit(values, image, studentList, panImage, singleRow.id,serviceArray,singleRow.phone) }
             initialValues={{}}
           >
             <span className="label">Profile Image</span>
