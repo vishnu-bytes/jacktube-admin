@@ -46,7 +46,7 @@ const UserList = () => {
     setSearchData(data);
   };
   const studentData = searchData?.map((student, index) => {
-    console.log(student);
+    console.log(student,"data check");
     return {
       key: index,
       user: (
@@ -63,7 +63,7 @@ const UserList = () => {
       email: "test!@gmail.com",
       grade: student.grade,
       school: student.school,
-      joinDate: student.date,
+      joinDate: student.startDate,
       status:
         student.status === "1" ? (
           <span className={`status-text active`}>{"active"}</span>

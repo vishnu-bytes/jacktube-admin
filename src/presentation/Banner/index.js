@@ -1,64 +1,65 @@
-import React, { useEffect } from "react";
-import { Row, Col, Popconfirm, Switch } from "antd";
+import React, { useEffect, useState } from "react";
+import { Row, Col, Popconfirm } from "antd";
 import FeatherIcon from "feather-icons-react";
-import UserListTable from "./overview/AdminTable";
+import UserListTable from "./overview/NotificationTable";
 import { PageHeader } from "../common/UI/page-headers/page-headers";
 import { AutoComplete } from "../common/UI/autoComplete/autoComplete";
 import { Main, CardToolbox } from "../common/Style/styled";
 import { Button } from "../common/UI/buttons/buttons";
-import { useAdminStore } from "./store";
+import CreateStudent from "./overview/CreateNotification";
+import { useBannerStore } from "./store";
 import Heading from "../common/UI/heading/heading";
-import ViewStudent from "./overview/ViewAdmin";
-import CreateUser from "./overview/CreateAdmin";
-import EditAdmin from "./overview/EditAdmin";
+import EditCategory from "./overview/EditNotification";
+import ViewNotifications from "./overview/ViewNotification";
 
-const AdminList = () => {
+const UserList = () => {
   const [
-    { studentList, searchData },
+    { studentList, searchData, webinarData },
     {
+      setVisibleCreate,
       setVisible,
+      setEditVisible,
       getStudent,
+      getCourse,
       setSearchData,
       onEdit,
       onDelete,
-      setVisibleEdit,
-      setVisibleCreate,
+      getWebinar,
     },
-  ] = useAdminStore();
+  ] = useBannerStore();
+  const [currentPage] = useState(1);
+
   useEffect(() => {
     window.scroll(0, 0);
     getStudent();
-  }, []);
+    getWebinar();
+  }, [currentPage]);
   const handleSearch = (searchText) => {
     const data = studentList?.filter((value) =>
-      value.email.toUpperCase().startsWith(searchText.toUpperCase())
+      value.title.toUpperCase().startsWith(searchText.toUpperCase())
     );
     setSearchData(data);
   };
   const studentData = searchData?.map((student, index) => {
     return {
-      key: index+1,
+      key: index,
       user: (
         <div className="user-info">
           <figcaption>
             <Heading className="user-name" as="h6">
-              {student.name}
+              {student.title}
             </Heading>
-           
           </figcaption>
         </div>
       ),
-      phone: student.phone,
-      type: student.type,
-      email:student.email,
+      imageurl: (
+        <a target="_blank" href={student?.image}>
+          {student?.image?.slice(0, 40)}...
+        </a>
+      ),
       action: (
         <div className="table-actions">
           <>
-            {/* <Switch
-              defaultChecked={student.status === 1 ? true : false}
-              style={{ height: "unset!important" }}
-            /> */}
-{/* 
             <Button
               onClick={() => setVisible({ value: true, data: student })}
               className="btn-icon"
@@ -67,28 +68,7 @@ const AdminList = () => {
               shape="circle"
             >
               <FeatherIcon icon="eye" size={16} />
-            </Button> */}
-            {/* <Button
-              onClick={() => setVisibleEdit({ value: true, data: student })}
-              className="btn-icon"
-              type="info"
-              to="#"
-              shape="circle"
-            >
-              <FeatherIcon icon="edit" size={16} />
-            </Button> */}
-            {/* <Popconfirm
-              title="Are you sure to delete this user?"
-              onConfirm={() => {
-                onDelete({ id: student?._id });
-              }}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button className="btn-icon" type="danger" to="#" shape="circle">
-                <FeatherIcon icon="trash-2" size={16} />
-              </Button>
-            </Popconfirm> */}
+            </Button>
           </>
         </div>
       ),
@@ -100,15 +80,15 @@ const AdminList = () => {
       <CardToolbox>
         <PageHeader
           ghost
-          title="Admin Management"
+          title="Notifications"
           subTitle={
             <>
               <span className="title-counter">
-                {studentList?.length} Admins{" "}
+                {studentList?.length} Notifications{" "}
               </span>
               <AutoComplete
                 onSearch={handleSearch}
-                placeholder="Search by email"
+                placeholder="Search by Title"
                 width="100%"
                 patterns
               />
@@ -121,7 +101,7 @@ const AdminList = () => {
               type="primary"
               size="default"
             >
-              <FeatherIcon icon="plus" size={16} /> Add New User
+              <FeatherIcon icon="plus" size={16} /> New Notification
             </Button>,
           ]}
         />
@@ -133,12 +113,12 @@ const AdminList = () => {
             <UserListTable usersTableData={studentData} />
           </Col>
         </Row>
-        <ViewStudent />
-        <CreateUser />
-        <EditAdmin />
+        <CreateStudent />
+        <EditCategory />
+        <ViewNotifications webinar={webinarData} />
       </Main>
     </>
   );
 };
 
-export default AdminList;
+export default UserList;

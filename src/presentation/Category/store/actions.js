@@ -23,8 +23,9 @@ const actions = {
       setState({ searchData: params });
     },
   onfinish:
-    (values,form) =>
+    (values, form) =>
     async ({ setState, dispatch }) => {
+      setState({ loader: true });
       const key = categoryData.push().key;
       var data = {
         category: values.category,
@@ -33,9 +34,11 @@ const actions = {
       try {
         categoryData.child(key).update(data);
         form.resetFields();
+        setState({ loader: false });
         dispatch(actions.setVisible(false));
         dispatch(actions.getStudent());
       } catch (error) {
+        setState({ loader: false });
         logError(error);
       }
     },
@@ -44,13 +47,13 @@ const actions = {
     async ({ setState, dispatch }) => {
       try {
         categoryData.on("value", (snapshot) => {
-          if(snapshot.val()===null){
+          if (snapshot.val() === null) {
             setState({ studentList: [] });
-          dispatch(actions.setSearchData([]));
-          }else{
+            dispatch(actions.setSearchData([]));
+          } else {
             let responselist = Object.values(snapshot.val());
-          setState({ studentList: responselist });
-          dispatch(actions.setSearchData(responselist));
+            setState({ studentList: responselist });
+            dispatch(actions.setSearchData(responselist));
           }
         });
       } catch (error) {
@@ -61,7 +64,7 @@ const actions = {
   onEdit:
     (params) =>
     async ({ dispatch }) => {
-      console.log(params,"params")
+      console.log(params, "params");
       try {
         categoryData.child(params.initial.id).update(params.values);
         dispatch(actions.setEditVisible(false));

@@ -6,7 +6,8 @@ const initialState = {
   searchData: null,
   singleRow: {},
   visibleView: false,
-  serviceList:null
+  serviceList: null,
+  loader: false,
 };
 
 export default initialState;

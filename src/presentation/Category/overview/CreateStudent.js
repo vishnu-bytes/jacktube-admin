@@ -10,7 +10,7 @@ const { Option } = Select;
 
 function CreateStudent() {
   const [form] = Form.useForm();
-  const [{ visible }, { onfinish, setVisible }] = useStudentStore();
+  const [{ visible, loader }, { onfinish, setVisible }] = useStudentStore();
 
   const [image, setimage] = useState({});
 
@@ -27,6 +27,8 @@ function CreateStudent() {
             key="submit"
             htmlType="submit"
             form="createCategory"
+            loading={loader}
+disabled={loader}
           >
             Create
           </Button>
@@ -49,9 +51,12 @@ function CreateStudent() {
             id="createCategory"
             form={form}
             name="createCategory"
-            onFinish={(values) => onfinish(values,form)}
+            onFinish={(values) => onfinish(values, form)}
           >
-            <Form.Item name="category" rules={[{ required: true, message: 'This field is required!' }]}>
+            <Form.Item
+              name="category"
+              rules={[{ required: true, message: "This field is required!" }]}
+            >
               <Input placeholder="Tag name" />
             </Form.Item>
           </Form>

@@ -75,7 +75,6 @@ const UserList = () => {
         <div className="table-actions">
           <>
             <Switch
-            
               defaultChecked={student.status === 1 ? true : false}
               style={{ height: "unset!important" }}
               onChange={(value)=>switchChange(value ===true?1:0,student.id)}

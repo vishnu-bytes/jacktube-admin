@@ -10,6 +10,8 @@ import firebase from "../../../config/api/firebase";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const serviceData = firebase.database().ref("service");
+const expertData = firebase.database().ref("/expert");
+
 const storage = getStorage();
 
 const actions = {
@@ -55,6 +57,8 @@ const actions = {
         if (Object.keys(image).length === 0) {
           message.warning("Please upload image");
         } else {
+          setState({ loader: true });
+
           const storageRef = ref(storage, image.name);
           const UploadedData = await uploadBytes(storageRef, image);
           const url = await getDownloadURL(UploadedData.ref);
@@ -70,10 +74,12 @@ const actions = {
             await serviceData.child(key).update(data);
             dispatch(actions.setVisibleCreate(false));
             dispatch(actions.getStudent());
+            setState({ loader: false });
             form.resetFields();
             setImageUrl("");
             setimage({});
           } catch (error) {
+            setState({ loader: false });
             logError(error);
           }
         }
@@ -88,8 +94,7 @@ const actions = {
               console.log(responselist, "data checfk");
               setState({ studentList: responselist });
               dispatch(actions.setSearchData(responselist));
-            }
-            else if (snapshot.val() === null) {
+            } else if (snapshot.val() === null) {
               setState({ studentList: [] });
               dispatch(actions.setSearchData([]));
             }
@@ -106,7 +111,7 @@ const actions = {
       },
   onEdit:
     (values, image, id) =>
-      async ({ dispatch }) => {
+      async ({ setState, dispatch }) => {
         let url;
         if (typeof image === "string") {
           url = image;
@@ -115,8 +120,7 @@ const actions = {
           const UploadedData = await uploadBytes(storageRef, image);
           url = await getDownloadURL(UploadedData.ref);
         }
-
-
+        setState({ loader: true });
         // const key = serviceData.push().key;
         var data = {
           ...values,
@@ -126,12 +130,15 @@ const actions = {
         console.log(values, id);
         try {
           await serviceData.child(id).update(data);
+          setState({ loader: false });
+
           dispatch(actions.setEditVisible(false));
           dispatch(actions.getStudent());
         } catch (error) {
+          setState({ loader: false });
+
           logError(error);
         }
-
 
         // logError(params, "Edit value");
         dispatch(actions.getStudent());
@@ -140,13 +147,43 @@ const actions = {
     (params) =>
       async ({ dispatch, setState }) => {
         try {
-          serviceData.child(params).remove();
-          dispatch(actions.getStudent());
-          setState({ viewVisible: false });
-          // setState({ singleRow: params.data });
+          console.log("res00")
+          // dispatch(actions.getStudent());
+          // setState({ viewVisible: false });
+          let responselist;
 
-        } catch {
-          logError(params, "Edit value");
+          const fetchExpert = () => {
+            return new Promise((resolve, reject) => {
+              expertData.on("value", (snapshot) => {
+                console.log("object res01", snapshot.val());
+                if (snapshot.val() !== null) {
+                  console.log(Object.values(snapshot.val()), "list in expert res0");
+                  resolve(Object.values(snapshot.val()));
+                }
+              });
+            })
+          }
+          responselist = await fetchExpert();
+          for (let i = 0; i < responselist?.length; i++) {
+            console.log("service list res1", responselist[i].services);
+            if(responselist[i]?.services?.length>0){
+              for (let j = 0; j < responselist[i].services.length; j++) {
+                console.log("res2")
+  
+                if (responselist[i].services[j] === params) {
+                  console.log("params", responselist[i].services[j], params);
+                  console.log("id", responselist[i].id);
+                  await expertData.child(responselist[i].id).child("services").child(j).remove();
+                } else {
+                  console.log("noooooo")
+                }
+              }
+            }
+          }
+          serviceData.child(params).remove();
+          // setState({ singleRow: params.data });
+        } catch (err) {
+          logError(err, "Edit value");
         }
       },
   getCourse:

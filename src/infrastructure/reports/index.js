@@ -1,6 +1,6 @@
 import { get, post } from "../common/remote/base_api";
 
 export const reportData = (params) =>
-  post("https://zoom-api-2021.herokuapp.com/payments/", params);
+  post("https://zoom-api-2021.herokuapp.com/api/payments/", params);
 export const allPayments = (params) =>
-  get("https://zoom-api-2021.herokuapp.com/v1/allpayments");
+  get("https://zoom-api-2021.herokuapp.com/api/allpayments");

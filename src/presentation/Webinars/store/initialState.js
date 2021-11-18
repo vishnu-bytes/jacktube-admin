@@ -10,6 +10,7 @@ const initialState = {
   visiblePrice: false,
   viewVisible: false,
   price: "",
+  loader: false,
 };
 
 export default initialState;

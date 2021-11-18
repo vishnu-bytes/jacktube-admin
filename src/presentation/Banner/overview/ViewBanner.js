@@ -4,7 +4,7 @@ import { Button } from "../../common/UI/buttons/buttons";
 import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import moment from "moment";
-import { useNotificationStore } from "../store";
+import { useBannerStore } from "../store";
 import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
 import ViewCards from "../../common/ViewCards"
@@ -12,10 +12,10 @@ import ViewCards from "../../common/ViewCards"
 
 const { Option } = Select;
 
-const ViewNotification = (props) => {
+const ViewBanner = (props) => {
   const [form] = Form.useForm();
   const [{ viewVisible, singleRow, webinarData }, { onEdit, setVisible }] =
-    useNotificationStore();
+    useBannerStore();
   console.log( props.webinar, "single course1");
 
 

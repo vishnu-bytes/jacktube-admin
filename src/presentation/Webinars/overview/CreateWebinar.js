@@ -39,7 +39,8 @@ const beforeUpload = (file) => {
 function CreateStudent(props) {
   const [{ visiblePrice }, { setVisiblePrice }] = useWebinarStore();
   const [form] = Form.useForm();
-  const [{ visible, price }, { onfinish, setVisible }] = useWebinarStore();
+  const [{ visible, price, loader }, { onfinish, setVisible }] =
+    useWebinarStore();
   const [Time, setTime] = useState("");
   const [image, setimage] = useState({});
   const [Date, setDate] = useState();
@@ -79,6 +80,8 @@ function CreateStudent(props) {
             key="submit"
             htmlType="submit"
             form="createWebinar"
+            loading={loader}
+            disabled={loader}
           >
             Create
           </Button>
@@ -147,7 +150,7 @@ function CreateStudent(props) {
                   <Select style={{ width: "100%" }} placeholder="Presentor">
                     {props?.experts &&
                       props.experts.map((res) => (
-                        <Option value={ res.id}>{res.name}</Option>
+                        <Option value={res.id}>{res.name}</Option>
                       ))}
                   </Select>
                 </Form.Item>
@@ -197,18 +200,18 @@ function CreateStudent(props) {
                   <Select
                     style={{ width: "100%" }}
                     onChange={(value) => console.log(value, "valuue")}
-                    placeholder="Month/Trimester">
-                    <Option value={13} >First Trimester</Option>
-                    <Option value={14} >Second Trimester</Option>
-                    <Option value={15} >Third Trimester</Option>
-                    {
-                      months.map((res) => (
-                        <Option value={res}>{"Month " + res}</Option>
-                      ))}
+                    placeholder="Month/Trimester"
+                  >
+                    <Option value={13}>First Trimester</Option>
+                    <Option value={14}>Second Trimester</Option>
+                    <Option value={15}>Third Trimester</Option>
+                    {months.map((res) => (
+                      <Option value={res}>{"Month " + res}</Option>
+                    ))}
                   </Select>
                 </Form.Item>
               </Col>
-              <Col md={12}>
+              {/* <Col md={12}>
                 <Form.Item
                   rules={[
                     { required: true, message: "This field is required!" },
@@ -217,7 +220,7 @@ function CreateStudent(props) {
                 >
                   <Input.Password placeholder="Zoom meeting password" />
                 </Form.Item>
-              </Col>
+              </Col> */}
             </Row>
             <span
               className="label"
@@ -228,7 +231,7 @@ function CreateStudent(props) {
             <Form.Item name="premium">
               <Switch
                 name="premium"
-                onChange={(value) => value && setVisiblePrice(true)}
+                onChange={(value) => value}
                 style={{ height: "unset!important" }}
               />
             </Form.Item>
@@ -250,8 +253,8 @@ function CreateStudent(props) {
               {imageUrl ? (
                 <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
-                uploadButton(state.image)
-              )}
+                  uploadButton(state.image)
+                )}
             </Upload>
             <Form.Item
               name="commonPrice"

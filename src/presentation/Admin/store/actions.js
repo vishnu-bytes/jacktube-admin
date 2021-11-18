@@ -56,7 +56,7 @@ const actions = {
        try{
         const res = await auth.createUserWithEmailAndPassword(values.email, values.password);
         console.log("userId",res)
-        const user = res.user.uid
+        const user = res.user.uid;
         adminData.child(user).update({email:values.email,id:user,superAdmin:false})
        setState({ VisibleCreate:false });
        }catch(error){
