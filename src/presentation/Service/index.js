@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Popconfirm } from "antd";
+import { Row, Col, Popconfirm, Popover } from "antd";
 import FeatherIcon from "feather-icons-react";
 import UserListTable from "./overview/UserTable";
 import { PageHeader } from "../common/UI/page-headers/page-headers";
@@ -51,7 +51,11 @@ const UserList = () => {
           </figcaption>
         </div>
       ),
-      imageUrl:<a href={student?.image}>{student.image&& student?.image.substring(0,50)}</a>,
+      imageUrl: (
+        <a href={student?.image}>
+          {student.image && student?.image.substring(0, 50)}
+        </a>
+      ),
       action: (
         <div className="table-actions">
           <>
@@ -73,18 +77,39 @@ const UserList = () => {
             >
               <FeatherIcon icon="edit" size={16} />
             </Button>
-            <Popconfirm
-              title="Are you sure to delete this service?"
-              onConfirm={() => {
-                onDelete(student?.id);
-              }}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button className="btn-icon" type="danger" to="#" shape="circle">
-                <FeatherIcon icon="trash-2" size={16} />
-              </Button>
-            </Popconfirm>
+            {studentList.length > 1 ? (
+              <Popconfirm
+                title="Are you sure to delete this service?"
+                onConfirm={() => {
+                  onDelete(student?.id);
+                }}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button
+                  className="btn-icon"
+                  type="danger"
+                  to="#"
+                  shape="circle"
+                >
+                  <FeatherIcon icon="trash-2" size={16} />
+                </Button>
+              </Popconfirm>
+            ) : (
+              <Popover
+                title="There should be always atleast one service"
+                trigger="click"
+              >
+                <Button
+                  className="btn-icon"
+                  type="danger"
+                  to="#"
+                  shape="circle"
+                >
+                  <FeatherIcon icon="trash-2" size={16} />
+                </Button>
+              </Popover>
+            )}
           </>
         </div>
       ),
