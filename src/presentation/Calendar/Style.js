@@ -674,11 +674,11 @@ const BlockViewCalendarWrapper = Styled.div`
             border-top: 0 none !important;
         }
         .ant-picker-cell{
-            min-width: 155px;
+           
             ${({ theme }) => (theme.rtl ? 'border-left' : 'border-right')}: 1px solid ${({ theme }) =>
   theme['border-color-light']};
             .ant-picker-cell-inner{
-                min-width: 155px;
+               
             }
             &:hover{
                 .ant-picker-calendar-date{

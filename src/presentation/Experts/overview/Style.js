@@ -50,7 +50,7 @@ const CalendarWrapper = Styled.div`
     
     .react-calendar{
         font-family: 'Inter', sans-serif;
-        width: 100%;
+        /* width: 100%; */
         border-radius: 10px;
         padding: 24px 35px;
         border: 0 none;
@@ -675,11 +675,10 @@ const BlockViewCalendarWrapper = Styled.div`
         }
         .ant-picker-cell{
            
-
             ${({ theme }) => (theme.rtl ? 'border-left' : 'border-right')}: 1px solid ${({ theme }) =>
   theme['border-color-light']};
             .ant-picker-cell-inner{
-              
+               
             }
             &:hover{
                 .ant-picker-calendar-date{

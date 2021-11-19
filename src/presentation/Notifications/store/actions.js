@@ -85,10 +85,13 @@ const actions = {
     async ({ setState, dispatch }) => {
       try {
         webinarData.on("value", (snapshot) => {
-          let responselist = Object.values(snapshot.val());
-          setState({ webinarData: responselist });
-          // dispatch(actions.setSearchData(responselist));
-          console.log(responselist, "webinar");
+          if(snapshot.val()!==null){
+            let responselist = Object.values(snapshot.val());
+            setState({ webinarData: responselist });
+            // dispatch(actions.setSearchData(responselist));
+            console.log(responselist, "webinar");
+          }
+    
         });
       } catch (error) {
         logError(error);

@@ -9,6 +9,9 @@ import { logError } from "../../common/Utils";
 import { onEdit } from "../../../infrastructure/faculty";
 import ViewCards from "../../common/ViewCards";
 import { RowContainer } from "../../common/ViewCards/style.js";
+import MonthCalendar from "./Month";
+import { CalendarWrapper } from "./Style";
+import "react-calendar/dist/Calendar.css";
 
 const { Option } = Select;
 
@@ -85,6 +88,10 @@ const EditCategory = () => {
           value={<img src={singleRow?.panIamgeUrl}></img>}
         />
       </div>
+      <CalendarWrapper>
+      <MonthCalendar/>
+      </CalendarWrapper>
+     
     </Modal>
   );
 };

@@ -8,6 +8,7 @@ const initialState = {
   visibleView: false,
   serviceList: null,
   loader: false,
+  events:[]
 };
 
 export default initialState;
