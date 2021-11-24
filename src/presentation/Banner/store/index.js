@@ -2,12 +2,12 @@ import { createStore, createHook } from "react-sweet-state";
 import initialState from "./initialState";
 import actions from "./actions";
 
-const BnnerStore = createStore({
-  name: "BnnerStore",
+const BannerStore = createStore({
+  name: "BannerStore",
   initialState,
   actions,
 });
 
-export const useBannerStore = createHook(BnnerStore, {
+export const useBannerStore = createHook(BannerStore, {
   selector: (state) => state,
 });

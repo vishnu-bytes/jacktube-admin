@@ -103,7 +103,7 @@ function EditWebinar(props) {
             htmlType="submit"
             form="editWebinar"
             loading={loader}
-disabled={loader}
+            disabled={loader}
           >
             Submit
           </Button>
@@ -274,8 +274,8 @@ disabled={loader}
               {imageUrl ? (
                 <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
-                uploadButton(state.image)
-              )}
+                  uploadButton(state.image)
+                )}
             </Upload>
             <Form.Item
               name="commonPrice"

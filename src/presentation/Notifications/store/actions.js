@@ -62,7 +62,7 @@ const actions = {
         };
         console.log(values, key);
         try {
-          const notifiRes=await createNotification({"title":values.title,"message":values.description,"topic":values.webinar,image});
+          const notifiRes=await createNotification({"title":values.title,"message":values.description,"webinar_id":values.webinar,image,topic:"all"});
           console.log("notifiRes",notifiRes)
           await notificationData.child(key).update(data);
           dispatch(actions.setVisibleCreate(false));

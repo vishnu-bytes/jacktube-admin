@@ -99,7 +99,7 @@ function CreateStudent() {
               console.log(state, "current state");
             }}
             loading={loader}
-disabled={loader}
+            disabled={loader}
           >
             Create
           </Button>
@@ -151,8 +151,8 @@ disabled={loader}
                   style={{ width: "100%" }}
                 />
               ) : (
-                uploadButton(state.image)
-              )}
+                  uploadButton(state.image)
+                )}
             </Upload>
 
             <Form.Item
@@ -280,8 +280,8 @@ disabled={loader}
               {panImageUrl ? (
                 <img src={panImageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
-                uploadButton(state.loading)
-              )}
+                  uploadButton(state.loading)
+                )}
             </Upload>
           </Form>
         </BasicFormWrapper>

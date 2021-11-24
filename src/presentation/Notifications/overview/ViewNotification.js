@@ -19,15 +19,15 @@ const ViewNotification = (props) => {
   console.log( props.webinar, "single course1");
 
 
-  // const getWebinarText = (id) => {
-  //   for (let i = 0; i < props.webinar.length; i++) {
-  //     if (props.webinar[i].id === id) {
-  //       return props.webinar.title;
+  const getWebinarText = (id) => {
+    for (let i = 0; i < props.webinar?.length; i++) {
+      if (props.webinar[i].id === id) {
+        console.log("web id",id,props.webinar[i].id)
+        return props.webinar[i].title;
+      }
+    }
 
-  //     }
-  //   }
-
-  // }
+  }
   return (
     <Modal
       type="primary"
@@ -65,7 +65,8 @@ const ViewNotification = (props) => {
           label="Image"
           value={<img src={singleRow?.image}></img>}
         />
-        {/* <ViewCards label="Webinar" value={getWebinarText(singleRow?.webinar)} /> */}
+        <ViewCards label="Webinar" value={getWebinarText(singleRow?.webinar)} />
+
 
         {/* <ul>
           <li>Title</li>

@@ -96,7 +96,7 @@ function EditExpert() {
               console.log(state, "current state");
             }}
             loading={loader}
-disabled={loader}
+            disabled={loader}
           >
             Submit
           </Button>
@@ -122,7 +122,7 @@ disabled={loader}
             form={form}
             id="editExpert"
             name="editExpert"
-            onFinish={(values) => onEdit(values, image, studentList, panImage, singleRow.id,serviceArray,singleRow.phone) }
+            onFinish={(values) => onEdit(values, image, studentList, panImage, singleRow.id, serviceArray, singleRow.phone)}
             initialValues={{}}
           >
             <span className="label">Profile Image</span>
@@ -146,8 +146,8 @@ disabled={loader}
                   style={{ width: "100%" }}
                 />
               ) : (
-                uploadButton(state.image)
-              )}
+                  uploadButton(state.image)
+                )}
             </Upload>
             <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input your name!' }]} >
               <Input placeholder="Name" />
@@ -172,7 +172,7 @@ disabled={loader}
                 </Form.Item>
               </Col>
               <Col md={12}>
-                <Form.Item label="Phone"  name="phone" rules={[{ required: true, message: 'Please input your phone number!' }]}>
+                <Form.Item label="Phone" name="phone" rules={[{ required: true, message: 'Please input your phone number!' }]}>
                   <Input placeholder="Phone" />
                 </Form.Item>
               </Col>
@@ -269,8 +269,8 @@ disabled={loader}
               {panImageUrl ? (
                 <img src={panImageUrl} alt="avatar" style={{ width: "100%" }} />
               ) : (
-                uploadButton(state.loading)
-              )}
+                  uploadButton(state.loading)
+                )}
             </Upload>
           </Form>
         </BasicFormWrapper>

@@ -178,7 +178,6 @@ const actions = {
         imageUrl = image;
       } else {
         console.log("image not changed", image);
-
         const storageRef = ref(storage, image.name);
         const uploadedData = await uploadBytes(storageRef, image);
         imageUrl = await getDownloadURL(uploadedData.ref);

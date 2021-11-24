@@ -176,6 +176,16 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
       >
         <Link to={routes.ADMIN}>Admin</Link>
       </Menu.Item>
+      <Menu.Item
+        key="banner"
+        icon={
+          <NavLink className="menuItem-icon" to={routes.BANNER}>
+            <img src={admin} />
+          </NavLink>
+        }
+      >
+        <Link to={routes.BANNER}>Banner Ads</Link>
+      </Menu.Item>
     </Menu>
   );
 };

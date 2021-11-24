@@ -11,143 +11,165 @@ import firebase from "../../../config/api/firebase";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const webinarData = firebase.database().ref("/webinar");
-const notificationData = firebase.database().ref("notification");
+const BannerData = firebase.database().ref("Banners");
 const storage = getStorage();
 
 const actions = {
   onSubmit:
     (values) =>
-    async ({ setState, dispatch }) => {
-      try {
-        await onSubmit(values);
-        dispatch(actions.setVisible(false));
-        dispatch(actions.getStudent());
-      } catch (error) {
-        logError(error);
-      }
-    },
-  setVisible:
-    (params) =>
-    ({ setState }) => {
-      setState({ viewVisible: params.value });
-      setState({ singleRow: params.data });
-    },
-  setVisibleCreate:
-    (params) =>
-    ({ setState }) => {
-      console.log("done", params);
-      setState({ VisibleCreate: params.value });
-    },
-  setSearchData:
-    (params) =>
-    ({ setState }) => {
-      setState({ searchData: params });
-    },
-  onfinish:
-    (values, image, form, setImageUrl, setimage) =>
-    async ({ setState, dispatch }) => {
-      if (Object.keys(image).length === 0) {
-        message.warning("Please  ulpoad the image");
-      }else{
-        setState({ loader: true });
-        const storageRef = ref(storage, image.name);
-        const UploadedData = await uploadBytes(storageRef, image);
-        const url = await getDownloadURL(UploadedData.ref);
-  
-        const key = notificationData.push().key;
-        var data = {
-          ...values,
-          image: url,
-          id: key,
-        };
-        console.log(values, key);
+      async ({ setState, dispatch }) => {
         try {
-          const notifiRes=await createNotification({"title":values.title,"message":values.description,"topic":values.webinar,image});
-          console.log("notifiRes",notifiRes)
-          await notificationData.child(key).update(data);
-          dispatch(actions.setVisibleCreate(false));
+          await onSubmit(values);
+          dispatch(actions.setVisible(false));
           dispatch(actions.getStudent());
-          form.resetFields();
-          setImageUrl("");
-          setimage({});
-          setState({ loader: false });
-
         } catch (error) {
-          setState({ loader: false });
-
           logError(error);
         }
-      }
-     
-    },
+      },
+  setVisible:
+    (params) =>
+      ({ setState }) => {
+        setState({ visible: params });
+      },
+  setVisibleCreate:
+    (params) =>
+      ({ setState }) => {
+        console.log("done", params);
+        setState({ VisibleCreate: params.value });
+      },
+  setSearchData:
+    (params) =>
+      ({ setState }) => {
+        setState({ searchData: params });
+      },
+  onfinish:
+    (values, image, form, setImageUrl, setimage) =>
+      async ({ setState, dispatch }) => {
+        console.log("value", values);
+        const key = BannerData.push().key;
+        if (values.type === 2) {
+          if (Object.keys(image).length === 0) {
+            message.warning("Please  ulpoad the image");
+          } else {
+            setState({ loader: true });
+            const storageRef = ref(storage, image.name);
+            const UploadedData = await uploadBytes(storageRef, image);
+            const url = await getDownloadURL(UploadedData.ref);
+            var dataadd = {
+              ...values,
+              image: url,
+              id: key,
+            };
+            await BannerData.child(key).update(dataadd);
+          }
+        } else {
+          var data = {
+            ...values,
+            id: key,
+          };
+          await BannerData.child(key).update(data);
+        }
+        dispatch(actions.setVisibleCreate(false));
+        dispatch(actions.getStudent());
+      },
   getWebinar:
     () =>
-    async ({ setState, dispatch }) => {
-      try {
-        webinarData.on("value", (snapshot) => {
-          let responselist = Object.values(snapshot.val());
-          setState({ webinarData: responselist });
-          // dispatch(actions.setSearchData(responselist));
-          console.log(responselist, "webinar");
-        });
-      } catch (error) {
-        logError(error);
-      }
-    },
+      async ({ setState, dispatch }) => {
+        try {
+          let responselist;
+          webinarData.on("value", (snapshot) => {
+            if (snapshot.val() !== null) {
+              responselist = Object.values(snapshot.val());
+            } else {
+              responselist = [];
+            }
+            setState({ webinarData: responselist });
+            // dispatch(actions.setSearchData(responselist));
+            console.log(responselist, "webinar");
+          });
+        } catch (error) {
+          logError(error);
+        }
+      },
   getStudent:
     () =>
-    async ({ setState, dispatch }) => {
-      try {
-        dispatch(actions.getWebinar())
-            notificationData.on("value", (snapshot) => {
-          if (snapshot.val() !== null) {
-            let responselist = Object.values(snapshot.val());
-            console.log(responselist, "data checfk");
-            setState({ studentList: responselist });
-            dispatch(actions.setSearchData(responselist));
-          } else if (snapshot.val() === null) {
-            setState({ studentList: [] });
-            dispatch(actions.setSearchData([]));
-          }
-        });
-      } catch (error) {
-        logError(error);
-      }
-    },
+      async ({ setState, dispatch }) => {
+        try {
+          dispatch(actions.getWebinar())
+          BannerData.on("value", (snapshot) => {
+            if (snapshot.val() !== null) {
+              let responselist = Object.values(snapshot.val());
+              console.log(responselist, "data checfk");
+              setState({ studentList: responselist });
+              dispatch(actions.setSearchData(responselist));
+            } else if (snapshot.val() === null) {
+              setState({ studentList: [] });
+              dispatch(actions.setSearchData([]));
+            }
+          });
+        } catch (error) {
+          logError(error);
+        }
+      },
   setEditVisible:
     (params) =>
-    ({ setState }) => {
-      setState({ editVisible: params.value });
-      setState({ singleRow: params.data });
-    },
+      ({ setState }) => {
+        setState({ editVisible: params.value });
+        setState({ singleRow: params.data });
+      },
   onEdit:
-    (params) =>
-    ({ dispatch }) => {
-      logError(params, "Edit value");
-      dispatch(actions.getStudent());
-    },
-  onDelete:
-    (params) =>
-    async ({ dispatch }) => {
-      try {
-        await onDelete(params);
-        message.success("Succesfully Deleted");
+    (values, id, image) =>
+      async ({ dispatch, setState }) => {
+        console.log("value", values);
+        const key = BannerData.push().key;
+        if (values.type === 2) {
+          if (Object.keys(image).length === 0) {
+            message.warning("Please  ulpoad the image");
+          } else {
+            setState({ loader: true });
+            const storageRef = ref(storage, image.name);
+            const UploadedData = await uploadBytes(storageRef, image);
+            const url = await getDownloadURL(UploadedData.ref);
+            var dataadd = {
+              ...values,
+              image: url,
+              id: id,
+            };
+            await BannerData.child(id).update(dataadd);
+          }
+        } else {
+          var data = {
+            ...values,
+            id: id,
+          };
+          await BannerData.child(id).update(data);
+        }
+        dispatch(actions.setEditVisible(false));
         dispatch(actions.getStudent());
-      } catch (error) {
-        logError(error);
-      }
-    },
+      },
+
   getCourse:
     (page) =>
-    async ({ setState }) => {
-      try {
-        const res = await getStudentList(page);
-        setState({ course: res });
-        setState({ pageNumber: page });
-      } catch (error) {
-        logError(error);
-      }
-    },
+      async ({ setState }) => {
+        try {
+          const res = await getStudentList(page);
+          setState({ course: res });
+          setState({ pageNumber: page });
+        } catch (error) {
+          logError(error);
+        }
+      },
+  onDelete:
+    (params) =>
+      async ({ dispatch }) => {
+        try {
+          console.log(params, "idd")
+          BannerData.child(params).remove();
+          dispatch(actions.getStudent());
+        } catch (error) {
+          logError(error);
+        }
+      },
 };
 
 export default actions;

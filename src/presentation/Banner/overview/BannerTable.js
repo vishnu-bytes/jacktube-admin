@@ -6,16 +6,18 @@ import { Cards } from "../../common/UI/cards/frame/cards-frame";
 
 const BannerTable = ({ usersTableData }) => {
   const usersTableColumns = [
+   
     {
-      title: "Notifications",
-      dataIndex: "user",
-      key: "user",
+      title: "Banner Type",
+      dataIndex: "bannerType",
+      key: "bannerType",
     },
     {
-      title: "Image",
-      dataIndex: "imageurl",
-      key: "imageurl",
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
     },
+    
     {
       title: "Actions",
       dataIndex: "action",

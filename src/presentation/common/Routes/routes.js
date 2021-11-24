@@ -17,8 +17,8 @@ const routes = {
   REVIEW:'/review',
   REPORT:`/reports`,
   SUBSCRIPTION:"/subscription",
-  ADMIN:"/admin"
-
+  ADMIN:"/admin",
+  BANNER:"/banners"
 };
 
 // Change initial route if required

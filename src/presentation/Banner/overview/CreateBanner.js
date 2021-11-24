@@ -51,9 +51,11 @@ function CreateBanner() {
   const { profImageUrl, panImageUrl } = state;
   const [image, setimage] = useState({});
   const [imageUrl, setImageUrl] = useState("");
+  const [type, setType] = useState(1);
 
   useEffect(() => {
     getWebinar();
+    form.setFieldsValue({ type: 1 })
   }, []);
   const uploadButton = (loading) => {
     return (
@@ -67,7 +69,7 @@ function CreateBanner() {
   return (
     <Modal
       type={"primary"}
-      title="Create Notification"
+      title="Create Banner"
       visible={VisibleCreate}
       footer={[
         <div key="1" className="project-modal-footer">
@@ -76,7 +78,7 @@ function CreateBanner() {
             type="primary"
             key="submit"
             htmlType="submit"
-            form="createNotification"
+            form="createBanner"
             loading={loader}
             disabled={loader}
           >
@@ -99,82 +101,87 @@ function CreateBanner() {
         <BasicFormWrapper>
           <Form
             form={form}
-            id="createNotification"
-            name="createNotification"
+            id="createBanner"
+            name="createBanner"
             onFinish={(values) =>
               onfinish(values, image, form, setImageUrl, setimage)
             }
           >
             <Form.Item
-              name="title"
-              rules={[{ required: true, message: "This field is required" }]}
+              name="type"
             >
-              <Input placeholder="Title" />
+              <Radio.Group defaultValue={1} onChange={(e) => setType(e.target.value) || console.log("value", value)} value={value}>
+                <Radio value={1}>Webinar</Radio>
+                <Radio value={2}>Other</Radio>
+              </Radio.Group>
             </Form.Item>
-            <Form.Item
-              name="description"
-              rules={[{ required: true, message: "This field is required" }]}
-            >
-              <Input placeholder="Description" />
-            </Form.Item>
-
-            <Row gutter={15}>
-              <Col md={12}>
-                <Form.Item
-                  name="webinar"
-                  rules={[
-                    { required: true, message: "This field is required" },
-                  ]}
+            {
+              type === 1 ? <>  <Form.Item
+                name="webinar"
+                rules={[
+                  { required: true, message: "This field is required" },
+                ]}
+              >
+                <Select
+                  name="services"
+                  placeholder=" Select Webinar"
+                  style={{ width: "100%" }}
                 >
-                  <Select
-                    name="services"
-                    placeholder="Webinar"
-                    style={{ width: "100%" }}
+                  {webinarData?.map((option) => (
+                    <Option key={option.id} value={option.id}>
+                      {option.title}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item></> : <>
+                  <Form.Item
+                    name="title"
+                    rules={[{ required: true, message: "This field is required" }]}
                   >
-                    {webinarData?.map((option) => (
-                      <Option key={option.id} value={option.id}>
-                        {option.title}
-                      </Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={15}>
-              <span
-                className="label"
-                style={{ paddingTop: "15px", paddingBottom: "12px" }}
-              >
-                Image
+                    <Input placeholder="Title" />
+                  </Form.Item>
+                  <Form.Item
+                    name="description"
+                    rules={[{ required: true, message: "This field is required" }]}
+                  >
+                    <Input placeholder="Description" />
+                  </Form.Item> <Row gutter={15}>
+                    <span
+                      className="label"
+                      style={{ paddingTop: "15px", paddingBottom: "12px" }}
+                    >
+                      Image
               </span>
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                beforeUpload={beforeUpload}
-                onChange={(info) => {
-                  info.file.status = "done";
-                  setimage(info.file.originFileObj);
-                  console.log(info.file.originFileObj, "image");
-                  setImageUrl(URL.createObjectURL(info.file.originFileObj));
-                }}
-              >
-                {imageUrl ? (
-                  <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
-                ) : (
-                    uploadButton(state.image)
-                  )}
-              </Upload>
-            </Row>
+                    <Upload
+                      name="avatar"
+                      listType="picture-card"
+                      className="avatar-uploader"
+                      showUploadList={false}
+                      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                      beforeUpload={beforeUpload}
+                      onChange={(info) => {
+                        info.file.status = "done";
+                        setimage(info.file.originFileObj);
+                        console.log(info.file.originFileObj, "image");
+                        setImageUrl(URL.createObjectURL(info.file.originFileObj));
+                      }}
+                    >
+                      {imageUrl ? (
+                        <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
+                      ) : (
+                          uploadButton(state.image)
+                        )}
+                    </Upload>
+                  </Row>
+                </>
+            }
           </Form>
         </BasicFormWrapper>
       </div>
     </Modal>
   );
 }
-CreateNotification.propTypes = {
+CreateBanner.propTypes = {
   visible: propTypes.bool.isRequired,
   onCancel: propTypes.func.isRequired,
 };
