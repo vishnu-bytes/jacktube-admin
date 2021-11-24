@@ -53,7 +53,7 @@ const UserList = () => {
   const csvReport = {
     data: studentList && studentList,
     headers: headers,
-    filename: "Clue_Mediator_Report.csv",
+    filename: "HappyBumps.csv",
   };
   console.log(csvReport, "studentlsit");
 
@@ -114,7 +114,7 @@ const onDateRangeChange=(dateRange,dateString)=>{
             <Button  type="primary"
          disabled={isDisabled?true:false}
             size="default">
-              {studentData &&<CSVLink {...csvReport}>Download Report</CSVLink>}
+              {studentData &&<CSVLink filename={"happybump.csv"} {...csvReport}>Download Report</CSVLink>}
             </Button>,
           ]}
         />

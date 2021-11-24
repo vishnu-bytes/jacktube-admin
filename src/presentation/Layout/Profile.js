@@ -6,7 +6,6 @@ import { setStorageItem, getStorageItem, removeStorageItem } from "../../infrast
 import { routes } from "../common/Routes/routes";
 
 
-
 const auth = firebase.auth();
 
 
@@ -42,28 +41,23 @@ const Profile = () => {
                             backgroundColor: '#fde3cf',
                         }}
                     >
-                        {email.substring(0, 1).toUpperCase()}
+                        {email?.substring(0, 1).toUpperCase()}
                     </Avatar>
                 </div>
                 <div className="right">
-
                     <span className="email">
-
                         {email}
                     </span>
                 </div>
             </div>
             <Divider />
-
             <div className="bottom">
                 <Button type="primary" onClick={signOut}>Sign Out</Button>
             </div>
-
         </div>
     );
     return (
         <div className="profile">
-
             <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
                 <Avatar
                     style={{
@@ -74,7 +68,6 @@ const Profile = () => {
                 </Avatar>
             </Dropdown>
         </div>
-
     );
 };
 
