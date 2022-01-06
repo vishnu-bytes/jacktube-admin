@@ -7,6 +7,7 @@ import { Modal } from "../../common/UI/modals/antd-modals";
 import { BasicFormWrapper } from "../../common/Style/styled";
 import { useNotificationStore } from "../store";
 import moment from "moment";
+
 import {
   UploadOutlined,
   LoadingOutlined,
@@ -51,6 +52,7 @@ function CreateNotification() {
   const { profImageUrl, panImageUrl } = state;
   const [image, setimage] = useState({});
   const [imageUrl, setImageUrl] = useState("");
+  const [type, setType] = useState(1);
 
   useEffect(() => {
     getWebinar();
@@ -78,7 +80,7 @@ function CreateNotification() {
             htmlType="submit"
             form="createNotification"
             loading={loader}
-disabled={loader}
+            disabled={loader}
           >
             Create
           </Button>
@@ -118,28 +120,7 @@ disabled={loader}
               <Input placeholder="Description" />
             </Form.Item>
 
-            <Row gutter={15}>
-              <Col md={12}>
-                <Form.Item
-                  name="webinar"
-                  rules={[
-                    { required: true, message: "This field is required" },
-                  ]}
-                >
-                  <Select
-                    name="services"
-                    placeholder="Webinar"
-                    style={{ width: "100%" }}
-                  >
-                    {webinarData?.map((option) => (
-                      <Option key={option.id} value={option.id}>
-                        {option.title}
-                      </Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-              </Col>
-            </Row>
+          
             <Row gutter={15}>
               <span
                 className="label"
@@ -168,6 +149,90 @@ disabled={loader}
                 )}
               </Upload>
             </Row>
+            <Form.Item name="type">
+              <Radio.Group
+                defaultValue={1}
+                onChange={(e) =>
+                  setType(e.target.value) || console.log("value", value)
+                }
+                value={value}
+              >
+                <Radio value={1}>Webinar</Radio>
+                <Radio value={2}>Other</Radio>
+              </Radio.Group>
+            </Form.Item>
+            {type === 1 ? (
+              <>
+                {" "}
+                <Form.Item
+                  name="webinar"
+                  rules={[
+                    { required: true, message: "This field is required" },
+                  ]}
+                >
+                  <Select
+                    name="services"
+                    placeholder=" Select Webinar"
+                    style={{ width: "100%" }}
+                  >
+                    {webinarData?.map((option) => (
+                      <Option key={option.id} value={option.id}>
+                        {option.title}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </>
+            ) : (
+              <>
+                <Form.Item
+                  name="url"
+                  rules={[
+                    { required: true, message: "This field is required" },
+                  ]}
+                >
+                  <Input placeholder="Redirection Link" />
+                </Form.Item>
+              
+              </>
+            )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {/* <Row gutter={15}>
+              <Col md={12}>
+                <Form.Item
+                  name="webinar"
+                  rules={[
+                    { required: true, message: "This field is required" },
+                  ]}
+                >
+                  <Select
+                    name="services"
+                    placeholder="Webinar"
+                    style={{ width: "100%" }}
+                  >
+                    {webinarData?.map((option) => (
+                      <Option key={option.id} value={option.id}>
+                        {option.title}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </Col>
+            </Row> */}
+           
           </Form>
         </BasicFormWrapper>
       </div>

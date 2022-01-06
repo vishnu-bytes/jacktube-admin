@@ -92,7 +92,12 @@ const AddNew = () => {
                   onfinish(values, Webvalue, Onevalue, options);
                 }}
               >
-                <Form.Item name="price" rules={[{ required: true, message: 'This field is required!' }]}>
+                <Form.Item
+                  name="price"
+                  rules={[
+                    { required: true, message: "This field is required!" },
+                  ]}
+                >
                   <Input placeholder="Price" />
                 </Form.Item>
                 <div className="checkboxContainer">
@@ -144,9 +149,12 @@ const AddNew = () => {
                   initialValue="1 year"
                 >
                   <Select style={{ width: "100%" }}>
-                    <Option value="1 year">1 Year</Option>
-                    <Option value="6 months">6 Months</Option>
-                    <Option value="1 month">1 Month</Option>
+                    <Option value="3 Months">3 Months</Option>
+                    <Option value="6 Months">6 Months</Option>
+                    <Option value="9 Months">9 Months</Option>
+                    <Option value="12 Months">12 Months</Option>
+                    <Option value="18 Months">18 Months</Option>
+                    <Option value="2 Years">2 Years</Option>
                   </Select>
                 </Form.Item>
 
