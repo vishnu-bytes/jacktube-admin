@@ -80,7 +80,7 @@ function EditWebinar(props) {
     image: null,
   });
 
-  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13,14,15];
   const uploadButton = (loading) => {
     return (
       <div>
@@ -181,9 +181,7 @@ function EditWebinar(props) {
                   ]}
                 >
                   <Select style={{ width: "100%" }} placeholder="Presentor">
-                  <Option value={13}>First Trimester</Option>
-                    <Option value={14}>Second Trimester</Option>
-                    <Option value={15}>Third Trimester</Option>
+                 
                     {props?.experts &&
                       props.experts.map((res) => (
                         <Option value={res?.id}>{res?.name}</Option>
@@ -239,11 +237,11 @@ function EditWebinar(props) {
                     onChange={(value) => console.log(value, "valuue")}
                     placeholder="Month/Trimester"
                   >
-                    <Option value={10}>First Trimester</Option>
+                    {/* <Option value={10}>First Trimester</Option>
                     <Option value={11}>Second Trimester</Option>
-                    <Option value={12}>Third Trimester</Option>
+                    <Option value={12}>Third Trimester</Option> */}
                     {months.map((res) => (
-                      <Option value={res}>{"Month " + res}</Option>
+                      <Option value={res}>{res===13?"First Trimester":res===14?"Second Trimester":res===15?"Third Trimester":"Month " + res}</Option>
                     ))}
                   </Select>
                 </Form.Item>

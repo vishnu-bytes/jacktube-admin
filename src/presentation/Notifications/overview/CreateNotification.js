@@ -184,7 +184,6 @@ function CreateNotification() {
                 </Form.Item>
               </>
             ) : (
-              <>
                 <Form.Item
                   name="url"
                   rules={[
@@ -193,22 +192,7 @@ function CreateNotification() {
                 >
                   <Input placeholder="Redirection Link" />
                 </Form.Item>
-              
-              </>
             )}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             {/* <Row gutter={15}>
               <Col md={12}>

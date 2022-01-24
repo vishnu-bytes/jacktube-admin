@@ -66,6 +66,10 @@ const ViewNotification = (props) => {
           value={<img src={singleRow?.image}></img>}
         />
         <ViewCards label="Webinar" value={getWebinarText(singleRow?.webinar)} />
+        {
+          singleRow?.url&&<ViewCards label="Redirection Link" value={singleRow?.url} />
+        }
+        
 
 
         {/* <ul>

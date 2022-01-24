@@ -3,7 +3,7 @@ import {
   onSubmit,
   onDelete,
   onEdit,
-  createNotification
+  createNotification,
 } from "../../../infrastructure/student";
 import { logError } from "../../common/Utils";
 import { message } from "antd";
@@ -48,12 +48,12 @@ const actions = {
     async ({ setState, dispatch }) => {
       if (Object.keys(image).length === 0) {
         message.warning("Please  ulpoad the image");
-      }else{
+      } else {
         setState({ loader: true });
         const storageRef = ref(storage, image.name);
         const UploadedData = await uploadBytes(storageRef, image);
         const url = await getDownloadURL(UploadedData.ref);
-  
+
         const key = notificationData.push().key;
         var data = {
           ...values,
@@ -62,8 +62,25 @@ const actions = {
         };
         console.log(values, key);
         try {
-          const notifiRes=await createNotification({"title":values.title,"message":values.description,"webinar_id":values.webinar,"image_url":url,topic:"happybump"});
-          console.log("notifiRes",notifiRes)
+          let notifiRes;
+          if (values.webinar) {
+            notifiRes = await createNotification({
+              title: values?.title,
+              message: values?.description,
+              webinar_id: values?.webinar,
+              image_url: url,
+              topic: "happybump",
+            });
+          } else {
+            notifiRes = await createNotification({
+              title: values?.title,
+              message: values?.description,
+              url: values?.url,
+              image_url: url,
+              topic: "happybump",
+            });
+          }
+          console.log("notifiRes", notifiRes);
           await notificationData.child(key).update(data);
           dispatch(actions.setVisibleCreate(false));
           dispatch(actions.getStudent());
@@ -71,27 +88,24 @@ const actions = {
           setImageUrl("");
           setimage({});
           setState({ loader: false });
-
         } catch (error) {
           setState({ loader: false });
 
           logError(error);
         }
       }
-     
     },
   getWebinar:
     () =>
     async ({ setState, dispatch }) => {
       try {
         webinarData.on("value", (snapshot) => {
-          if(snapshot.val()!==null){
+          if (snapshot.val() !== null) {
             let responselist = Object.values(snapshot.val());
             setState({ webinarData: responselist });
             // dispatch(actions.setSearchData(responselist));
             console.log(responselist, "webinar");
           }
-    
         });
       } catch (error) {
         logError(error);
@@ -101,8 +115,8 @@ const actions = {
     () =>
     async ({ setState, dispatch }) => {
       try {
-        dispatch(actions.getWebinar())
-            notificationData.on("value", (snapshot) => {
+        dispatch(actions.getWebinar());
+        notificationData.on("value", (snapshot) => {
           if (snapshot.val() !== null) {
             let responselist = Object.values(snapshot.val());
             console.log(responselist, "data checfk");
