@@ -94,10 +94,18 @@ const ViewWebinar = () => {
         />
         <ViewCards label="Price" value={singleRow?.commonPrice} />
         <ViewCards
-          label="Zoom URL"
+          label="Join URL"
           value={
             <a href={singleRow?.zoom_url} target="_blank">
-              {singleRow?.zoom_url?.slice(0, 40)}....
+              {singleRow?.join_url?.slice(0, 40)}....
+            </a>
+          }
+        />
+          <ViewCards
+          label="Start URL"
+          value={
+            <a href={singleRow?.zoom_url} target="_blank">
+              {singleRow?.start_url?.slice(0, 40)}....
             </a>
           }
         />

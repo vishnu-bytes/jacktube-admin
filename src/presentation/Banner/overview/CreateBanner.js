@@ -55,7 +55,7 @@ function CreateBanner() {
 
   useEffect(() => {
     getWebinar();
-    form.setFieldsValue({ type: 1 })
+    form.setFieldsValue({ type: 1 });
   }, []);
   const uploadButton = (loading) => {
     return (
@@ -107,74 +107,92 @@ function CreateBanner() {
               onfinish(values, image, form, setImageUrl, setimage)
             }
           >
-            <Form.Item
-              name="type"
-            >
-              <Radio.Group defaultValue={1} onChange={(e) => setType(e.target.value) || console.log("value", value)} value={value}>
+            <Form.Item name="type">
+              <Radio.Group
+                defaultValue={1}
+                onChange={(e) =>
+                  setType(e.target.value) || console.log("value", value)
+                }
+                value={value}
+              >
                 <Radio value={1}>Webinar</Radio>
                 <Radio value={2}>Other</Radio>
               </Radio.Group>
             </Form.Item>
-            {
-              type === 1 ? <>  <Form.Item
-                name="webinar"
-                rules={[
-                  { required: true, message: "This field is required" },
-                ]}
-              >
-                <Select
-                  name="services"
-                  placeholder=" Select Webinar"
-                  style={{ width: "100%" }}
+            {type === 1 ? (
+              <>
+                {" "}
+                <Form.Item
+                  name="webinar"
+                  rules={[
+                    { required: true, message: "This field is required" },
+                  ]}
                 >
-                  {webinarData?.map((option) => (
-                    <Option key={option.id} value={option.id}>
-                      {option.title}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item></> : <>
-                  <Form.Item
-                    name="title"
-                    rules={[{ required: true, message: "This field is required" }]}
+                  <Select
+                    name="services"
+                    placeholder=" Select Webinar"
+                    style={{ width: "100%" }}
                   >
-                    <Input placeholder="Title" />
-                  </Form.Item>
-                  <Form.Item
-                    name="description"
-                    rules={[{ required: true, message: "This field is required" }]}
+                    {webinarData?.map((option) => (
+                      <Option key={option.id} value={option.id}>
+                        {option.title}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </>
+            ) : (
+              <>
+                <Form.Item
+                  name="title"
+                  rules={[
+                    { required: true, message: "This field is required" },
+                  ]}
+                >
+                  <Input placeholder="Title" />
+                </Form.Item>
+                <Form.Item
+                  name="url"
+                  rules={[
+                    { required: true, message: "This field is required" },
+                  ]}
+                >
+                  <Input placeholder="Redirection Link" />
+                </Form.Item>{" "}
+                <Row gutter={15}>
+                  <span
+                    className="label"
+                    style={{ paddingTop: "15px", paddingBottom: "12px" }}
                   >
-                    <Input placeholder="Description" />
-                  </Form.Item> <Row gutter={15}>
-                    <span
-                      className="label"
-                      style={{ paddingTop: "15px", paddingBottom: "12px" }}
-                    >
-                      Image
-              </span>
-                    <Upload
-                      name="avatar"
-                      listType="picture-card"
-                      className="avatar-uploader"
-                      showUploadList={false}
-                      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                      beforeUpload={beforeUpload}
-                      onChange={(info) => {
-                        info.file.status = "done";
-                        setimage(info.file.originFileObj);
-                        console.log(info.file.originFileObj, "image");
-                        setImageUrl(URL.createObjectURL(info.file.originFileObj));
-                      }}
-                    >
-                      {imageUrl ? (
-                        <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
-                      ) : (
-                          uploadButton(state.image)
-                        )}
-                    </Upload>
-                  </Row>
-                </>
-            }
+                    Image
+                  </span>
+                  <Upload
+                    name="avatar"
+                    listType="picture-card"
+                    className="avatar-uploader"
+                    showUploadList={false}
+                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    beforeUpload={beforeUpload}
+                    onChange={(info) => {
+                      info.file.status = "done";
+                      setimage(info.file.originFileObj);
+                      console.log(info.file.originFileObj, "image");
+                      setImageUrl(URL.createObjectURL(info.file.originFileObj));
+                    }}
+                  >
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt="avatar"
+                        style={{ width: "100%" }}
+                      />
+                    ) : (
+                      uploadButton(state.image)
+                    )}
+                  </Upload>
+                </Row>
+              </>
+            )}
           </Form>
         </BasicFormWrapper>
       </div>

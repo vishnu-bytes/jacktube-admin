@@ -36,6 +36,9 @@ const ContactCard = ({ user, showEditModal }) => {
         <span className="price">&#8377;{user?.values?.price}</span>
         <span className="timespan">{user?.values?.validity}</span>
         <ul className="features">
+          {user.entry_pass&& <p style={{padding:"0 30px", textAlign:"center"}}>
+            Pay for one-time fee, to access webinars and 1on1 consultations on Demand
+            </p>}
           {user.webinar > 0 && (
             <li>
               <img src={done} />

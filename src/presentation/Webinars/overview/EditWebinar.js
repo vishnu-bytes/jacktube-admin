@@ -181,9 +181,13 @@ function EditWebinar(props) {
                   ]}
                 >
                   <Select style={{ width: "100%" }} placeholder="Presentor">
+                  <Option value={13}>First Trimester</Option>
+                    <Option value={14}>Second Trimester</Option>
+                    <Option value={15}>Third Trimester</Option>
                     {props?.experts &&
                       props.experts.map((res) => (
-                        <Option value={res.id}>{res.name}</Option>
+                        <Option value={res?.id}>{res?.name}</Option>
+                        
                       ))}
                   </Select>
                 </Form.Item>

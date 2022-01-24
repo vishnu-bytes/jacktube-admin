@@ -144,10 +144,10 @@ function EditBanner() {
                     <Input placeholder="Title" />
                   </Form.Item>
                   <Form.Item
-                    name="description"
+                    name="url"
                     rules={[{ required: true, message: "This field is required" }]}
                   >
-                    <Input placeholder="Description" />
+                    <Input placeholder="Redirection Link" />
                   </Form.Item> <Row gutter={15}>
                     <span
                       className="label"
