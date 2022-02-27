@@ -85,7 +85,7 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
       >
         <Link to={routes.STUDENTLIST}>User</Link>
       </Menu.Item>
-      <Menu.Item
+      {/* <Menu.Item
         key="blog"
         icon={
           <NavLink className="menuItem-icon" to={routes.EXPERTS}>
@@ -104,18 +104,18 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
         }
       >
         <Link to={routes.CATEGORY}>Tag</Link>
-      </Menu.Item>
+      </Menu.Item> */}
       <Menu.Item
         key="course"
         icon={
-          <NavLink className="menuItem-icon" to={routes.WEBINAR}>
+          <NavLink className="menuItem-icon" to={routes.VIDEOS}>
             <img src={webinar} />
           </NavLink>
         }
       >
-        <Link to={routes.WEBINAR}>Webinars</Link>
+        <Link to={routes.VIDEOS}>Videos</Link>
       </Menu.Item>
-      <Menu.Item
+      {/* <Menu.Item
         key="review"
         icon={
           <NavLink className="menuItem-icon" to={routes.REVIEW}>
@@ -185,7 +185,7 @@ const MenuItems = ({ darkMode, topMenu, events }) => {
         }
       >
         <Link to={routes.BANNER}>Banner Ads</Link>
-      </Menu.Item>
+      </Menu.Item> */}
     </Menu>
   );
 };

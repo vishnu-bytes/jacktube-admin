@@ -14,26 +14,10 @@ import LayoutProvider from "./presentation/Layout";
 
 //component imports
 const Login = React.lazy(() => import("./presentation/Login"));
-const Signup = React.lazy(() => import("./presentation/Signup"));
 const Dashboard = React.lazy(() => import("./presentation/Dashboard"));
 const StudentList = React.lazy(() => import("./presentation/UserList"));
-const Calendar = React.lazy(() => import("./presentation/Calendar"));
-const Notification = React.lazy(() => import("./presentation/Notifications"));
-const Course = React.lazy(() => import("./presentation/Project"));
-const Category = React.lazy(() => import("./presentation/Category"));
-const FacultytList = React.lazy(() => import("./presentation/FacultyList"));
-const Webinars = React.lazy(() => import("./presentation/Webinars"));
-const Blog = React.lazy(() => import("./presentation/Blog"));
-const Experts = React.lazy(() => import("./presentation/Experts"));
-const Service = React.lazy(() => import("./presentation/Service"));
-const Reports = React.lazy(() => import("./presentation/Reports"));
-const BlogExpanded = React.lazy(() =>
-  import("./presentation/Blog/BlogsExpanded")
-);
-const Review = React.lazy(() => import("./presentation/Review"));
-const Subscription =React.lazy(()=>import("./presentation/Subscription"));
-const admin =React.lazy(()=>import("./presentation/Admin"));
-const Banners=React.lazy(()=> import("./presentation/Banner"));
+const Videos = React.lazy(() => import("./presentation/Videos"));
+
 
 function App() {
  
@@ -66,33 +50,8 @@ function App() {
                   path={routes.STUDENTLIST}
                   component={StudentList}
                 />
-                <Route path={routes.CALENDER} component={Calendar} />
-                <Route
-                  exact
-                  path={routes.NOTIFICATION}
-                  component={Notification}
-                />
-                <Route exact path={routes.CATEGORY} component={Category} />
-                <Route
-                  exact
-                  path={routes.FACULTYLIST}
-                  component={FacultytList}
-                />
-                <Route exact path={routes.WEBINAR} component={Webinars} />
-                <Route exact path={routes.EXPERTS} component={Experts} />
-                <Route exact path={routes.COURSE} component={Course} />
-                <Route exact path={routes.BLOG} component={Blog} />
-                <Route exact path={routes.SERVICE} component={Service} />
-                <Route exact path={routes.REPORT} component={Reports} />
-                <Route
-                  exact
-                  path={routes.BLOGEXPANDED}
-                  component={BlogExpanded}
-                />
-                <Route exact path={routes.REVIEW} component={Review} />
-                <Route exact path={routes.SUBSCRIPTION} component={Subscription}/>
-                <Route exact path={routes.ADMIN} component={admin}/>
-                <Route exact path={routes.BANNER} component={Banners}/>
+                
+                <Route exact path={routes.VIDEOS} component={Videos} />
 
               </LayoutProvider>
             </Switch>

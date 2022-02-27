@@ -23,7 +23,7 @@ const UserList = () => {
       onDelete,
       setVisibleEdit,
       setVisibleCreate,
-      switchChange
+      switchChange,
     },
   ] = useUserStore();
   useEffect(() => {
@@ -67,48 +67,6 @@ const UserList = () => {
         ) : (
           <span className={`status-text deactivate`}>{"deactive"}</span>
         ),
-      action: (
-        <div className="table-actions">
-          <>
-          <Switch
-            defaultChecked={student?.status === 1 ? true : false}
-            style={{ height: "unset!important" }}
-            onChange={(value)=>switchChange(value ===true?1:0,student.id)}
-          />
-
-            <Button
-              onClick={() => setVisible({ value: true, data: student })}
-              className="btn-icon"
-              type="info"
-              to="#"
-              shape="circle"
-            >
-              <FeatherIcon icon="eye" size={16} />
-            </Button>
-            {/* <Button
-              onClick={() => setVisibleEdit({ value: true, data: student })}
-              className="btn-icon"
-              type="info"
-              to="#"
-              shape="circle"
-            >
-              <FeatherIcon icon="edit" size={16} />
-            </Button> */}
-            {/* <Popconfirm
-              title="Are you sure to delete this user?"
-              onConfirm={() => {
-                onDelete({ id: student?._id });
-              }}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button className="btn-icon" type="danger" to="#" shape="circle">
-                <FeatherIcon icon="trash-2" size={16} />
-              </Button>
-            </Popconfirm> */}
-          </>
-        </div>
-      ),
     };
   });
 
