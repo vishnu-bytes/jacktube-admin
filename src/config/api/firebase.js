@@ -15,13 +15,14 @@ import  "firebase/compat/database"
 //   measurementId: "G-YGL7Y5M0DG"
 // };
 const firebaseConfig = {
-  apiKey: "AIzaSyDkQDMsTGg0MO254S5Uz__p4snaTn9GhKg",
-  authDomain: "utube-admin.firebaseapp.com",
-  projectId: "utube-admin",
-  storageBucket: "utube-admin.appspot.com",
-  messagingSenderId: "154106459578",
-  appId: "1:154106459578:web:2f3ea428535ab30e389983",
-  measurementId: "G-E3YFKMDWS5"
+  apiKey: "AIzaSyBA3B0vjmR4RiBOFQVthEVTbv4C-lE7zOA",
+  authDomain: "utube-9a60a.firebaseapp.com",
+  databaseURL: "https://utube-9a60a-default-rtdb.firebaseio.com",
+  projectId: "utube-9a60a",
+  storageBucket: "utube-9a60a.appspot.com",
+  messagingSenderId: "987633966141",
+  appId: "1:987633966141:web:07e81df25f78367faade54",
+  measurementId: "G-M5K1WC9858"
 };
 
 // Initialize Firebase
